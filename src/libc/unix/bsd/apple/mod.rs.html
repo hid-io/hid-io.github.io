@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/Users/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/libc-0.2.24/src/unix/bsd/apple/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/Users/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/libc-0.2.26/src/unix/bsd/apple/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -1762,6 +1762,17 @@
 <span id="1717">1717</span>
 <span id="1718">1718</span>
 <span id="1719">1719</span>
+<span id="1720">1720</span>
+<span id="1721">1721</span>
+<span id="1722">1722</span>
+<span id="1723">1723</span>
+<span id="1724">1724</span>
+<span id="1725">1725</span>
+<span id="1726">1726</span>
+<span id="1727">1727</span>
+<span id="1728">1728</span>
+<span id="1729">1729</span>
+<span id="1730">1730</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Apple (ios/darwin)-specific definitions</span>
 <span class="doccomment">//!</span>
@@ -1909,6 +1920,11 @@
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">pthread_rwlock_t</span> {
         <span class="ident">__sig</span>: ::<span class="ident">c_long</span>,
         <span class="ident">__opaque</span>: [<span class="ident">u8</span>; <span class="ident">__PTHREAD_RWLOCK_SIZE__</span>],
+    }
+
+    <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">pthread_rwlockattr_t</span> {
+        <span class="ident">__sig</span>: ::<span class="ident">c_long</span>,
+        <span class="ident">__opaque</span>: [<span class="ident">u8</span>; <span class="ident">__PTHREAD_RWLOCKATTR_SIZE__</span>],
     }
 
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">siginfo_t</span> {
@@ -2213,14 +2229,8 @@
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">_PC_CHOWN_RESTRICTED</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">7</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">_PC_NO_TRUNC</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">8</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">_PC_VDISABLE</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">9</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_RDONLY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_WRONLY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">1</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_RDWR</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">2</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_APPEND</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">8</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_CREAT</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">512</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_EXCL</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">2048</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_NOCTTY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">131072</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_TRUNC</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">1024</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_DSYNC</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x400000</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_NOCTTY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x20000</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_CLOEXEC</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x1000000</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_DIRECTORY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x100000</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">S_IFIFO</span>: <span class="ident">mode_t</span> <span class="op">=</span> <span class="number">4096</span>;
@@ -2436,8 +2446,6 @@
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">AT_SYMLINK_FOLLOW</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x0040</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">AT_REMOVEDIR</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x0080</span>;
 
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_ACCMODE</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">3</span>;
-
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TIOCMODG</span>: ::<span class="ident">c_ulong</span> <span class="op">=</span> <span class="number">0x40047403</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TIOCMODS</span>: ::<span class="ident">c_ulong</span> <span class="op">=</span> <span class="number">0x80047404</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TIOCM_LE</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x1</span>;
@@ -2577,6 +2585,8 @@
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">_SC_XOPEN_VERSION</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">116</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">_SC_XOPEN_XCU_VERSION</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">121</span>;
 
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">PTHREAD_PROCESS_PRIVATE</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">2</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">PTHREAD_PROCESS_SHARED</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">1</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">PTHREAD_CREATE_JOINABLE</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">1</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">PTHREAD_CREATE_DETACHED</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">2</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">PTHREAD_STACK_MIN</span>: ::<span class="ident">size_t</span> <span class="op">=</span> <span class="number">8192</span>;
@@ -2789,10 +2799,6 @@
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LOCK_NB</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">4</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">LOCK_UN</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">8</span>;
 
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_DSYNC</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">4194304</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_SYNC</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">128</span>;
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">O_NONBLOCK</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">4</span>;
-
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAP_COPY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x0002</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAP_RENAME</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x0020</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">MAP_NORESERVE</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x0040</span>;
@@ -3002,6 +3008,18 @@
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NOTE_TRACK</span>: ::<span class="ident">uint32_t</span> <span class="op">=</span> <span class="number">0x00000001</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NOTE_TRACKERR</span>: ::<span class="ident">uint32_t</span> <span class="op">=</span> <span class="number">0x00000002</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NOTE_CHILD</span>: ::<span class="ident">uint32_t</span> <span class="op">=</span> <span class="number">0x00000004</span>;
+
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">OCRNL</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00000010</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ONOCR</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00000020</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">ONLRET</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00000040</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">OFILL</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00000080</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NLDLY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00000300</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">TABDLY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00000c04</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">CRDLY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00003000</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">FFDLY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00004000</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">BSDLY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00008000</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">VTDLY</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00010000</span>;
+<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">OFDEL</span>: ::<span class="ident">c_int</span> <span class="op">=</span> <span class="number">0x00020000</span>;
 
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NL0</span>: ::<span class="ident">c_int</span>  <span class="op">=</span> <span class="number">0x00000000</span>;
 <span class="kw">pub</span> <span class="kw">const</span> <span class="ident">NL1</span>: ::<span class="ident">c_int</span>  <span class="op">=</span> <span class="number">0x00000100</span>;
@@ -3380,6 +3398,10 @@
                                         <span class="ident">pshared</span>: ::<span class="ident">c_int</span>) <span class="op">-&gt;</span> ::<span class="ident">c_int</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_mutexattr_getpshared</span>(<span class="ident">attr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">pthread_mutexattr_t</span>,
                                         <span class="ident">pshared</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> ::<span class="ident">c_int</span>) <span class="op">-&gt;</span> ::<span class="ident">c_int</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_rwlockattr_getpshared</span>(<span class="ident">attr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">pthread_rwlockattr_t</span>,
+                                         <span class="ident">val</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> ::<span class="ident">c_int</span>) <span class="op">-&gt;</span> ::<span class="ident">c_int</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">pthread_rwlockattr_setpshared</span>(<span class="ident">attr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">pthread_rwlockattr_t</span>,
+                                         <span class="ident">val</span>: ::<span class="ident">c_int</span>) <span class="op">-&gt;</span> ::<span class="ident">c_int</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">__error</span>() <span class="op">-&gt;</span> <span class="kw-2">*</span><span class="kw-2">mut</span> ::<span class="ident">c_int</span>;
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">backtrace</span>(<span class="ident">buf</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="kw-2">mut</span> ::<span class="ident">c_void</span>,
                      <span class="ident">sz</span>: ::<span class="ident">c_int</span>) <span class="op">-&gt;</span> ::<span class="ident">c_int</span>;
