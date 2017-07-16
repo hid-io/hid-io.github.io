@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>capnp</a>::<wbr><a href='index.html'>capability</a></p><script>window.sidebarCurrent = {name: 'RemotePromise', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct RemotePromise</p><div class="block items"><ul><li><a href="#fields">Fields</a></li></ul></div><p class='location'><a href='../index.html'>capnp</a>::<wbr><a href='index.html'>capability</a></p><script>window.sidebarCurrent = {name: 'RemotePromise', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -50,11 +50,11 @@
                    </a>
                </span><a class='srclink' href='../../src/capnp/capability.rs.html#93-96' title='goto source code'>[src]</a></span></h1>
 <pre class='rust struct'><div class="docblock attributes">#[must_use]
-</div>pub struct RemotePromise&lt;Results&gt; <span class="where fmt-newline">where Results: <a class="trait" href="../../capnp/traits/trait.Pipelined.html" title="trait capnp::traits::Pipelined">Pipelined</a> + for&lt;'a&gt; <a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Owned</a>&lt;'a&gt; + 'static</span> {
+</div>pub struct RemotePromise&lt;Results&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Results: <a class="trait" href="../../capnp/traits/trait.Pipelined.html" title="trait capnp::traits::Pipelined">Pipelined</a> + for&lt;'a&gt; <a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Owned</a>&lt;'a&gt; + 'static,&nbsp;</span> {
     pub promise: <a class="struct" href="../../capnp/capability/struct.Promise.html" title="struct capnp::capability::Promise">Promise</a>&lt;<a class="struct" href="../../capnp/capability/struct.Response.html" title="struct capnp::capability::Response">Response</a>&lt;Results&gt;, <a class="struct" href="../../capnp/struct.Error.html" title="struct capnp::Error">Error</a>&gt;,
     pub pipeline: Results::<a class="trait" href="../../capnp/traits/trait.Pipelined.html" title="trait capnp::traits::Pipelined">Pipeline</a>,
 }</pre><div class='docblock'><p>A promise for a result from a method call.</p>
-</div><h2 class='fields'>Fields</h2><span id='structfield.promise' class="structfield">
+</div><h2 id='fields' class='fields'>Fields</h2><span id='structfield.promise' class="structfield">
                            <span id='promise.v' class='invisible'>
                            <code>promise: <a class="struct" href="../../capnp/capability/struct.Promise.html" title="struct capnp::capability::Promise">Promise</a>&lt;<a class="struct" href="../../capnp/capability/struct.Response.html" title="struct capnp::capability::Response">Response</a>&lt;Results&gt;, <a class="struct" href="../../capnp/struct.Error.html" title="struct capnp::Error">Error</a>&gt;</code>
                            </span></span><span id='structfield.pipeline' class="structfield">
@@ -117,7 +117,6 @@
         window.rootPath = "../../";
         window.currentCrate = "capnp";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

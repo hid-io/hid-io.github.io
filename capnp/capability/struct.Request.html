@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'><a href='../index.html'>capnp</a>::<wbr><a href='index.html'>capability</a></p><script>window.sidebarCurrent = {name: 'Request', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Struct Request</p><div class="block items"><ul><li><a href="#fields">Fields</a></li><li><a href="#methods">Methods</a></li></ul></div><p class='location'><a href='../index.html'>capnp</a>::<wbr><a href='index.html'>capability</a></p><script>window.sidebarCurrent = {name: 'Request', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -53,16 +53,16 @@
     pub marker: <a class="struct" href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html" title="struct core::marker::PhantomData">PhantomData</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>Params, Results<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;,
     pub hook: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="trait" href="../../capnp/private/capability/trait.RequestHook.html" title="trait capnp::private::capability::RequestHook">RequestHook</a>&gt;,
 }</pre><div class='docblock'><p>A method call that has not been sent yet.</p>
-</div><h2 class='fields'>Fields</h2><span id='structfield.marker' class="structfield">
+</div><h2 id='fields' class='fields'>Fields</h2><span id='structfield.marker' class="structfield">
                            <span id='marker.v' class='invisible'>
                            <code>marker: <a class="struct" href="https://doc.rust-lang.org/nightly/core/marker/struct.PhantomData.html" title="struct core::marker::PhantomData">PhantomData</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">(</a>Params, Results<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">)</a>&gt;</code>
                            </span></span><span id='structfield.hook' class="structfield">
                            <span id='hook.v' class='invisible'>
                            <code>hook: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="trait" href="../../capnp/private/capability/trait.RequestHook.html" title="trait capnp::private::capability::RequestHook">RequestHook</a>&gt;</code>
-                           </span></span><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;Params, Results&gt; <a class="struct" href="../../capnp/capability/struct.Request.html" title="struct capnp::capability::Request">Request</a>&lt;Params, Results&gt; <span class="where fmt-newline">where Params: for&lt;'a&gt; <a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Owned</a>&lt;'a&gt;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/capnp/capability.rs.html#121-135' title='goto source code'>[src]</a></span></h3>
+                           </span></span><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;Params, Results&gt; <a class="struct" href="../../capnp/capability/struct.Request.html" title="struct capnp::capability::Request">Request</a>&lt;Params, Results&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;Params: for&lt;'a&gt; <a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Owned</a>&lt;'a&gt;,&nbsp;</span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/capnp/capability.rs.html#121-135' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(hook: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="trait" href="../../capnp/private/capability/trait.RequestHook.html" title="trait capnp::private::capability::RequestHook">RequestHook</a>&gt;) -&gt; <a class="struct" href="../../capnp/capability/struct.Request.html" title="struct capnp::capability::Request">Request</a>&lt;Params, Results&gt;</code></span></h4>
-<h4 id='method.get' class="method"><span id='get.v' class='invisible'><code>fn <a href='#method.get' class='fnname'>get</a>&lt;'a&gt;(&amp;'a mut self) -&gt; Params::<a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Builder</a></code></span></h4>
-<h4 id='method.set' class="method"><span id='set.v' class='invisible'><code>fn <a href='#method.set' class='fnname'>set</a>(&amp;mut self, from: Params::<a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Reader</a>) -&gt; <a class="type" href="../../capnp/type.Result.html" title="type capnp::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>&gt;</code></span></h4>
+<h4 id='method.get' class="method"><span id='get.v' class='invisible'><code>fn <a href='#method.get' class='fnname'>get</a>&lt;'a&gt;(&amp;'a mut self) -&gt; &lt;Params as <a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Owned</a>&lt;'a&gt;&gt;::<a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Builder</a></code></span></h4>
+<h4 id='method.set' class="method"><span id='set.v' class='invisible'><code>fn <a href='#method.set' class='fnname'>set</a>(&amp;mut self, from: &lt;Params as <a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Owned</a>&gt;::<a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Reader</a>) -&gt; <a class="type" href="../../capnp/type.Result.html" title="type capnp::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.tuple.html">()</a>&gt;</code></span></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -120,7 +120,6 @@
         window.rootPath = "../../";
         window.currentCrate = "capnp";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
