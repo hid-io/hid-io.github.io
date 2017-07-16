@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        <p class='location'>Struct Client</p><div class="block items"><ul><li><a href="#fields">Fields</a></li><li><a href="#methods">Methods</a></li></ul></div><p class='location'><a href='../index.html'>capnp</a>::<wbr><a href='index.html'>capability</a></p><script>window.sidebarCurrent = {name: 'Client', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'><a href='../index.html'>capnp</a>::<wbr><a href='index.html'>capability</a></p><script>window.sidebarCurrent = {name: 'Client', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -52,12 +52,12 @@
 <pre class='rust struct'>pub struct Client {
     pub hook: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="trait" href="../../capnp/private/capability/trait.ClientHook.html" title="trait capnp::private::capability::ClientHook">ClientHook</a>&gt;,
 }</pre><div class='docblock'><p>An untyped client.</p>
-</div><h2 id='fields' class='fields'>Fields</h2><span id='structfield.hook' class="structfield">
+</div><h2 class='fields'>Fields</h2><span id='structfield.hook' class="structfield">
                            <span id='hook.v' class='invisible'>
                            <code>hook: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="trait" href="../../capnp/private/capability/trait.ClientHook.html" title="trait capnp::private::capability::ClientHook">ClientHook</a>&gt;</code>
                            </span></span><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class="struct" href="../../capnp/capability/struct.Client.html" title="struct capnp::capability::Client">Client</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/capnp/capability.rs.html#207-230' title='goto source code'>[src]</a></span></h3>
 <div class='impl-items'><h4 id='method.new' class="method"><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(hook: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/boxed/struct.Box.html" title="struct alloc::boxed::Box">Box</a>&lt;<a class="trait" href="../../capnp/private/capability/trait.ClientHook.html" title="trait capnp::private::capability::ClientHook">ClientHook</a>&gt;) -&gt; <a class="struct" href="../../capnp/capability/struct.Client.html" title="struct capnp::capability::Client">Client</a></code></span></h4>
-<h4 id='method.new_call' class="method"><span id='new_call.v' class='invisible'><code>fn <a href='#method.new_call' class='fnname'>new_call</a>&lt;Params, Results&gt;(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;self, <br>&nbsp;&nbsp;&nbsp;&nbsp;interface_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;method_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;size_hint: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../capnp/struct.MessageSize.html" title="struct capnp::MessageSize">MessageSize</a>&gt;<br>) -&gt; <a class="struct" href="../../capnp/capability/struct.Request.html" title="struct capnp::capability::Request">Request</a>&lt;Params, Results&gt;</code></span></h4>
+<h4 id='method.new_call' class="method"><span id='new_call.v' class='invisible'><code>fn <a href='#method.new_call' class='fnname'>new_call</a>&lt;Params, Results&gt;(&amp;self,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; interface_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u64.html">u64</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; method_id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; size_hint: <a class="enum" href="https://doc.rust-lang.org/nightly/core/option/enum.Option.html" title="enum core::option::Option">Option</a>&lt;<a class="struct" href="../../capnp/struct.MessageSize.html" title="struct capnp::MessageSize">MessageSize</a>&gt;)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; -&gt; <a class="struct" href="../../capnp/capability/struct.Request.html" title="struct capnp::capability::Request">Request</a>&lt;Params, Results&gt;</code></span></h4>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -115,6 +115,7 @@
         window.rootPath = "../../";
         window.currentCrate = "capnp";
     </script>
+    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>
