@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["initialize","DeviceInfo struct Device initialization Sets up a scanning thread per Device type. Each scanning thread will create a new thread per device found. The scanning thread is required in case devices are plugged/unplugged while running. If a device is unplugged, the Device thread will exit."]]});

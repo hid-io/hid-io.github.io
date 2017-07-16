@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/Users/travis/build/hid-io/hid-io/src/device/hidusb/mod.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/travis/build/hid-io/hid-io/src/device/hidusb/mod.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>mod.rs.html -- source</title>
@@ -189,6 +189,11 @@
 <span id="144">144</span>
 <span id="145">145</span>
 <span id="146">146</span>
+<span id="147">147</span>
+<span id="148">148</span>
+<span id="149">149</span>
+<span id="150">150</span>
+<span id="151">151</span>
 </pre><pre class="rust ">
 <span class="comment">/* Copyright (C) 2017 by Jacob Alexander
  *
@@ -208,9 +213,9 @@
 
 <span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">hidapi</span>;
 
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">string</span>;
+<span class="comment">//use std::string;</span>
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">thread</span>;
-<span class="kw">use</span> <span class="ident">std</span>::<span class="ident">thread</span>::<span class="ident">sleep</span>;
+<span class="comment">//use std::thread::sleep;</span>
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">time</span>::<span class="ident">Duration</span>;
 
 
@@ -219,7 +224,7 @@
 <span class="kw">const</span> <span class="ident">DEV_PID</span>: <span class="ident">u16</span> <span class="op">=</span> <span class="number">0xb04d</span>;
 <span class="kw">const</span> <span class="ident">INTERFACE_NUMBER</span>: <span class="ident">i32</span> <span class="op">=</span> <span class="number">5</span>;
 
-<span class="kw">const</span> <span class="ident">PACKET_SIZE</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">64</span>; <span class="comment">// TODO Autodetect</span>
+<span class="comment">//const PACKET_SIZE: usize = 64; // TODO Autodetect</span>
 <span class="kw">const</span> <span class="ident">SLEEP_DURATION</span>: <span class="ident">u64</span> <span class="op">=</span> <span class="number">5</span>;
 
 
@@ -227,27 +232,32 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Contains HIDUSB device thread information</span>
 <span class="doccomment">/// Required to communicate with device thread</span>
-<span class="kw">struct</span> <span class="ident">HIDUSBDevice</span> {
-    <span class="ident">deviceinfo</span>: <span class="ident">hidapi</span>::<span class="ident">HidDeviceInfo</span>,
+<span class="comment">/*
+struct HIDUSBDevice {
+    deviceinfo: hidapi::HidDeviceInfo,
 }
+*/</span>
 
 
 <span class="doccomment">/// hidusb device processing</span>
 <span class="kw">fn</span> <span class="ident">process_device</span>(<span class="ident">device</span>: <span class="ident">hidapi</span>::<span class="ident">HidDevice</span>) <span class="op">-&gt;</span> <span class="ident">hidapi</span>::<span class="ident">HidResult</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
     <span class="comment">// Send dummy command (REMOVEME)</span>
-    <span class="kw">let</span> <span class="ident">res</span> <span class="op">=</span> <span class="ident">device</span>.<span class="ident">write</span>(<span class="kw-2">&amp;</span>(<span class="kw">super</span>::<span class="ident">packet_gen</span>()));
-    <span class="kw">match</span> <span class="ident">res</span> {
-        <span class="prelude-val">Ok</span>(<span class="ident">result</span>) <span class="op">=&gt;</span> {
-            <span class="comment">//println!(&quot;Ok&quot;);</span>
-            <span class="comment">//println!(&quot;Retval: {}&quot;, result);</span>
+    <span class="comment">/*
+    let res = device.write(&amp;(super::packet_gen()));
+    match res {
+        Ok(result) =&gt; {
+            //println!(&quot;Ok&quot;);
+            //println!(&quot;Retval: {}&quot;, result);
         },
-        <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Warning! {}&quot;</span>, <span class="ident">e</span>);
-            <span class="kw">return</span> <span class="ident">res</span>;
+        Err(e) =&gt; {
+            warn!(&quot;Warning! {}&quot;, e);
+            return res;
         },
     }
-    <span class="comment">//println!(&quot;{}&quot;, self.device.check_error().unwrap());</span>
-    <span class="kw">return</span> <span class="ident">res</span>;
+    //println!(&quot;{}&quot;, self.device.check_error().unwrap());
+    return res;
+    */</span>
+    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="number">1</span>);
 
     <span class="comment">/*
     let res = device_list[index].0.get_indexed_string(1).unwrap();
@@ -271,7 +281,7 @@
 
     <span class="doccomment">/// Loop infinitely, the watcher only exits if the daemon is quit</span>
     <span class="kw">loop</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">remove_list</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
+        <span class="comment">//let mut remove_list: Vec&lt;usize&gt; = Vec::new();</span>
 
         <span class="comment">// Iterate over found USB interfaces and select usable ones</span>
         <span class="kw">for</span> <span class="ident">device_info</span> <span class="kw">in</span> <span class="ident">api</span>.<span class="ident">devices</span>() {
@@ -330,7 +340,7 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// Sets up a processing thread for hidusb.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">initialize</span>() {
-    <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;Initializing hidusb...&quot;</span>);
+    <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;Initializing device/hidusb...&quot;</span>);
 
     <span class="comment">// Spawn watcher thread</span>
     <span class="ident">thread</span>::<span class="ident">spawn</span>(<span class="ident">processing</span>);

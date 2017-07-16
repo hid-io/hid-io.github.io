@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["initialize","Module initialization"]],"mod":[["debug",""],["hidusb",""]]});
