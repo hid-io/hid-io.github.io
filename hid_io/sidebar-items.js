@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["test_func","Test Function"]],"mod":[["device",""],["module",""],["protocol",""]]});
+initSidebarItems({"mod":[["built_info",""],["device",""],["module",""],["protocol",""]]});

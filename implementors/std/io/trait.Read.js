@@ -3,7 +3,6 @@ implementors["bincode"] = ["impl&lt;'storage&gt; <a class=\"trait\" href=\"https
 implementors["libc"] = [];
 implementors["regex_syntax"] = [];
 implementors["serde"] = [];
-implementors["syn"] = [];
 implementors["thread_local"] = [];
 
             if (window.register_implementors) {
