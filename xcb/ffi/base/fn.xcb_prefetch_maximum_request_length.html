@@ -49,7 +49,7 @@
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../../src/xcb/ffi/base.rs.html#217' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub unsafe extern fn xcb_prefetch_maximum_request_length(<br>&nbsp;&nbsp;&nbsp;&nbsp;c: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="enum" href="../../../xcb/ffi/base/enum.xcb_connection_t.html" title="enum xcb::ffi::base::xcb_connection_t">xcb_connection_t</a><br>)</pre><div class='docblock'><p>Prefetch the maximum request length without blocking.</p>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn xcb_prefetch_maximum_request_length(<br>&nbsp;&nbsp;&nbsp;&nbsp;c: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="enum" href="../../../xcb/ffi/base/enum.xcb_connection_t.html" title="enum xcb::ffi::base::xcb_connection_t">xcb_connection_t</a><br>)</pre><div class='docblock'><p>Prefetch the maximum request length without blocking.</p>
 
 <p>Without blocking, does as much work as possible toward computing
 the maximum request length accepted by the X server.</p>
@@ -120,7 +120,6 @@ must have already arrived.</p>
         window.rootPath = "../../../";
         window.currentCrate = "xcb";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>

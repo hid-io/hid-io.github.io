@@ -49,7 +49,7 @@
                        [<span class='inner'>&#x2212;</span>]
                    </a>
                </span><a class='srclink' href='../../../src/xcb/ffi/base.rs.html#298-299' title='goto source code'>[src]</a></span></h1>
-<pre class='rust fn'>pub unsafe extern fn xcb_discard_reply(<br>&nbsp;&nbsp;&nbsp;&nbsp;c: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="enum" href="../../../xcb/ffi/base/enum.xcb_connection_t.html" title="enum xcb::ffi::base::xcb_connection_t">xcb_connection_t</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;sequence: <a class="type" href="../../../libc/type.c_uint.html" title="type libc::c_uint">c_uint</a><br>)</pre><div class='docblock'><p>Discards the reply for a request.</p>
+<pre class='rust fn'>pub unsafe extern &quot;C&quot; fn xcb_discard_reply(<br>&nbsp;&nbsp;&nbsp;&nbsp;c: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.pointer.html">*mut </a><a class="enum" href="../../../xcb/ffi/base/enum.xcb_connection_t.html" title="enum xcb::ffi::base::xcb_connection_t">xcb_connection_t</a>, <br>&nbsp;&nbsp;&nbsp;&nbsp;sequence: <a class="type" href="../../../libc/type.c_uint.html" title="type libc::c_uint">c_uint</a><br>)</pre><div class='docblock'><p>Discards the reply for a request.</p>
 
 <p>sequence is the request sequence number from a cookie.</p>
 
@@ -118,7 +118,6 @@ this function is not designed to operate on socket-handoff replies.</p>
         window.rootPath = "../../../";
         window.currentCrate = "xcb";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
