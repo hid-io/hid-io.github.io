@@ -50,7 +50,7 @@
                    </a>
                </span><a class='srclink' href='../../src/capnp/traits.rs.html#54-57' title='goto source code'>[src]</a></span></h1>
 <pre class='rust trait'>pub trait Owned&lt;'a&gt; {
-    type <a href='#associatedtype.Reader' class="type">Reader</a>: <a class="trait" href="../../capnp/traits/trait.FromPointerReader.html" title="trait capnp::traits::FromPointerReader">FromPointerReader</a>&lt;'a&gt; + <a class="trait" href="../../capnp/traits/trait.SetPointerBuilder.html" title="trait capnp::traits::SetPointerBuilder">SetPointerBuilder</a>&lt;Self::<a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Builder</a>&gt;;
+    type <a href='#associatedtype.Reader' class="type">Reader</a>: <a class="trait" href="../../capnp/traits/trait.FromPointerReader.html" title="trait capnp::traits::FromPointerReader">FromPointerReader</a>&lt;'a&gt; + <a class="trait" href="../../capnp/traits/trait.SetPointerBuilder.html" title="trait capnp::traits::SetPointerBuilder">SetPointerBuilder</a>&lt;Self::<a class="type" href="../../capnp/traits/trait.Owned.html#associatedtype.Builder" title="type capnp::traits::Owned::Builder">Builder</a>&gt;;
     type <a href='#associatedtype.Builder' class="type">Builder</a>: <a class="trait" href="../../capnp/traits/trait.FromPointerBuilder.html" title="trait capnp::traits::FromPointerBuilder">FromPointerBuilder</a>&lt;'a&gt;;
 }</pre><div class='docblock'><p>Associated types hackery that allows us to reason about Cap&#39;n Proto types
 without needing to give them a lifetime <code>&#39;a</code>.</p>
@@ -66,7 +66,7 @@ of type <code>T: for&lt;&#39;a&gt; capnp::traits::Owned&lt;&#39;a&gt;</code>.</p
 </div>
             <h2 id='associated-types'>Associated Types</h2>
             <div class='methods'>
-        <h3 id='associatedtype.Reader' class='method'><span id='Reader.t' class='invisible'><code>type <a href='#associatedtype.Reader' class="type">Reader</a>: <a class="trait" href="../../capnp/traits/trait.FromPointerReader.html" title="trait capnp::traits::FromPointerReader">FromPointerReader</a>&lt;'a&gt; + <a class="trait" href="../../capnp/traits/trait.SetPointerBuilder.html" title="trait capnp::traits::SetPointerBuilder">SetPointerBuilder</a>&lt;Self::<a class="trait" href="../../capnp/traits/trait.Owned.html" title="trait capnp::traits::Owned">Builder</a>&gt;</code></span></h3><h3 id='associatedtype.Builder' class='method'><span id='Builder.t' class='invisible'><code>type <a href='#associatedtype.Builder' class="type">Builder</a>: <a class="trait" href="../../capnp/traits/trait.FromPointerBuilder.html" title="trait capnp::traits::FromPointerBuilder">FromPointerBuilder</a>&lt;'a&gt;</code></span></h3></div>
+        <h3 id='associatedtype.Reader' class='method'><span id='Reader.t' class='invisible'><code>type <a href='#associatedtype.Reader' class="type">Reader</a>: <a class="trait" href="../../capnp/traits/trait.FromPointerReader.html" title="trait capnp::traits::FromPointerReader">FromPointerReader</a>&lt;'a&gt; + <a class="trait" href="../../capnp/traits/trait.SetPointerBuilder.html" title="trait capnp::traits::SetPointerBuilder">SetPointerBuilder</a>&lt;Self::<a class="type" href="../../capnp/traits/trait.Owned.html#associatedtype.Builder" title="type capnp::traits::Owned::Builder">Builder</a>&gt;</code></span></h3><h3 id='associatedtype.Builder' class='method'><span id='Builder.t' class='invisible'><code>type <a href='#associatedtype.Builder' class="type">Builder</a>: <a class="trait" href="../../capnp/traits/trait.FromPointerBuilder.html" title="trait capnp::traits::FromPointerBuilder">FromPointerBuilder</a>&lt;'a&gt;</code></span></h3></div>
         <h2 id='implementors'>Implementors</h2>
         <ul class='item-list' id='implementors-list'>
     <li><code>impl&lt;'a&gt; Owned&lt;'a&gt; for capnp::any_pointer::<a class="struct" href="../../capnp/any_pointer/struct.Owned.html" title="struct capnp::any_pointer::Owned">Owned</a></code></li>
@@ -137,7 +137,6 @@ of type <code>T: for&lt;&#39;a&gt; capnp::traits::Owned&lt;&#39;a&gt;</code>.</p
         window.rootPath = "../../";
         window.currentCrate = "capnp";
     </script>
-    <script src="../../jquery.js"></script>
     <script src="../../main.js"></script>
     <script defer src="../../search-index.js"></script>
 </body>

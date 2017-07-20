@@ -57,7 +57,7 @@ Only one instance can exist at a time.</p>
 </div><h4 id='method.refresh_devices' class="method"><span id='refresh_devices.v' class='invisible'><code>fn <a href='#method.refresh_devices' class='fnname'>refresh_devices</a>(&amp;mut self)</code></span></h4>
 <div class='docblock'><p>Refresh devices list and information about them (to access them use
 <code>devices()</code> method)</p>
-</div><h4 id='method.devices' class="method"><span id='devices.v' class='invisible'><code>fn <a href='#method.devices' class='fnname'>devices</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;<a class="struct" href="../hidapi/struct.HidDeviceInfo.html" title="struct hidapi::HidDeviceInfo">HidDeviceInfo</a>&gt;</code></span></h4>
+</div><h4 id='method.devices' class="method"><span id='devices.v' class='invisible'><code>fn <a href='#method.devices' class='fnname'>devices</a>(&amp;self) -&gt; <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="struct" href="../hidapi/struct.HidDeviceInfo.html" title="struct hidapi::HidDeviceInfo">HidDeviceInfo</a>&gt;</code></span></h4>
 <div class='docblock'><p>Returns list of objects containing information about connected devices</p>
 </div><h4 id='method.open' class="method"><span id='open.v' class='invisible'><code>fn <a href='#method.open' class='fnname'>open</a>(&amp;self, vid: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>, pid: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u16.html">u16</a>) -&gt; <a class="type" href="../hidapi/type.HidResult.html" title="type hidapi::HidResult">HidResult</a>&lt;<a class="struct" href="../hidapi/struct.HidDevice.html" title="struct hidapi::HidDevice">HidDevice</a>&gt;</code></span></h4>
 <div class='docblock'><p>Open a HID device using a Vendor ID (VID) and Product ID (PID)</p>
@@ -67,9 +67,9 @@ a serial number.</p>
 </div><h4 id='method.open_path' class="method"><span id='open_path.v' class='invisible'><code>fn <a href='#method.open_path' class='fnname'>open_path</a>(&amp;self, device_path: &amp;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.str.html">str</a>) -&gt; <a class="type" href="../hidapi/type.HidResult.html" title="type hidapi::HidResult">HidResult</a>&lt;<a class="struct" href="../hidapi/struct.HidDevice.html" title="struct hidapi::HidDevice">HidDevice</a>&gt;</code></span></h4>
 <div class='docblock'><p>The path name be determined by calling hid_enumerate(), or a
 platform-specific path name can be used (eg: /dev/hidraw0 on Linux).</p>
-</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html" title="trait core::ops::Drop">Drop</a> for <a class="struct" href="../hidapi/struct.HidApi.html" title="struct hidapi::HidApi">HidApi</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/hidapi/lib.rs.html#169-176' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.drop' class="method"><span id='drop.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></span></h4>
-<div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/trait.Drop.html#tymethod.drop">Read more</a></p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html" title="trait core::ops::drop::Drop">Drop</a> for <a class="struct" href="../hidapi/struct.HidApi.html" title="struct hidapi::HidApi">HidApi</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/hidapi/lib.rs.html#169-176' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.drop' class="method"><span id='drop.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html#tymethod.drop' class='fnname'>drop</a>(&amp;mut self)</code></span></h4>
+<div class='docblock'><p>A method called when the value goes out of scope. <a href="https://doc.rust-lang.org/nightly/core/ops/drop/trait.Drop.html#tymethod.drop">Read more</a></p>
 </div></div></section>
     <section id='search' class="content hidden"></section>
 
@@ -127,7 +127,6 @@ platform-specific path name can be used (eg: /dev/hidraw0 on Linux).</p>
         window.rootPath = "../";
         window.currentCrate = "hidapi";
     </script>
-    <script src="../jquery.js"></script>
     <script src="../main.js"></script>
     <script defer src="../search-index.js"></script>
 </body>

@@ -53,7 +53,7 @@
     pub ptype: <a class="enum" href="../../../hid_io/protocol/hidio/enum.HIDIOPacketType.html" title="enum hid_io::protocol::hidio::HIDIOPacketType">HIDIOPacketType</a>,
     pub id: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
     pub max_len: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>,
-    pub data: <a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;,
+    pub data: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;,
     pub done: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a>,
 }</pre><div class='docblock'><p>HID-IO Packet Buffer Struct</p>
 
@@ -73,7 +73,7 @@
                            </span></span><div class='docblock'><p>Packet length for serialization (in bytes)</p>
 </div><span id='structfield.data' class="structfield">
                            <span id='data.v' class='invisible'>
-                           <code>data: <a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;</code>
+                           <code>data: <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;</code>
                            </span></span><div class='docblock'><p>Payload data, chunking is done automatically by serializer</p>
 </div><span id='structfield.done' class="structfield">
                            <span id='done.v' class='invisible'>
@@ -85,7 +85,7 @@
 
 <h1 id='remarks-1' class='section-header'><a href='#remarks-1'>Remarks</a></h1>
 <p>Initialize as blank</p>
-</div><h4 id='method.append_payload' class="method"><span id='append_payload.v' class='invisible'><code>fn <a href='#method.append_payload' class='fnname'>append_payload</a>(&amp;mut self, new_data: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
+</div><h4 id='method.append_payload' class="method"><span id='append_payload.v' class='invisible'><code>fn <a href='#method.append_payload' class='fnname'>append_payload</a>(&amp;mut self, new_data: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h4>
 <div class='docblock'><p>Append payload data</p>
 
 <h1 id='arguments' class='section-header'><a href='#arguments'>Arguments</a></h1>
@@ -95,7 +95,7 @@
 
 <h1 id='remarks-2' class='section-header'><a href='#remarks-2'>Remarks</a></h1>
 <p>Appends payload to HIDIOPacketBuffer.</p>
-</div><h4 id='method.decode_packet' class="method"><span id='decode_packet.v' class='invisible'><code>fn <a href='#method.decode_packet' class='fnname'>decode_packet</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;packet_data: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="struct" href="../../../hid_io/protocol/hidio/struct.HIDIOParseError.html" title="struct hid_io::protocol::hidio::HIDIOParseError">HIDIOParseError</a>&gt;</code></span></h4>
+</div><h4 id='method.decode_packet' class="method"><span id='decode_packet.v' class='invisible'><code>fn <a href='#method.decode_packet' class='fnname'>decode_packet</a>(<br>&nbsp;&nbsp;&nbsp;&nbsp;&amp;mut self, <br>&nbsp;&nbsp;&nbsp;&nbsp;packet_data: &amp;mut <a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;<br>) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a>, <a class="struct" href="../../../hid_io/protocol/hidio/struct.HIDIOParseError.html" title="struct hid_io::protocol::hidio::HIDIOParseError">HIDIOParseError</a>&gt;</code></span></h4>
 <div class='docblock'><p>Append packet stream
 Returns the number of bytes used.</p>
 
@@ -107,7 +107,7 @@ Returns the number of bytes used.</p>
 <h1 id='remarks-3' class='section-header'><a href='#remarks-3'>Remarks</a></h1>
 <p>Does packet decoding on the fly.
 Will set done parameter if this is the last packet.</p>
-</div><h4 id='method.serialize_buffer' class="method"><span id='serialize_buffer.v' class='invisible'><code>fn <a href='#method.serialize_buffer' class='fnname'>serialize_buffer</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html" title="struct collections::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;, <a class="struct" href="../../../hid_io/protocol/hidio/struct.HIDIOParseError.html" title="struct hid_io::protocol::hidio::HIDIOParseError">HIDIOParseError</a>&gt;</code></span></h4>
+</div><h4 id='method.serialize_buffer' class="method"><span id='serialize_buffer.v' class='invisible'><code>fn <a href='#method.serialize_buffer' class='fnname'>serialize_buffer</a>(&amp;mut self) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;<a class="struct" href="https://doc.rust-lang.org/nightly/alloc/vec/struct.Vec.html" title="struct alloc::vec::Vec">Vec</a>&lt;<a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u8.html">u8</a>&gt;, <a class="struct" href="../../../hid_io/protocol/hidio/struct.HIDIOParseError.html" title="struct hid_io::protocol::hidio::HIDIOParseError">HIDIOParseError</a>&gt;</code></span></h4>
 <div class='docblock'><p>Serialize HIDIOPacketBuffer</p>
 
 <h1 id='remarks-4' class='section-header'><a href='#remarks-4'>Remarks</a></h1>
@@ -124,7 +124,7 @@ Removes some of the header that Serialize from serde prepends.</p>
 </div><h4 id='method.clone_from' class="method"><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
 <div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
 </div></div><h3 class='impl'><span class='in-band'><code>impl <a class="trait" href="../../../serde/ser/trait.Serialize.html" title="trait serde::ser::Serialize">Serialize</a> for <a class="struct" href="../../../hid_io/protocol/hidio/struct.HIDIOPacketBuffer.html" title="struct hid_io::protocol::hidio::HIDIOPacketBuffer">HIDIOPacketBuffer</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../../src/hid_io/protocol/hidio/mod.rs.html#423-632' title='goto source code'>[src]</a></span></h3>
-<div class='impl-items'><h4 id='method.serialize' class="method"><span id='serialize.v' class='invisible'><code>fn <a href='../../../serde/ser/trait.Serialize.html#tymethod.serialize' class='fnname'>serialize</a>&lt;S&gt;(&amp;self, serializer: S) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;S::<a class="trait" href="../../../serde/ser/trait.Serializer.html" title="trait serde::ser::Serializer">Ok</a>, S::<a class="trait" href="../../../serde/ser/trait.Serializer.html" title="trait serde::ser::Serializer">Error</a>&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="../../../serde/ser/trait.Serializer.html" title="trait serde::ser::Serializer">Serializer</a>,&nbsp;</span></code></span></h4>
+<div class='impl-items'><h4 id='method.serialize' class="method"><span id='serialize.v' class='invisible'><code>fn <a href='../../../serde/ser/trait.Serialize.html#tymethod.serialize' class='fnname'>serialize</a>&lt;S&gt;(&amp;self, serializer: S) -&gt; <a class="enum" href="https://doc.rust-lang.org/nightly/core/result/enum.Result.html" title="enum core::result::Result">Result</a>&lt;S::<a class="type" href="../../../serde/ser/trait.Serializer.html#associatedtype.Ok" title="type serde::ser::Serializer::Ok">Ok</a>, S::<a class="type" href="../../../serde/ser/trait.Serializer.html#associatedtype.Error" title="type serde::ser::Serializer::Error">Error</a>&gt; <span class="where fmt-newline">where<br>&nbsp;&nbsp;&nbsp;&nbsp;S: <a class="trait" href="../../../serde/ser/trait.Serializer.html" title="trait serde::ser::Serializer">Serializer</a>,&nbsp;</span></code></span></h4>
 <div class='docblock'><p>Serializer for HIDIOPacketBuffer</p>
 
 <h1 id='remarks-5' class='section-header'><a href='#remarks-5'>Remarks</a></h1>
@@ -201,7 +201,6 @@ According to this C-Struct:</p>
         window.rootPath = "../../../";
         window.currentCrate = "hid_io";
     </script>
-    <script src="../../../jquery.js"></script>
     <script src="../../../main.js"></script>
     <script defer src="../../../search-index.js"></script>
 </body>
