@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["built_info",""],["device",""],["module",""],["protocol",""]]});
+initSidebarItems({"mod":[["api",""],["built_info",""],["device",""],["module",""],["protocol",""]]});

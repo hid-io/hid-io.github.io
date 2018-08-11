@@ -1,49 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/Users/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-0.8.10/src/serialize.rs`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang">
-
-    <title>serialize.rs.html -- source</title>
-
-    <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css">
-    
-
-    
-    
-</head>
-<body class="rustdoc source">
-    <!--[if lte IE 8]>
-    <div class="warning">
-        This old browser is unsupported and will most likely display funky
-        things.
-    </div>
-    <![endif]-->
-
-    
-
-    <nav class="sidebar">
-        
-        
-    </nav>
-
-    <nav class="sub">
-        <form class="search-form js-only">
-            <div class="search-container">
-                <input class="search-input" name="search"
-                       autocomplete="off"
-                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
-                       type="search">
-            </div>
-        </form>
-    </nav>
-
-    <section id='main' class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/Users/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-0.9.0/src/serialize.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>serialize.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -515,6 +470,38 @@
 <span id="470">470</span>
 <span id="471">471</span>
 <span id="472">472</span>
+<span id="473">473</span>
+<span id="474">474</span>
+<span id="475">475</span>
+<span id="476">476</span>
+<span id="477">477</span>
+<span id="478">478</span>
+<span id="479">479</span>
+<span id="480">480</span>
+<span id="481">481</span>
+<span id="482">482</span>
+<span id="483">483</span>
+<span id="484">484</span>
+<span id="485">485</span>
+<span id="486">486</span>
+<span id="487">487</span>
+<span id="488">488</span>
+<span id="489">489</span>
+<span id="490">490</span>
+<span id="491">491</span>
+<span id="492">492</span>
+<span id="493">493</span>
+<span id="494">494</span>
+<span id="495">495</span>
+<span id="496">496</span>
+<span id="497">497</span>
+<span id="498">498</span>
+<span id="499">499</span>
+<span id="500">500</span>
+<span id="501">501</span>
+<span id="502">502</span>
+<span id="503">503</span>
+<span id="504">504</span>
 </pre><pre class="rust ">
 <span class="comment">// Copyright (c) 2013-2015 Sandstorm Development Group, Inc. and contributors</span>
 <span class="comment">// Licensed under the MIT License:</span>
@@ -543,7 +530,6 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::{<span class="ident">Read</span>, <span class="ident">Write</span>};
 
 <span class="kw">use</span> <span class="ident">message</span>;
-<span class="kw">use</span> <span class="ident">util</span>::<span class="ident">read_exact</span>;
 <span class="kw">use</span> {<span class="ident">Error</span>, <span class="prelude-ty">Result</span>, <span class="ident">Word</span>};
 
 <span class="kw">use</span> <span class="ident">byteorder</span>::{<span class="ident">ByteOrder</span>, <span class="ident">LittleEndian</span>};
@@ -563,6 +549,10 @@
             <span class="prelude-val">None</span>
         }
     }
+
+    <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+        <span class="self">self</span>.<span class="ident">segment_slices</span>.<span class="ident">len</span>()
+    }
 }
 
 <span class="doccomment">/// Reads a serialized message from a slice of words.</span>
@@ -572,7 +562,7 @@
 {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span> <span class="op">=</span> ::<span class="ident">Word</span>::<span class="ident">words_to_bytes</span>(<span class="ident">slice</span>);
     <span class="kw">let</span> (<span class="ident">num_words</span>, <span class="ident">offsets</span>) <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">read_segment_table</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="ident">options</span>));
-    <span class="kw">let</span> <span class="ident">words</span> <span class="op">=</span> ::<span class="ident">Word</span>::<span class="ident">bytes_to_words</span>(<span class="ident">bytes</span>);
+    <span class="kw">let</span> <span class="ident">words</span> <span class="op">=</span> <span class="kw">unsafe</span> { ::<span class="ident">Word</span>::<span class="ident">bytes_to_words</span>(<span class="ident">bytes</span>) };
     <span class="kw">if</span> <span class="ident">num_words</span> <span class="op">!=</span> <span class="ident">words</span>.<span class="ident">len</span>() {
         <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">failed</span>(
             <span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Wrong number of words. Header claimed {} words, but message has {} words&quot;</span>,
@@ -595,6 +585,10 @@
         } <span class="kw">else</span> {
             <span class="prelude-val">None</span>
         }
+    }
+
+    <span class="kw">fn</span> <span class="ident">len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+        <span class="self">self</span>.<span class="ident">segment_slices</span>.<span class="ident">len</span>()
     }
 }
 
@@ -620,7 +614,7 @@
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span>: [<span class="ident">u8</span>; <span class="number">8</span>] <span class="op">=</span> [<span class="number">0</span>; <span class="number">8</span>];
 
     <span class="comment">// read the first Word, which contains segment_count and the 1st segment length</span>
-    <span class="macro">try</span><span class="macro">!</span>(<span class="ident">read_exact</span>(<span class="ident">read</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>));
+    <span class="ident">read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>)<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">segment_count</span> <span class="op">=</span> <span class="op">&lt;</span><span class="ident">LittleEndian</span> <span class="kw">as</span> <span class="ident">ByteOrder</span><span class="op">&gt;</span>::<span class="ident">read_u32</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>[<span class="number">0</span>..<span class="number">4</span>])
                                                    .<span class="ident">wrapping_add</span>(<span class="number">1</span>) <span class="kw">as</span> <span class="ident">usize</span>;
 
@@ -636,7 +630,7 @@
 
     <span class="kw">if</span> <span class="ident">segment_count</span> <span class="op">&gt;</span> <span class="number">1</span> {
         <span class="kw">if</span> <span class="ident">segment_count</span> <span class="op">&lt;</span> <span class="number">4</span> {
-            <span class="macro">try</span><span class="macro">!</span>(<span class="ident">read_exact</span>(<span class="ident">read</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>));
+            <span class="ident">read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>)<span class="question-mark">?</span>;
             <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">0</span>..(<span class="ident">segment_count</span> <span class="op">-</span> <span class="number">1</span>) {
                 <span class="kw">let</span> <span class="ident">segment_len</span> <span class="op">=</span>
                     <span class="op">&lt;</span><span class="ident">LittleEndian</span> <span class="kw">as</span> <span class="ident">ByteOrder</span><span class="op">&gt;</span>::<span class="ident">read_u32</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>[(<span class="ident">idx</span> <span class="op">*</span> <span class="number">4</span>)..(<span class="ident">idx</span> <span class="op">+</span> <span class="number">1</span>) <span class="op">*</span> <span class="number">4</span>]) <span class="kw">as</span> <span class="ident">usize</span>;
@@ -646,7 +640,7 @@
             }
         } <span class="kw">else</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">segment_sizes</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0u8</span>; (<span class="ident">segment_count</span> <span class="op">&amp;</span> <span class="op">!</span><span class="number">1</span>) <span class="op">*</span> <span class="number">4</span>];
-            <span class="macro">try</span><span class="macro">!</span>(<span class="ident">read_exact</span>(<span class="ident">read</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">segment_sizes</span>[..]));
+            <span class="ident">read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">segment_sizes</span>[..])<span class="question-mark">?</span>;
             <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">0</span>..(<span class="ident">segment_count</span> <span class="op">-</span> <span class="number">1</span>) {
                 <span class="kw">let</span> <span class="ident">segment_len</span> <span class="op">=</span>
                     <span class="op">&lt;</span><span class="ident">LittleEndian</span> <span class="kw">as</span> <span class="ident">ByteOrder</span><span class="op">&gt;</span>::<span class="ident">read_u32</span>(<span class="kw-2">&amp;</span><span class="ident">segment_sizes</span>[(<span class="ident">idx</span> <span class="op">*</span> <span class="number">4</span>)..(<span class="ident">idx</span> <span class="op">+</span> <span class="number">1</span>) <span class="op">*</span> <span class="number">4</span>]) <span class="kw">as</span> <span class="ident">usize</span>;
@@ -677,7 +671,7 @@
                     <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">OwnedSegments</span><span class="op">&gt;&gt;</span>
 <span class="kw">where</span> <span class="ident">R</span>: <span class="ident">Read</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">owned_space</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Word</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Word</span>::<span class="ident">allocate_zeroed_vec</span>(<span class="ident">total_words</span>);
-    <span class="macro">try</span><span class="macro">!</span>(<span class="ident">read_exact</span>(<span class="ident">read</span>, <span class="ident">Word</span>::<span class="ident">words_to_bytes_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">owned_space</span>[..])));
+    <span class="ident">read</span>.<span class="ident">read_exact</span>(<span class="ident">Word</span>::<span class="ident">words_to_bytes_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">owned_space</span>[..]))<span class="question-mark">?</span>;
     <span class="kw">let</span> <span class="ident">segments</span> <span class="op">=</span> <span class="ident">OwnedSegments</span> {<span class="ident">segment_slices</span>: <span class="ident">segment_slices</span>, <span class="ident">owned_space</span>: <span class="ident">owned_space</span>};
     <span class="prelude-val">Ok</span>(::<span class="ident">message</span>::<span class="ident">Reader</span>::<span class="ident">new</span>(<span class="ident">segments</span>, <span class="ident">options</span>))
 }
@@ -689,18 +683,26 @@
     <span class="ident">flatten_segments</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">message</span>.<span class="ident">get_segments_for_output</span>())
 }
 
-<span class="kw">fn</span> <span class="ident">flatten_segments</span>(<span class="ident">segments</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[<span class="ident">Word</span>]]) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Word</span><span class="op">&gt;</span> {
-    <span class="kw">let</span> <span class="ident">word_count</span> <span class="op">=</span> <span class="ident">compute_serialized_size</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">segments</span>);
-    <span class="kw">let</span> <span class="ident">table_size</span> <span class="op">=</span> <span class="ident">segments</span>.<span class="ident">len</span>() <span class="op">/</span> <span class="number">2</span> <span class="op">+</span> <span class="number">1</span>;
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_message_segments_to_words</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">R</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Word</span><span class="op">&gt;</span>
+    <span class="kw">where</span> <span class="ident">R</span>: <span class="ident">message</span>::<span class="ident">ReaderSegments</span>
+{
+    <span class="ident">flatten_segments</span>(<span class="ident">message</span>)
+}
+
+<span class="kw">fn</span> <span class="ident">flatten_segments</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">message</span>::<span class="ident">ReaderSegments</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="ident">segments</span>: <span class="kw-2">&amp;</span><span class="ident">R</span>) <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Word</span><span class="op">&gt;</span> {
+    <span class="kw">let</span> <span class="ident">word_count</span> <span class="op">=</span> <span class="ident">compute_serialized_size</span>(<span class="ident">segments</span>);
+    <span class="kw">let</span> <span class="ident">segment_count</span> <span class="op">=</span> <span class="ident">segments</span>.<span class="ident">len</span>();
+    <span class="kw">let</span> <span class="ident">table_size</span> <span class="op">=</span> <span class="ident">segment_count</span> <span class="op">/</span> <span class="number">2</span> <span class="op">+</span> <span class="number">1</span>;
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">with_capacity</span>(<span class="ident">word_count</span>);
-    <span class="kw">for</span> _ <span class="kw">in</span> <span class="number">0</span>..<span class="ident">table_size</span> {
+    <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">table_size</span> {
         <span class="ident">result</span>.<span class="ident">push</span>(<span class="ident">Word</span> { <span class="ident">raw_content</span>: <span class="number">0</span> });
     }
     {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span> <span class="op">=</span> ::<span class="ident">Word</span>::<span class="ident">words_to_bytes_mut</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">result</span>[..]);
-        <span class="ident">write_segment_table</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">segments</span>).<span class="ident">ok</span>().<span class="ident">expect</span>(<span class="string">&quot;Failed to write segment table.&quot;</span>);
+        <span class="ident">write_segment_table_internal</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>, <span class="ident">segments</span>).<span class="ident">expect</span>(<span class="string">&quot;Failed to write segment table.&quot;</span>);
     }
-    <span class="kw">for</span> <span class="ident">segment</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">segments</span> {
+    <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">segment_count</span> {
+        <span class="kw">let</span> <span class="ident">segment</span> <span class="op">=</span> <span class="ident">segments</span>.<span class="ident">get_segment</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">unwrap</span>();
         <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">segment</span>.<span class="ident">len</span>() {
             <span class="ident">result</span>.<span class="ident">push</span>(<span class="ident">segment</span>[<span class="ident">idx</span>]);
         }
@@ -713,30 +715,41 @@
 <span class="doccomment">/// For optimal performance, `write` should be a buffered writer. `flush` will not be called on</span>
 <span class="doccomment">/// the writer.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_message</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">A</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
-<span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span>, <span class="ident">A</span>: <span class="ident">message</span>::<span class="ident">Allocator</span> {
+ <span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span>, <span class="ident">A</span>: <span class="ident">message</span>::<span class="ident">Allocator</span> {
     <span class="kw">let</span> <span class="ident">segments</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_segments_for_output</span>();
-    <span class="macro">try</span><span class="macro">!</span>(<span class="ident">write_segment_table</span>(<span class="ident">write</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">segments</span>));
-    <span class="ident">write_segments</span>(<span class="ident">write</span>, <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">segments</span>)
+    <span class="macro">try</span><span class="macro">!</span>(<span class="ident">write_segment_table</span>(<span class="ident">write</span>, <span class="kw-2">&amp;</span><span class="ident">segments</span>));
+    <span class="ident">write_segments</span>(<span class="ident">write</span>, <span class="kw-2">&amp;</span><span class="ident">segments</span>)
+}
+
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_message_segments</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">segments</span>: <span class="kw-2">&amp;</span><span class="ident">R</span>) <span class="op">-&gt;</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+ <span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span>, <span class="ident">R</span>: <span class="ident">message</span>::<span class="ident">ReaderSegments</span> {
+    <span class="macro">try</span><span class="macro">!</span>(<span class="ident">write_segment_table_internal</span>(<span class="ident">write</span>, <span class="ident">segments</span>));
+    <span class="ident">write_segments</span>(<span class="ident">write</span>, <span class="ident">segments</span>)
+}
+
+<span class="kw">fn</span> <span class="ident">write_segment_table</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">segments</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[<span class="ident">Word</span>]]) <span class="op">-&gt;</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+<span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span> {
+    <span class="ident">write_segment_table_internal</span>(<span class="ident">write</span>, <span class="ident">segments</span>)
 }
 
 <span class="doccomment">/// Writes a segment table to `write`.</span>
 <span class="doccomment">///</span>
 <span class="doccomment">/// `segments` must contain at least one segment.</span>
-<span class="kw">fn</span> <span class="ident">write_segment_table</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">segments</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[<span class="ident">Word</span>]]) <span class="op">-&gt;</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
-<span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span> {
+<span class="kw">fn</span> <span class="ident">write_segment_table_internal</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">segments</span>: <span class="kw-2">&amp;</span><span class="ident">R</span>) <span class="op">-&gt;</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+<span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span>, <span class="ident">R</span>: <span class="ident">message</span>::<span class="ident">ReaderSegments</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span> {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span>: [<span class="ident">u8</span>; <span class="number">8</span>] <span class="op">=</span> [<span class="number">0</span>; <span class="number">8</span>];
     <span class="kw">let</span> <span class="ident">segment_count</span> <span class="op">=</span> <span class="ident">segments</span>.<span class="ident">len</span>();
 
     <span class="comment">// write the first Word, which contains segment_count and the 1st segment length</span>
     <span class="op">&lt;</span><span class="ident">LittleEndian</span> <span class="kw">as</span> <span class="ident">ByteOrder</span><span class="op">&gt;</span>::<span class="ident">write_u32</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>[<span class="number">0</span>..<span class="number">4</span>], <span class="ident">segment_count</span> <span class="kw">as</span> <span class="ident">u32</span> <span class="op">-</span> <span class="number">1</span>);
-    <span class="op">&lt;</span><span class="ident">LittleEndian</span> <span class="kw">as</span> <span class="ident">ByteOrder</span><span class="op">&gt;</span>::<span class="ident">write_u32</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>[<span class="number">4</span>..<span class="number">8</span>], <span class="ident">segments</span>[<span class="number">0</span>].<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>);
+    <span class="op">&lt;</span><span class="ident">LittleEndian</span> <span class="kw">as</span> <span class="ident">ByteOrder</span><span class="op">&gt;</span>::<span class="ident">write_u32</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>[<span class="number">4</span>..<span class="number">8</span>], <span class="ident">segments</span>.<span class="ident">get_segment</span>(<span class="number">0</span>).<span class="ident">unwrap</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>);
     <span class="macro">try</span><span class="macro">!</span>(<span class="ident">write</span>.<span class="ident">write_all</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>));
 
     <span class="kw">if</span> <span class="ident">segment_count</span> <span class="op">&gt;</span> <span class="number">1</span> {
         <span class="kw">if</span> <span class="ident">segment_count</span> <span class="op">&lt;</span> <span class="number">4</span> {
             <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">1</span>..<span class="ident">segment_count</span> {
                 <span class="op">&lt;</span><span class="ident">LittleEndian</span> <span class="kw">as</span> <span class="ident">ByteOrder</span><span class="op">&gt;</span>::<span class="ident">write_u32</span>(
-                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>[(<span class="ident">idx</span> <span class="op">-</span> <span class="number">1</span>) <span class="op">*</span> <span class="number">4</span>..<span class="ident">idx</span> <span class="op">*</span> <span class="number">4</span>], <span class="ident">segments</span>[<span class="ident">idx</span>].<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>);
+                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>[(<span class="ident">idx</span> <span class="op">-</span> <span class="number">1</span>) <span class="op">*</span> <span class="number">4</span>..<span class="ident">idx</span> <span class="op">*</span> <span class="number">4</span>], <span class="ident">segments</span>.<span class="ident">get_segment</span>(<span class="ident">idx</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">unwrap</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>);
             }
             <span class="kw">if</span> <span class="ident">segment_count</span> <span class="op">==</span> <span class="number">2</span> {
                 <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">4</span>..<span class="number">8</span> { <span class="ident">buf</span>[<span class="ident">idx</span>] <span class="op">=</span> <span class="number">0</span> }
@@ -746,7 +759,7 @@
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; (<span class="ident">segment_count</span> <span class="op">&amp;</span> <span class="op">!</span><span class="number">1</span>) <span class="op">*</span> <span class="number">4</span>];
             <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">1</span>..<span class="ident">segment_count</span> {
                 <span class="op">&lt;</span><span class="ident">LittleEndian</span> <span class="kw">as</span> <span class="ident">ByteOrder</span><span class="op">&gt;</span>::<span class="ident">write_u32</span>(
-                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>[(<span class="ident">idx</span> <span class="op">-</span> <span class="number">1</span>) <span class="op">*</span> <span class="number">4</span>..<span class="ident">idx</span> <span class="op">*</span> <span class="number">4</span>], <span class="ident">segments</span>[<span class="ident">idx</span>].<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>);
+                    <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">buf</span>[(<span class="ident">idx</span> <span class="op">-</span> <span class="number">1</span>) <span class="op">*</span> <span class="number">4</span>..<span class="ident">idx</span> <span class="op">*</span> <span class="number">4</span>], <span class="ident">segments</span>.<span class="ident">get_segment</span>(<span class="ident">idx</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">unwrap</span>().<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>);
             }
             <span class="kw">if</span> <span class="ident">segment_count</span> <span class="op">%</span> <span class="number">2</span> <span class="op">==</span> <span class="number">0</span> {
                 <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> (<span class="ident">buf</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="number">4</span>)..(<span class="ident">buf</span>.<span class="ident">len</span>()) { <span class="ident">buf</span>[<span class="ident">idx</span>] <span class="op">=</span> <span class="number">0</span> }
@@ -758,18 +771,24 @@
 }
 
 <span class="doccomment">/// Writes segments to `write`.</span>
-<span class="kw">fn</span> <span class="ident">write_segments</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">segments</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[<span class="ident">Word</span>]]) <span class="op">-&gt;</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+<span class="kw">fn</span> <span class="ident">write_segments</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">R</span>: <span class="ident">message</span>::<span class="ident">ReaderSegments</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">segments</span>: <span class="kw-2">&amp;</span><span class="ident">R</span>) <span class="op">-&gt;</span> ::<span class="ident">std</span>::<span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
 <span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span> {
-    <span class="kw">for</span> <span class="ident">segment</span> <span class="kw">in</span> <span class="ident">segments</span> {
-        <span class="macro">try</span><span class="macro">!</span>(<span class="ident">write</span>.<span class="ident">write_all</span>(<span class="ident">Word</span>::<span class="ident">words_to_bytes</span>(<span class="ident">segment</span>)));
+    <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>.. {
+        <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">segment</span>) <span class="op">=</span> <span class="ident">segments</span>.<span class="ident">get_segment</span>(<span class="ident">i</span>) {
+            <span class="macro">try</span><span class="macro">!</span>(<span class="ident">write</span>.<span class="ident">write_all</span>(<span class="ident">Word</span>::<span class="ident">words_to_bytes</span>(<span class="ident">segment</span>)));
+        } <span class="kw">else</span> {
+            <span class="kw">break</span>;
+        }
     }
     <span class="prelude-val">Ok</span>(())
 }
 
-<span class="kw">fn</span> <span class="ident">compute_serialized_size</span>(<span class="ident">segments</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[<span class="ident">Word</span>]]) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+<span class="kw">fn</span> <span class="ident">compute_serialized_size</span><span class="op">&lt;</span><span class="ident">R</span>: <span class="ident">message</span>::<span class="ident">ReaderSegments</span> <span class="op">+</span> <span class="question-mark">?</span><span class="ident">Sized</span><span class="op">&gt;</span>(<span class="ident">segments</span>: <span class="kw-2">&amp;</span><span class="ident">R</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
     <span class="comment">// Table size</span>
-    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">size</span> <span class="op">=</span> (<span class="ident">segments</span>.<span class="ident">len</span>() <span class="op">/</span> <span class="number">2</span>) <span class="op">+</span> <span class="number">1</span>;
-    <span class="kw">for</span> <span class="ident">segment</span> <span class="kw">in</span> <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">segments</span> {
+    <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">segments</span>.<span class="ident">len</span>();
+    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">size</span> <span class="op">=</span> (<span class="ident">len</span> <span class="op">/</span> <span class="number">2</span>) <span class="op">+</span> <span class="number">1</span>;
+    <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">len</span> {
+        <span class="kw">let</span> <span class="ident">segment</span> <span class="op">=</span> <span class="ident">segments</span>.<span class="ident">get_segment</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">unwrap</span>();
         <span class="ident">size</span> <span class="op">+=</span> <span class="ident">segment</span>.<span class="ident">len</span>();
     }
     <span class="ident">size</span>
@@ -779,7 +798,7 @@
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">compute_serialized_size_in_words</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>(<span class="ident">message</span>: <span class="kw-2">&amp;</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">usize</span>
     <span class="kw">where</span> <span class="ident">A</span>: ::<span class="ident">message</span>::<span class="ident">Allocator</span>
 {
-    <span class="ident">compute_serialized_size</span>(<span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">message</span>.<span class="ident">get_segments_for_output</span>())
+    <span class="ident">compute_serialized_size</span>(<span class="kw-2">&amp;</span><span class="ident">message</span>.<span class="ident">get_segments_for_output</span>())
 }
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
@@ -799,7 +818,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_message_segments</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">segments</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Word</span><span class="op">&gt;&gt;</span>) <span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span> {
         <span class="kw">let</span> <span class="ident">borrowed_segments</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[<span class="ident">Word</span>]] <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">segments</span>.<span class="ident">iter</span>()
                                                      .<span class="ident">map</span>(<span class="op">|</span><span class="ident">segment</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">segment</span>[..])
-                                                     .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>()[..];
+                                                     .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>()[..];
         <span class="ident">write_segment_table</span>(<span class="ident">write</span>, <span class="ident">borrowed_segments</span>).<span class="ident">unwrap</span>();
         <span class="ident">write_segments</span>(<span class="ident">write</span>, <span class="ident">borrowed_segments</span>).<span class="ident">unwrap</span>();
     }
@@ -975,8 +994,8 @@
             <span class="kw">if</span> <span class="ident">segments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> { <span class="kw">return</span> <span class="ident">TestResult</span>::<span class="ident">discard</span>(); }
             <span class="kw">let</span> <span class="ident">borrowed_segments</span>: <span class="kw-2">&amp;</span>[<span class="kw-2">&amp;</span>[<span class="ident">Word</span>]] <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">segments</span>.<span class="ident">iter</span>()
                                                      .<span class="ident">map</span>(<span class="op">|</span><span class="ident">segment</span><span class="op">|</span> <span class="kw-2">&amp;</span><span class="ident">segment</span>[..])
-                                                     .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span>_<span class="op">&gt;&gt;</span>()[..];
-            <span class="kw">let</span> <span class="ident">words</span> <span class="op">=</span> <span class="ident">flatten_segments</span>(<span class="kw-2">&amp;</span><span class="ident">borrowed_segments</span>);
+                                                     .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>()[..];
+            <span class="kw">let</span> <span class="ident">words</span> <span class="op">=</span> <span class="ident">flatten_segments</span>(<span class="ident">borrowed_segments</span>);
             <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">read_message_from_words</span>(<span class="kw-2">&amp;</span><span class="ident">words</span>[..], <span class="ident">message</span>::<span class="ident">ReaderOptions</span>::<span class="ident">new</span>()).<span class="ident">unwrap</span>();
             <span class="kw">let</span> <span class="ident">result_segments</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">into_segments</span>();
 
@@ -989,64 +1008,4 @@
     }
 }
 </pre>
-</section>
-    <section id='search' class="content hidden"></section>
-
-    <section class="footer"></section>
-
-    <aside id="help" class="hidden">
-        <div>
-            <h1 class="hidden">Help</h1>
-
-            <div class="shortcuts">
-                <h2>Keyboard Shortcuts</h2>
-
-                <dl>
-                    <dt>?</dt>
-                    <dd>Show this help dialog</dd>
-                    <dt>S</dt>
-                    <dd>Focus the search field</dd>
-                    <dt>&larrb;</dt>
-                    <dd>Move up in search results</dd>
-                    <dt>&rarrb;</dt>
-                    <dd>Move down in search results</dd>
-                    <dt>&#9166;</dt>
-                    <dd>Go to active search result</dd>
-                    <dt>+</dt>
-                    <dd>Collapse/expand all sections</dd>
-                </dl>
-            </div>
-
-            <div class="infos">
-                <h2>Search Tricks</h2>
-
-                <p>
-                    Prefix searches with a type followed by a colon (e.g.
-                    <code>fn:</code>) to restrict the search to a given type.
-                </p>
-
-                <p>
-                    Accepted types are: <code>fn</code>, <code>mod</code>,
-                    <code>struct</code>, <code>enum</code>,
-                    <code>trait</code>, <code>type</code>, <code>macro</code>,
-                    and <code>const</code>.
-                </p>
-
-                <p>
-                    Search functions by type signature (e.g.
-                    <code>vec -> usize</code> or <code>* -> vec</code>)
-                </p>
-            </div>
-        </div>
-    </aside>
-
-    
-
-    <script>
-        window.rootPath = "../../";
-        window.currentCrate = "capnp";
-    </script>
-    <script src="../../main.js"></script>
-    <script defer src="../../search-index.js"></script>
-</body>
-</html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../";window.currentCrate = "capnp";</script><script src="../../aliases.js"></script><script src="../../main.js"></script><script defer src="../../search-index.js"></script></body></html>

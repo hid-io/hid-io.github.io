@@ -1,0 +1,1 @@
+initSidebarItems({"fn":[["initialize","TODO capnproto server Cap'n'Proto API Initialization Sets up a localhost socket to deal with localhost-only API usages Requires TLS TODO Some API usages may require external authentication to validate trustworthiness"]]});
