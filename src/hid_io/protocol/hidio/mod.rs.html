@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/protocol/hidio/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script src="../../../../storage.js"></script></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `src/protocol/hidio/mod.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>mod.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../../light.css" id="themeStyle"><script src="../../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../../hid_io/index.html'><img src='../../../../rust-logo.png' alt='logo' width='100'></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../../settings.html"><img src="../../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -793,6 +793,84 @@
 <span id="793">793</span>
 <span id="794">794</span>
 <span id="795">795</span>
+<span id="796">796</span>
+<span id="797">797</span>
+<span id="798">798</span>
+<span id="799">799</span>
+<span id="800">800</span>
+<span id="801">801</span>
+<span id="802">802</span>
+<span id="803">803</span>
+<span id="804">804</span>
+<span id="805">805</span>
+<span id="806">806</span>
+<span id="807">807</span>
+<span id="808">808</span>
+<span id="809">809</span>
+<span id="810">810</span>
+<span id="811">811</span>
+<span id="812">812</span>
+<span id="813">813</span>
+<span id="814">814</span>
+<span id="815">815</span>
+<span id="816">816</span>
+<span id="817">817</span>
+<span id="818">818</span>
+<span id="819">819</span>
+<span id="820">820</span>
+<span id="821">821</span>
+<span id="822">822</span>
+<span id="823">823</span>
+<span id="824">824</span>
+<span id="825">825</span>
+<span id="826">826</span>
+<span id="827">827</span>
+<span id="828">828</span>
+<span id="829">829</span>
+<span id="830">830</span>
+<span id="831">831</span>
+<span id="832">832</span>
+<span id="833">833</span>
+<span id="834">834</span>
+<span id="835">835</span>
+<span id="836">836</span>
+<span id="837">837</span>
+<span id="838">838</span>
+<span id="839">839</span>
+<span id="840">840</span>
+<span id="841">841</span>
+<span id="842">842</span>
+<span id="843">843</span>
+<span id="844">844</span>
+<span id="845">845</span>
+<span id="846">846</span>
+<span id="847">847</span>
+<span id="848">848</span>
+<span id="849">849</span>
+<span id="850">850</span>
+<span id="851">851</span>
+<span id="852">852</span>
+<span id="853">853</span>
+<span id="854">854</span>
+<span id="855">855</span>
+<span id="856">856</span>
+<span id="857">857</span>
+<span id="858">858</span>
+<span id="859">859</span>
+<span id="860">860</span>
+<span id="861">861</span>
+<span id="862">862</span>
+<span id="863">863</span>
+<span id="864">864</span>
+<span id="865">865</span>
+<span id="866">866</span>
+<span id="867">867</span>
+<span id="868">868</span>
+<span id="869">869</span>
+<span id="870">870</span>
+<span id="871">871</span>
+<span id="872">872</span>
+<span id="873">873</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">/* Copyright (C) 2017-2018 by Jacob Alexander
  *
@@ -812,19 +890,15 @@
 
 <span class="comment">// ----- Crates -----</span>
 
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">bincode</span>;
-<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">serde</span>;
-
-
+<span class="kw">use</span> <span class="ident">bincode</span>;
+<span class="kw">use</span> <span class="ident">serde</span>;
 
 <span class="comment">// ----- Modules -----</span>
 
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">fmt</span>;
 
 <span class="kw">use</span> <span class="self">self</span>::<span class="ident">bincode</span>::<span class="ident">serialize</span>;
-<span class="kw">use</span> <span class="self">self</span>::<span class="ident">serde</span>::<span class="ident">ser</span>::{<span class="self">self</span>, <span class="ident">Serialize</span>, <span class="ident">Serializer</span>, <span class="ident">SerializeSeq</span>};
-
-
+<span class="kw">use</span> <span class="self">self</span>::<span class="ident">serde</span>::<span class="ident">ser</span>::{<span class="self">self</span>, <span class="ident">Serialize</span>, <span class="ident">SerializeSeq</span>, <span class="ident">Serializer</span>};
 
 <span class="comment">// ----- Enumerations -----</span>
 
@@ -832,21 +906,77 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Remarks</span>
 <span class="doccomment">/// Must not be larger than 0x7, 5-7 are reserved.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">HIDIOPacketType</span> {
     <span class="doccomment">/// Data packet</span>
-    <span class="ident">Data</span>      <span class="op">=</span> <span class="number">0</span>,
+    <span class="ident">Data</span> <span class="op">=</span> <span class="number">0</span>,
     <span class="doccomment">/// ACK packet</span>
-    <span class="ident">ACK</span>       <span class="op">=</span> <span class="number">1</span>,
+    <span class="ident">ACK</span> <span class="op">=</span> <span class="number">1</span>,
     <span class="doccomment">/// NAK packet</span>
-    <span class="ident">NAK</span>       <span class="op">=</span> <span class="number">2</span>,
+    <span class="ident">NAK</span> <span class="op">=</span> <span class="number">2</span>,
     <span class="doccomment">/// Sync packet</span>
-    <span class="ident">Sync</span>      <span class="op">=</span> <span class="number">3</span>,
+    <span class="ident">Sync</span> <span class="op">=</span> <span class="number">3</span>,
     <span class="doccomment">/// Continued packet</span>
     <span class="ident">Continued</span> <span class="op">=</span> <span class="number">4</span>,
 }
 
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u16</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
+<span class="doccomment">/// Requests for to perform a specific action</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">HIDIOCommandID</span> {
+    <span class="ident">SupportedIDs</span> <span class="op">=</span> <span class="number">0x00</span>,
+    <span class="ident">GetInfo</span> <span class="op">=</span> <span class="number">0x01</span>,
+    <span class="ident">TestPacket</span> <span class="op">=</span> <span class="number">0x02</span>,
+    <span class="ident">ResetHIDIO</span> <span class="op">=</span> <span class="number">0x03</span>,
+    <span class="ident">Reserved</span> <span class="op">=</span> <span class="number">0x04</span>, <span class="comment">// ... 0x0F</span>
+    <span class="ident">GetProperties</span> <span class="op">=</span> <span class="number">0x10</span>,
+    <span class="ident">KeyState</span> <span class="op">=</span> <span class="number">0x11</span>,
+    <span class="ident">KeyboardLayout</span> <span class="op">=</span> <span class="number">0x12</span>,
+    <span class="ident">KeyLayout</span> <span class="op">=</span> <span class="number">0x13</span>,
+    <span class="ident">KeyShapes</span> <span class="op">=</span> <span class="number">0x14</span>,
+    <span class="ident">LEDLayout</span> <span class="op">=</span> <span class="number">0x15</span>,
+    <span class="ident">FlashMode</span> <span class="op">=</span> <span class="number">0x16</span>,
+    <span class="ident">UnicodeText</span> <span class="op">=</span> <span class="number">0x17</span>,
+    <span class="ident">UnicodeKey</span> <span class="op">=</span> <span class="number">0x18</span>,
+    <span class="ident">HostMacro</span> <span class="op">=</span> <span class="number">0x19</span>,
+    <span class="ident">KLLState</span> <span class="op">=</span> <span class="number">0x20</span>,
+    <span class="ident">PixelSetting</span> <span class="op">=</span> <span class="number">0x21</span>,
+    <span class="ident">PixelSet1c8b</span> <span class="op">=</span> <span class="number">0x22</span>,
+    <span class="ident">PixelSet3c8b</span> <span class="op">=</span> <span class="number">0x23</span>,
+    <span class="ident">PixelSet1c16b</span> <span class="op">=</span> <span class="number">0x24</span>,
+    <span class="ident">PixelSet3c16b</span> <span class="op">=</span> <span class="number">0x25</span>,
 
+    <span class="comment">// Unnoficial</span>
+    <span class="ident">OpenURL</span> <span class="op">=</span> <span class="number">0x30</span>,
+    <span class="ident">Terminal</span> <span class="op">=</span> <span class="number">0x31</span>,
+    <span class="ident">InputLayout</span> <span class="op">=</span> <span class="number">0x32</span>,
+}
+
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u8</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
+<span class="doccomment">/// Requests for a specific piece of info</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">HIDIOPropertyID</span> {
+    <span class="ident">HIDIOMajor</span> <span class="op">=</span> <span class="number">0x00</span>,
+    <span class="ident">HIDIOMinor</span> <span class="op">=</span> <span class="number">0x01</span>,
+    <span class="ident">HIDIOPatch</span> <span class="op">=</span> <span class="number">0x02</span>,
+    <span class="ident">HostOS</span> <span class="op">=</span> <span class="number">0x03</span>,
+    <span class="ident">OSVersion</span> <span class="op">=</span> <span class="number">0x04</span>,
+    <span class="ident">HostName</span> <span class="op">=</span> <span class="number">0x05</span>,
+    <span class="ident">InputLayout</span> <span class="op">=</span> <span class="number">0x06</span>,
+}
+
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">u8</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Clone</span>, <span class="ident">Copy</span>, <span class="ident">Debug</span>)]</span>
+<span class="doccomment">/// Platforms as a numeric id</span>
+<span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">HostOSID</span> {
+    <span class="ident">Unknown</span> <span class="op">=</span> <span class="number">0x00</span>,
+    <span class="ident">Windows</span> <span class="op">=</span> <span class="number">0x01</span>,
+    <span class="ident">Linux</span> <span class="op">=</span> <span class="number">0x02</span>,
+    <span class="ident">Android</span> <span class="op">=</span> <span class="number">0x03</span>,
+    <span class="ident">Mac</span> <span class="op">=</span> <span class="number">0x04</span>,
+    <span class="ident">IOS</span> <span class="op">=</span> <span class="number">0x05</span>,
+    <span class="ident">ChromeOS</span> <span class="op">=</span> <span class="number">0x06</span>,
+}
 
 <span class="comment">// ----- Structs -----</span>
 
@@ -854,27 +984,27 @@
 <span class="doccomment">///</span>
 <span class="doccomment">/// # Remarks</span>
 <span class="doccomment">/// Used to store HID-IO data chunks. Will be chunked into individual packets on transmission.</span>
-<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Clone</span>)]</span>
+<span class="attribute">#[<span class="ident">repr</span>(<span class="ident">C</span>)]</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">PartialEq</span>, <span class="ident">Clone</span>, <span class="ident">Debug</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HIDIOPacketBuffer</span> {
     <span class="doccomment">/// Type of packet (Continued is automatically set if needed)</span>
-    <span class="kw">pub</span> <span class="ident">ptype</span>:   <span class="ident">HIDIOPacketType</span>,
+    <span class="kw">pub</span> <span class="ident">ptype</span>: <span class="ident">HIDIOPacketType</span>,
     <span class="doccomment">/// Packet Id</span>
-    <span class="kw">pub</span> <span class="ident">id</span>:      <span class="ident">u32</span>,
+    <span class="kw">pub</span> <span class="ident">id</span>: <span class="ident">u32</span>,
     <span class="doccomment">/// Packet length for serialization (in bytes)</span>
     <span class="kw">pub</span> <span class="ident">max_len</span>: <span class="ident">u32</span>,
     <span class="doccomment">/// Payload data, chunking is done automatically by serializer</span>
-    <span class="kw">pub</span> <span class="ident">data</span>:    <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">data</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>,
     <span class="doccomment">/// Set False if buffer is not complete, True if it is</span>
-    <span class="kw">pub</span> <span class="ident">done</span>:    <span class="ident">bool</span>,
+    <span class="kw">pub</span> <span class="ident">done</span>: <span class="ident">bool</span>,
 }
 
 <span class="doccomment">/// HID-IO Parse Error</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// # Remarks thrown when there&#39;s an issue processing byte stream.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HIDIOParseError</span> {
-}
-
-
+<span class="doccomment">/// # Remarks</span>
+<span class="doccomment">/// thrown when there&#39;s an issue processing byte stream.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Debug</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HIDIOParseError</span> {}
 
 <span class="comment">// ----- Utility Functions -----</span>
 
@@ -887,7 +1017,7 @@
 <span class="doccomment">/// Uses a packet byte stream to determine the packet type.</span>
 <span class="doccomment">/// First three bits of data stream are used (from C-Struct):</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
+<span class="doccomment">/// ```c</span>
 <span class="doccomment">/// struct HIDIO_Packet {</span>
 <span class="doccomment">///    HIDIO_Packet_Type type:3;</span>
 <span class="doccomment">///    ...</span>
@@ -898,7 +1028,7 @@
 
     <span class="comment">// Check if the byte stream is large enough</span>
     <span class="kw">if</span> <span class="ident">packet_data_len</span> <span class="op">&lt;</span> <span class="number">1</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{});
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {});
     }
 
     <span class="comment">// Extract first 3 bits from first byte</span>
@@ -911,7 +1041,7 @@
         <span class="number">2</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">HIDIOPacketType</span>::<span class="ident">NAK</span>),
         <span class="number">3</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span>),
         <span class="number">4</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span>),
-        <span class="kw">_</span> <span class="op">=&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{}),
+        <span class="kw">_</span> <span class="op">=&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {}),
     }
 }
 
@@ -925,7 +1055,7 @@
 <span class="doccomment">/// This length does not include the first 2 packet bytes in the overall packet length.</span>
 <span class="doccomment">/// The length does include the bytes used for the packet Id.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
+<span class="doccomment">/// ```c</span>
 <span class="doccomment">/// struct HIDIO_Packet {</span>
 <span class="doccomment">///    ... (6 bits)</span>
 <span class="doccomment">///    uint8_t           upper_len:2; // Upper 2 bits of length field (generally unused)</span>
@@ -937,12 +1067,12 @@
 
     <span class="comment">// Check if the byte stream is large enough</span>
     <span class="kw">if</span> <span class="ident">packet_data_len</span> <span class="op">&lt;</span> <span class="number">2</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{});
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {});
     }
 
     <span class="comment">// Extract upper_len and len</span>
-    <span class="kw">let</span> <span class="ident">upper_len</span> <span class="op">=</span> (<span class="ident">packet_data</span>[<span class="number">0</span>] <span class="op">&amp;</span> <span class="number">0x3</span>) <span class="kw">as</span> <span class="ident">u32</span>;
-    <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">packet_data</span>[<span class="number">1</span>] <span class="kw">as</span> <span class="ident">u32</span>;
+    <span class="kw">let</span> <span class="ident">upper_len</span> <span class="op">=</span> <span class="ident">u32</span>::<span class="ident">from</span>(<span class="ident">packet_data</span>[<span class="number">0</span>] <span class="op">&amp;</span> <span class="number">0x3</span>);
+    <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">u32</span>::<span class="ident">from</span>(<span class="ident">packet_data</span>[<span class="number">1</span>]);
 
     <span class="comment">// Merge</span>
     <span class="kw">let</span> <span class="ident">payload_len</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="ident">upper_len</span> <span class="op">&lt;&lt;</span> <span class="number">8</span> <span class="op">|</span> <span class="ident">len</span>;
@@ -958,7 +1088,7 @@
 <span class="doccomment">/// # Remarks</span>
 <span class="doccomment">/// Uses a packet byte stream to determine packet id_width.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
+<span class="doccomment">/// ```c</span>
 <span class="doccomment">/// struct HIDIO_Packet {</span>
 <span class="doccomment">///    ... (4 bits)</span>
 <span class="doccomment">///    uint8_t           id_width:1;  // 0 - 16bits, 1 - 32bits</span>
@@ -969,14 +1099,14 @@
 
     <span class="comment">// Check if the byte stream is large enough</span>
     <span class="kw">if</span> <span class="ident">packet_data_len</span> <span class="op">&lt;</span> <span class="number">2</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{});
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {});
     }
 
     <span class="comment">// Extract id_width</span>
     <span class="kw">match</span> <span class="ident">packet_data</span>[<span class="number">0</span>] <span class="op">&amp;</span> <span class="number">0x08</span> {
         <span class="number">0x00</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="number">2</span>), <span class="comment">// 16 bit</span>
         <span class="number">0x08</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="number">4</span>), <span class="comment">// 32 bit</span>
-        <span class="kw">_</span> <span class="op">=&gt;</span>    <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{}),
+        <span class="kw">_</span> <span class="op">=&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {}),
     }
 }
 
@@ -988,7 +1118,7 @@
 <span class="doccomment">/// # Remarks</span>
 <span class="doccomment">/// Uses a packet byte stream to determine packet Id.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
+<span class="doccomment">/// ```c</span>
 <span class="doccomment">/// struct HIDIO_Packet {</span>
 <span class="doccomment">///    ... (4 bits)</span>
 <span class="doccomment">///    uint8_t           id_width:1;  // 0 - 16bits, 1 - 32bits</span>
@@ -1004,19 +1134,19 @@
 
     <span class="comment">// Make sure there are enough possible bytes</span>
     <span class="kw">if</span> <span class="ident">payload_len</span>(<span class="ident">packet_data</span>)<span class="question-mark">?</span> <span class="op">&lt;</span> <span class="ident">id_width</span> <span class="kw">as</span> <span class="ident">u32</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{});
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {});
     }
 
     <span class="comment">// Make sure there enough actual bytes</span>
     <span class="kw">if</span> <span class="ident">packet_data_len</span> <span class="op">&lt;</span> <span class="ident">id_width</span> <span class="op">+</span> <span class="number">2</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{});
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {});
     }
 
     <span class="comment">// Iterate over bytes, constructing Id of either 16 or 32 bit width</span>
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">id</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0</span>;
     <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="number">2</span>;
-    <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">id_width</span> <span class="kw">as</span> <span class="ident">usize</span> {
-        <span class="ident">id</span> <span class="op">|=</span> (<span class="ident">packet_data</span>[<span class="ident">offset</span> <span class="op">+</span> <span class="ident">idx</span>] <span class="kw">as</span> <span class="ident">u32</span>) <span class="op">&lt;&lt;</span> (<span class="ident">idx</span> <span class="op">*</span> <span class="number">8</span>);
+    <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">id_width</span> <span class="kw">as</span> <span class="ident">usize</span> {
+        <span class="ident">id</span> <span class="op">|=</span> <span class="ident">u32</span>::<span class="ident">from</span>(<span class="ident">packet_data</span>[<span class="ident">offset</span> <span class="op">+</span> <span class="ident">idx</span>]) <span class="op">&lt;&lt;</span> (<span class="ident">idx</span> <span class="op">*</span> <span class="number">8</span>);
     }
 
     <span class="prelude-val">Ok</span>(<span class="ident">id</span>)
@@ -1030,7 +1160,7 @@
 <span class="doccomment">/// # Remarks</span>
 <span class="doccomment">/// Uses a packet byte stream to determine cont field.</span>
 <span class="doccomment">///</span>
-<span class="doccomment">/// ```</span>
+<span class="doccomment">/// ```c</span>
 <span class="doccomment">/// struct HIDIO_Packet {</span>
 <span class="doccomment">///    ... (3 bits)</span>
 <span class="doccomment">///    uint8_t           cont:1;      // 0 - Only packet, 1 continued packet following</span>
@@ -1041,7 +1171,7 @@
 
     <span class="comment">// Check if the byte stream is large enough</span>
     <span class="kw">if</span> <span class="ident">packet_data_len</span> <span class="op">&lt;</span> <span class="number">1</span> {
-        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{});
+        <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {});
     }
 
     <span class="comment">// Extract cont field</span>
@@ -1049,7 +1179,7 @@
     <span class="kw">match</span> <span class="ident">packet_data</span>[<span class="number">0</span>] <span class="op">&amp;</span> <span class="number">0x10</span> {
         <span class="number">0x10</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="bool-val">true</span>),
         <span class="number">0x00</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="bool-val">false</span>),
-        <span class="kw">_</span> <span class="op">=&gt;</span>    <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{}),
+        <span class="kw">_</span> <span class="op">=&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {}),
     }
 }
 
@@ -1075,9 +1205,19 @@
     <span class="prelude-val">Ok</span>(<span class="number">2</span> <span class="op">+</span> <span class="ident">id_width</span> <span class="kw">as</span> <span class="ident">usize</span>)
 }
 
-
-
 <span class="comment">// ----- Implementations -----</span>
+
+<span class="kw">impl</span> <span class="ident">Default</span> <span class="kw">for</span> <span class="ident">HIDIOPacketBuffer</span> {
+    <span class="kw">fn</span> <span class="ident">default</span>() <span class="op">-&gt;</span> <span class="self">Self</span> {
+        <span class="ident">HIDIOPacketBuffer</span> {
+            <span class="ident">ptype</span>: <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
+            <span class="ident">id</span>: <span class="number">0</span>,
+            <span class="ident">max_len</span>: <span class="number">0</span>,
+            <span class="ident">data</span>: <span class="macro">vec</span><span class="macro">!</span>[],
+            <span class="ident">done</span>: <span class="bool-val">false</span>,
+        }
+    }
+}
 
 <span class="kw">impl</span> <span class="ident">HIDIOPacketBuffer</span> {
     <span class="doccomment">/// Constructor for HIDIOPacketBuffer</span>
@@ -1086,11 +1226,7 @@
     <span class="doccomment">/// Initialize as blank</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>() <span class="op">-&gt;</span> <span class="ident">HIDIOPacketBuffer</span> {
         <span class="ident">HIDIOPacketBuffer</span> {
-            <span class="ident">ptype</span>:   <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
-            <span class="ident">id</span>:      <span class="number">0</span>,
-            <span class="ident">max_len</span>: <span class="number">0</span>,
-            <span class="ident">data</span>:    <span class="macro">vec</span><span class="macro">!</span>[],
-            <span class="ident">done</span>:    <span class="bool-val">false</span>,
+            ..<span class="ident">Default</span>::<span class="ident">default</span>()
         }
     }
 
@@ -1139,7 +1275,11 @@
 
         <span class="comment">// Make sure there&#39;s actually payload_len available</span>
         <span class="kw">if</span> <span class="ident">packet_data_len</span> <span class="op">-</span> <span class="number">2</span> <span class="op">&lt;</span> <span class="ident">payload_len</span> {
-            <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Dropping. Not enough bytes available in packet stream. got:{}, expected:{}&quot;</span>, <span class="ident">packet_data_len</span> <span class="op">-</span> <span class="number">2</span>, <span class="ident">payload_len</span>);
+            <span class="macro">warn</span><span class="macro">!</span>(
+                <span class="string">&quot;Dropping. Not enough bytes available in packet stream. got:{}, expected:{}&quot;</span>,
+                <span class="ident">packet_data_len</span> <span class="op">-</span> <span class="number">2</span>,
+                <span class="ident">payload_len</span>
+            );
             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">packet_data_len</span>);
         }
 
@@ -1148,7 +1288,7 @@
 
         <span class="comment">// Is this a new packet?</span>
         <span class="comment">// More information to set, if initializing buffer</span>
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">ptype</span> <span class="op">!=</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">ptype</span> <span class="op">!=</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> {
             <span class="comment">// Set packet type</span>
             <span class="self">self</span>.<span class="ident">ptype</span> <span class="op">=</span> <span class="ident">ptype</span>;
 
@@ -1158,13 +1298,13 @@
         <span class="comment">// Make sure the current buffer matches what we&#39;re expecting</span>
         } <span class="kw">else</span> {
             <span class="comment">// Check for invalid packet type</span>
-            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">ptype</span> <span class="op">==</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> {
+            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">ptype</span> <span class="op">==</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> {
                 <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Dropping. Invalid packet type when initializing buffer, HIDIOPacketType::Continued&quot;</span>);
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">packet_len</span>);
             }
 
             <span class="comment">// Check if not a continued packet, and we have a payload</span>
-            <span class="kw">if</span> <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">ptype</span> <span class="op">!=</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> {
+            <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">data</span>.<span class="ident">is_empty</span>() <span class="op">&amp;&amp;</span> <span class="ident">ptype</span> <span class="op">!=</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> {
                 <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Dropping. Invalid packet type (non-HIDIOPacketType::Continued) on a already initialized buffer&quot;</span>);
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">packet_len</span>);
             }
@@ -1186,7 +1326,8 @@
         <span class="self">self</span>.<span class="ident">done</span> <span class="op">=</span> <span class="op">!</span><span class="ident">continued_packet</span>(<span class="ident">packet_data</span>)<span class="question-mark">?</span>;
 
         <span class="comment">// Add payload</span>
-        <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">packet_data</span>[<span class="ident">payload_start</span> .. <span class="ident">payload_start</span> <span class="op">+</span> <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">-</span> <span class="ident">id_width_len</span>];
+        <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span>
+            <span class="kw-2">&amp;</span><span class="ident">packet_data</span>[<span class="ident">payload_start</span>..<span class="ident">payload_start</span> <span class="op">+</span> <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">-</span> <span class="ident">id_width_len</span>];
         <span class="self">self</span>.<span class="ident">data</span>.<span class="ident">append</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">slice</span>.<span class="ident">to_vec</span>());
 
         <span class="comment">// Finished</span>
@@ -1204,11 +1345,11 @@
 
         <span class="comment">// Make sure serialization worked</span>
         <span class="kw">if</span> <span class="ident">serialized</span>.<span class="ident">len</span>() <span class="op">&lt;</span> <span class="number">10</span> {
-            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span>{});
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">HIDIOParseError</span> {});
         }
 
         <span class="comment">// Slice off the first 8 header bytes from serde</span>
-        <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">serialized</span>[<span class="number">8</span> .. ];
+        <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">serialized</span>[<span class="number">8</span>..];
         <span class="kw">let</span> <span class="ident">serialized</span> <span class="op">=</span> <span class="ident">slice</span>.<span class="ident">to_vec</span>();
 
         <span class="prelude-val">Ok</span>(<span class="ident">serialized</span>)
@@ -1222,7 +1363,7 @@
     <span class="doccomment">/// Determine cont, width, upper_len and len fields</span>
     <span class="doccomment">/// According to this C-Struct:</span>
     <span class="doccomment">///</span>
-    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// ```c</span>
     <span class="doccomment">/// struct HIDIO_Packet {</span>
     <span class="doccomment">///    HIDIO_Packet_Type type:3;</span>
     <span class="doccomment">///    uint8_t           cont:1;      // 0 - Only packet, 1 continued packet following</span>
@@ -1233,7 +1374,10 @@
     <span class="doccomment">///    uint8_t           data[0];     // Start of data payload (may start with Id)</span>
     <span class="doccomment">/// };</span>
     <span class="doccomment">/// ```</span>
-    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">S</span>: <span class="ident">Serializer</span> {
+    <span class="kw">fn</span> <span class="ident">serialize</span><span class="op">&lt;</span><span class="ident">S</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">serializer</span>: <span class="ident">S</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">S</span>::<span class="prelude-val">Ok</span>, <span class="ident">S</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+    <span class="kw">where</span>
+        <span class="ident">S</span>: <span class="ident">Serializer</span>,
+    {
         <span class="comment">// Check if buffer is ready to serialize</span>
         <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">done</span> {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">ser</span>::<span class="ident">Error</span>::<span class="ident">custom</span>(<span class="string">&quot;HIDIOPacketBuffer is not &#39;done&#39;&quot;</span>));
@@ -1242,10 +1386,9 @@
         <span class="comment">// --- First Packet ---</span>
 
         <span class="comment">// Determine id_width</span>
-        <span class="kw">let</span> <span class="ident">id_width</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="kw">match</span> (<span class="kw-2">&amp;</span><span class="self">self</span>).<span class="ident">id</span> {
-            <span class="number">0x00</span>...<span class="number">0xFFFF</span> <span class="op">=&gt;</span>         <span class="number">0</span>, <span class="comment">// 16 bit Id</span>
-            <span class="number">0x010000</span>...<span class="number">0xFFFFFFFF</span> <span class="op">=&gt;</span> <span class="number">1</span>, <span class="comment">// 32 bit Id</span>
-            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="number">0</span>,
+        <span class="kw">let</span> <span class="ident">id_width</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">id</span> {
+            <span class="number">0x00</span>..=<span class="number">0xFFFF</span> <span class="op">=&gt;</span> <span class="number">0</span>,           <span class="comment">// 16 bit Id</span>
+            <span class="number">0x01_0000</span>..=<span class="number">0xFFFF_FFFF</span> <span class="op">=&gt;</span> <span class="number">1</span>, <span class="comment">// 32 bit Id</span>
         };
 
         <span class="comment">// Determine id_width_len</span>
@@ -1259,7 +1402,7 @@
         <span class="kw">let</span> <span class="ident">hdr_len</span> <span class="op">=</span> <span class="number">2</span> <span class="op">+</span> <span class="ident">id_width_len</span>; <span class="comment">// 1 byte for header, 1 byte for len, id_width_len for Id</span>
 
         <span class="comment">// Determine payload max length, initial and continued packets</span>
-        <span class="kw">let</span> <span class="ident">payload_len</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">max_len</span> <span class="op">-</span> <span class="ident">hdr_len</span> <span class="kw">as</span> <span class="ident">u32</span>;
+        <span class="kw">let</span> <span class="ident">payload_len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">max_len</span> <span class="op">-</span> <span class="ident">u32</span>::<span class="ident">from</span>(<span class="ident">hdr_len</span>);
 
         <span class="comment">// Data length</span>
         <span class="kw">let</span> <span class="ident">data_len</span> <span class="op">=</span> (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>).<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span>;
@@ -1268,11 +1411,12 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cont</span>: <span class="ident">bool</span> <span class="op">=</span> <span class="ident">data_len</span> <span class="op">&gt;</span> <span class="ident">payload_len</span>;
 
         <span class="comment">// Determine packet len</span>
-        <span class="kw">let</span> <span class="ident">packet_len</span>: <span class="ident">u16</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">cont</span> {
+        <span class="kw">let</span> <span class="ident">packet_len</span>: <span class="ident">u16</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cont</span> {
             <span class="comment">// Full payload length</span>
-            <span class="bool-val">true</span>  <span class="op">=&gt;</span> <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">+</span> <span class="ident">id_width_len</span> <span class="kw">as</span> <span class="ident">u16</span>,
+            <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">+</span> <span class="ident">u16</span>::<span class="ident">from</span>(<span class="ident">id_width_len</span>)
+        } <span class="kw">else</span> {
             <span class="comment">// Calculate payload length with what&#39;s left</span>
-            <span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="ident">data_len</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">+</span> <span class="ident">id_width_len</span> <span class="kw">as</span> <span class="ident">u16</span>,
+            <span class="ident">data_len</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">+</span> <span class="ident">u16</span>::<span class="ident">from</span>(<span class="ident">id_width_len</span>)
         };
 
         <span class="comment">// Determine upper_len and len fields</span>
@@ -1280,18 +1424,18 @@
         <span class="kw">let</span> <span class="ident">len</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="ident">packet_len</span> <span class="kw">as</span> <span class="ident">u8</span>;
 
         <span class="comment">// Determine ptype</span>
-        <span class="kw">let</span> <span class="ident">ptype</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="kw">match</span> (<span class="kw-2">&amp;</span><span class="self">self</span>).<span class="ident">ptype</span> {
-            <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>      <span class="op">=&gt;</span> <span class="number">0</span>,
-            <span class="ident">HIDIOPacketType</span>::<span class="ident">ACK</span>       <span class="op">=&gt;</span> <span class="number">1</span>,
-            <span class="ident">HIDIOPacketType</span>::<span class="ident">NAK</span>       <span class="op">=&gt;</span> <span class="number">2</span>,
-            <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span>      <span class="op">=&gt;</span> <span class="number">3</span>,
+        <span class="kw">let</span> <span class="ident">ptype</span>: <span class="ident">u8</span> <span class="op">=</span> <span class="kw">match</span> <span class="self">self</span>.<span class="ident">ptype</span> {
+            <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span> <span class="op">=&gt;</span> <span class="number">0</span>,
+            <span class="ident">HIDIOPacketType</span>::<span class="ident">ACK</span> <span class="op">=&gt;</span> <span class="number">1</span>,
+            <span class="ident">HIDIOPacketType</span>::<span class="ident">NAK</span> <span class="op">=&gt;</span> <span class="number">2</span>,
+            <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span> <span class="op">=&gt;</span> <span class="number">3</span>,
             <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> <span class="op">=&gt;</span> <span class="number">4</span>,
         };
 
         <span class="comment">// Convert Id into bytes</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">id_vec</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
-        <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">0</span> .. <span class="ident">id_width_len</span> {
-            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> ((<span class="kw-2">&amp;</span><span class="self">self</span>).<span class="ident">id</span> <span class="op">&gt;&gt;</span> <span class="ident">idx</span> <span class="op">*</span> <span class="number">8</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+        <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">id_width_len</span> {
+            <span class="kw">let</span> <span class="ident">id</span> <span class="op">=</span> (<span class="self">self</span>.<span class="ident">id</span> <span class="op">&gt;&gt;</span> (<span class="ident">idx</span> <span class="op">*</span> <span class="number">8</span>)) <span class="kw">as</span> <span class="ident">u8</span>;
             <span class="ident">id_vec</span>.<span class="ident">push</span>(<span class="ident">id</span>);
         }
 
@@ -1304,12 +1448,13 @@
             <span class="comment">// id_width - 1 bit</span>
             (<span class="ident">id_width</span> <span class="op">&lt;&lt;</span> <span class="number">3</span>) <span class="op">|</span>
             <span class="comment">// reserved - 1 bit</span>
-            (<span class="number">0</span> <span class="op">&lt;&lt;</span> <span class="number">2</span>) <span class="op">|</span>
+            <span class="comment">// (0 &lt;&lt; 2) |</span>
             <span class="comment">// upper_len - 2 bits</span>
             (<span class="ident">upper_len</span> <span class="op">&amp;</span> <span class="number">0x3</span>);
 
         <span class="comment">// Calculate total length of serialized output</span>
-        <span class="kw">let</span> <span class="ident">serialized_len</span> <span class="op">=</span> ( <span class="ident">data_len</span> <span class="op">/</span> <span class="ident">payload_len</span> ) <span class="op">*</span> <span class="ident">payload_len</span> <span class="op">+</span> <span class="ident">data_len</span> <span class="op">%</span> <span class="ident">payload_len</span> <span class="op">+</span> <span class="ident">hdr_len</span> <span class="kw">as</span> <span class="ident">u32</span>;
+        <span class="kw">let</span> <span class="ident">serialized_len</span> <span class="op">=</span>
+            (<span class="ident">data_len</span> <span class="op">/</span> <span class="ident">payload_len</span>) <span class="op">*</span> <span class="ident">payload_len</span> <span class="op">+</span> <span class="ident">data_len</span> <span class="op">%</span> <span class="ident">payload_len</span> <span class="op">+</span> <span class="ident">u32</span>::<span class="ident">from</span>(<span class="ident">hdr_len</span>);
 
         <span class="comment">// Serialize as a sequence</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">serializer</span>.<span class="ident">serialize_seq</span>(<span class="prelude-val">Some</span>(<span class="ident">serialized_len</span> <span class="kw">as</span> <span class="ident">usize</span>))<span class="question-mark">?</span>;
@@ -1332,11 +1477,12 @@
 
         <span class="comment">// Serialize payload data</span>
         <span class="comment">// We can&#39;t just serialize directly (extra info is included), serialize each element of vector separately</span>
-        <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">cont</span> {
+        <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cont</span> {
             <span class="comment">// Full payload length</span>
-            <span class="bool-val">true</span> <span class="op">=&gt;</span>  <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="number">0</span> .. <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">usize</span>],
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="number">0</span>..<span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">usize</span>]
+        } <span class="kw">else</span> {
             <span class="comment">// Payload that&#39;s available</span>
-            <span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="number">0</span> .. <span class="ident">data_len</span> <span class="kw">as</span> <span class="ident">usize</span>],
+            <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="number">0</span>..<span class="ident">data_len</span> <span class="kw">as</span> <span class="ident">usize</span>]
         };
         <span class="kw">for</span> <span class="ident">elem</span> <span class="kw">in</span> <span class="ident">slice</span> {
             <span class="ident">state</span>.<span class="ident">serialize_element</span>(<span class="ident">elem</span>)<span class="question-mark">?</span>;
@@ -1351,7 +1497,6 @@
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">payload_left</span> <span class="op">=</span> (<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>).<span class="ident">len</span>() <span class="kw">as</span> <span class="ident">u32</span> <span class="op">-</span> <span class="ident">payload_len</span>;
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">last_slice_index</span> <span class="op">=</span> <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">usize</span>;
 
-
         <span class="comment">// --- Additional Packets ---</span>
 
         <span class="kw">while</span> <span class="ident">cont</span> {
@@ -1362,11 +1507,12 @@
             <span class="kw">let</span> <span class="ident">ptype</span> <span class="op">=</span> <span class="number">4</span>; <span class="comment">// HIDIOPacketType::Continued</span>
 
             <span class="comment">// Determine packet len</span>
-            <span class="kw">let</span> <span class="ident">packet_len</span>: <span class="ident">u16</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">cont</span> {
+            <span class="kw">let</span> <span class="ident">packet_len</span>: <span class="ident">u16</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cont</span> {
                 <span class="comment">// Full payload length</span>
-                <span class="bool-val">true</span>  <span class="op">=&gt;</span> <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">+</span> <span class="ident">id_width_len</span> <span class="kw">as</span> <span class="ident">u16</span>,
+                <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">+</span> <span class="ident">u16</span>::<span class="ident">from</span>(<span class="ident">id_width_len</span>)
+            } <span class="kw">else</span> {
                 <span class="comment">// Calculate payload length with what&#39;s left</span>
-                <span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="ident">payload_left</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">+</span> <span class="ident">id_width_len</span> <span class="kw">as</span> <span class="ident">u16</span>,
+                <span class="ident">payload_left</span> <span class="kw">as</span> <span class="ident">u16</span> <span class="op">+</span> <span class="ident">u16</span>::<span class="ident">from</span>(<span class="ident">id_width_len</span>)
             };
 
             <span class="comment">// Determine upper_len and len fields</span>
@@ -1382,7 +1528,7 @@
                 <span class="comment">// id_width - 1 bit</span>
                 (<span class="ident">id_width</span> <span class="op">&lt;&lt;</span> <span class="number">3</span>) <span class="op">|</span>
                 <span class="comment">// reserved - 1 bit</span>
-                (<span class="number">0</span> <span class="op">&lt;&lt;</span> <span class="number">2</span>) <span class="op">|</span>
+                <span class="comment">// (0 &lt;&lt; 2) |</span>
                 <span class="comment">// upper_len - 2 bits</span>
                 (<span class="ident">upper_len</span> <span class="op">&amp;</span> <span class="number">0x3</span>);
 
@@ -1399,18 +1545,20 @@
 
             <span class="comment">// Serialize payload data</span>
             <span class="comment">// We can&#39;t just serialize directly (extra info is included), serialize each element of vector separately</span>
-            <span class="kw">let</span> <span class="ident">slice_end</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">cont</span> {
+            <span class="kw">let</span> <span class="ident">slice_end</span> <span class="op">=</span> <span class="kw">if</span> <span class="ident">cont</span> {
                 <span class="comment">// Full payload length</span>
-                <span class="bool-val">true</span> <span class="op">=&gt;</span>  (<span class="ident">last_slice_index</span> <span class="op">+</span> <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">usize</span>),
+                <span class="ident">last_slice_index</span> <span class="op">+</span> <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">usize</span>
+            } <span class="kw">else</span> {
                 <span class="comment">// Payload that&#39;s available</span>
-                <span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="ident">data_len</span> <span class="kw">as</span> <span class="ident">usize</span>,
+                <span class="ident">data_len</span> <span class="kw">as</span> <span class="ident">usize</span>
             };
-            <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">cont</span> {
-                <span class="comment">// Full payload length</span>
-                <span class="bool-val">true</span> <span class="op">=&gt;</span>  <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="ident">last_slice_index</span> .. <span class="ident">slice_end</span>],
-                <span class="comment">// Payload that&#39;s available</span>
-                <span class="bool-val">false</span> <span class="op">=&gt;</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="ident">last_slice_index</span> .. <span class="ident">slice_end</span>],
-            };
+            <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">data</span>[<span class="ident">last_slice_index</span>..<span class="ident">slice_end</span>];
+            <span class="comment">/*let slice = match cont {
+                // Full payload length
+                true =&gt; &amp;self.data[last_slice_index..slice_end],
+                // Payload that&#39;s available
+                false =&gt; &amp;self.data[last_slice_index..slice_end],
+            };*/</span>
             <span class="kw">for</span> <span class="ident">elem</span> <span class="kw">in</span> <span class="ident">slice</span> {
                 <span class="ident">state</span>.<span class="ident">serialize_element</span>(<span class="ident">elem</span>)<span class="question-mark">?</span>;
             }
@@ -1420,7 +1568,6 @@
             <span class="ident">last_slice_index</span> <span class="op">+=</span> <span class="ident">payload_len</span> <span class="kw">as</span> <span class="ident">usize</span>;
         }
 
-
         <span class="comment">// --- Finish serialization ---</span>
         <span class="ident">state</span>.<span class="ident">end</span>()
     }
@@ -1428,12 +1575,12 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">HIDIOPacketType</span> {
     <span class="doccomment">/// Display formatter for HIDIOPacketType</span>
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
         <span class="kw">let</span> <span class="ident">ptype_name</span> <span class="op">=</span> <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
-            <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>      <span class="op">=&gt;</span> <span class="string">&quot;HIDIOPacketBuffer::Data&quot;</span>,
-            <span class="ident">HIDIOPacketType</span>::<span class="ident">ACK</span>       <span class="op">=&gt;</span> <span class="string">&quot;HIDIOPacketBuffer::ACK&quot;</span>,
-            <span class="ident">HIDIOPacketType</span>::<span class="ident">NAK</span>       <span class="op">=&gt;</span> <span class="string">&quot;HIDIOPacketBuffer::NAK&quot;</span>,
-            <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span>      <span class="op">=&gt;</span> <span class="string">&quot;HIDIOPacketBuffer::Sync&quot;</span>,
+            <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span> <span class="op">=&gt;</span> <span class="string">&quot;HIDIOPacketBuffer::Data&quot;</span>,
+            <span class="ident">HIDIOPacketType</span>::<span class="ident">ACK</span> <span class="op">=&gt;</span> <span class="string">&quot;HIDIOPacketBuffer::ACK&quot;</span>,
+            <span class="ident">HIDIOPacketType</span>::<span class="ident">NAK</span> <span class="op">=&gt;</span> <span class="string">&quot;HIDIOPacketBuffer::NAK&quot;</span>,
+            <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span> <span class="op">=&gt;</span> <span class="string">&quot;HIDIOPacketBuffer::Sync&quot;</span>,
             <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> <span class="op">=&gt;</span> <span class="string">&quot;HIDIOPacketBuffer::Continued&quot;</span>,
         };
         <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;{}&quot;</span>, <span class="ident">ptype_name</span>)
@@ -1442,18 +1589,14 @@
 
 <span class="kw">impl</span> <span class="ident">fmt</span>::<span class="ident">Display</span> <span class="kw">for</span> <span class="ident">HIDIOPacketBuffer</span> {
     <span class="doccomment">/// Display formatter for HIDIOPacketBuffer</span>
-    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
-        <span class="macro">write</span><span class="macro">!</span>(<span class="ident">f</span>, <span class="string">&quot;\n{{\n    ptype: {}\n    id: {}\n    max_len: {}\n    done: {}\n    data: {:#?}\n}}&quot;</span>,
-            <span class="self">self</span>.<span class="ident">ptype</span>,
-            <span class="self">self</span>.<span class="ident">id</span>,
-            <span class="self">self</span>.<span class="ident">max_len</span>,
-            <span class="self">self</span>.<span class="ident">done</span>,
-            <span class="self">self</span>.<span class="ident">data</span>,
+    <span class="kw">fn</span> <span class="ident">fmt</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">f</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">fmt</span>::<span class="ident">Formatter</span><span class="op">&lt;</span><span class="lifetime">&#39;_</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">fmt</span>::<span class="prelude-ty">Result</span> {
+        <span class="macro">write</span><span class="macro">!</span>(
+            <span class="ident">f</span>,
+            <span class="string">&quot;\n{{\n    ptype: {}\n    id: {}\n    max_len: {}\n    done: {}\n    data: {:#?}\n}}&quot;</span>,
+            <span class="self">self</span>.<span class="ident">ptype</span>, <span class="self">self</span>.<span class="ident">id</span>, <span class="self">self</span>.<span class="ident">max_len</span>, <span class="self">self</span>.<span class="ident">done</span>, <span class="self">self</span>.<span class="ident">data</span>,
         )
     }
 }
-
-
 
 <span class="comment">// ----- Tests -----</span>
 
@@ -1467,25 +1610,29 @@
         <span class="comment">// Serialize</span>
         <span class="kw">let</span> <span class="ident">serialized</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">buffer</span>.<span class="ident">serialize_buffer</span>() {
             <span class="prelude-val">Ok</span>(<span class="ident">result</span>) <span class="op">=&gt;</span> <span class="ident">result</span>,
-            <span class="kw">_</span> <span class="op">=&gt;</span>          <span class="ident">Vec</span>::<span class="ident">new</span>(),
+            <span class="kw">_</span> <span class="op">=&gt;</span> <span class="ident">Vec</span>::<span class="ident">new</span>(),
         };
 
         <span class="comment">// Validate serialization worked</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">serialized</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">0</span>, <span class="string">&quot;Serialization bytes:{}&quot;</span>, <span class="ident">serialized</span>.<span class="ident">len</span>());
+        <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="ident">serialized</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">0</span>,
+            <span class="string">&quot;Serialization bytes:{}&quot;</span>,
+            <span class="ident">serialized</span>.<span class="ident">len</span>()
+        );
 
         <span class="comment">// Deserialize while there are bytes left</span>
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">deserialized</span> <span class="op">=</span> <span class="ident">HIDIOPacketBuffer</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes_used</span> <span class="op">=</span> <span class="number">0</span>;
         <span class="kw">while</span> <span class="ident">bytes_used</span> <span class="op">!=</span> <span class="ident">serialized</span>.<span class="ident">len</span>() {
             <span class="comment">// Remove already processed bytes</span>
-            <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">serialized</span>[<span class="ident">bytes_used</span> ..];
+            <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">serialized</span>[<span class="ident">bytes_used</span>..];
             <span class="kw">match</span> <span class="ident">deserialized</span>.<span class="ident">decode_packet</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">slice</span>.<span class="ident">to_vec</span>()) {
                 <span class="prelude-val">Ok</span>(<span class="ident">result</span>) <span class="op">=&gt;</span> {
                     <span class="ident">bytes_used</span> <span class="op">+=</span> <span class="ident">result</span> <span class="kw">as</span> <span class="ident">usize</span>;
-                },
+                }
                 <span class="kw">_</span> <span class="op">=&gt;</span> {
                     <span class="macro">assert</span><span class="macro">!</span>(<span class="bool-val">false</span>, <span class="string">&quot;Failured decoding packet&quot;</span>);
-                },
+                }
             };
         }
 
@@ -1493,12 +1640,22 @@
         <span class="ident">deserialized</span>.<span class="ident">max_len</span> <span class="op">=</span> <span class="ident">buffer</span>.<span class="ident">max_len</span>;
 
         <span class="comment">// Validate buffers are the same</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">buffer</span> <span class="op">==</span> <span class="ident">deserialized</span>, <span class="string">&quot;\nInput:{}\nSerialized:{:#?}\nOutput:{}&quot;</span>, <span class="ident">buffer</span>, <span class="ident">serialized</span>, <span class="ident">deserialized</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="ident">buffer</span> <span class="op">==</span> <span class="ident">deserialized</span>,
+            <span class="string">&quot;\nInput:{}\nSerialized:{:#?}\nOutput:{}&quot;</span>,
+            <span class="ident">buffer</span>,
+            <span class="ident">serialized</span>,
+            <span class="ident">deserialized</span>
+        );
 
         <span class="comment">// Validate all bytes used</span>
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">serialized</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="ident">bytes_used</span>, <span class="string">&quot;Serialized:{}, Deserialized Used:{}&quot;</span>, <span class="ident">serialized</span>.<span class="ident">len</span>(), <span class="ident">bytes_used</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(
+            <span class="ident">serialized</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="ident">bytes_used</span>,
+            <span class="string">&quot;Serialized:{}, Deserialized Used:{}&quot;</span>,
+            <span class="ident">serialized</span>.<span class="ident">len</span>(),
+            <span class="ident">bytes_used</span>
+        );
     }
-
 
     <span class="doccomment">/// Generates a single byte payload buffer</span>
     <span class="doccomment">/// Serializes, deserializes, then checks if same as original</span>
@@ -1507,15 +1664,15 @@
         <span class="comment">// Create single byte payload buffer</span>
         <span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">HIDIOPacketBuffer</span> {
             <span class="comment">// Data packet</span>
-            <span class="ident">ptype</span>:   <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
+            <span class="ident">ptype</span>: <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
             <span class="comment">// Test packet id</span>
-            <span class="ident">id</span>:      <span class="number">2</span>,
+            <span class="ident">id</span>: <span class="number">2</span>,
             <span class="comment">// Standard USB 2.0 FS packet length</span>
             <span class="ident">max_len</span>: <span class="number">64</span>,
             <span class="comment">// Single byte, 0xAC</span>
-            <span class="ident">data</span>:    <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0xAC</span>],
+            <span class="ident">data</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0xAC</span>],
             <span class="comment">// Ready to go</span>
-            <span class="ident">done</span>:    <span class="bool-val">true</span>,
+            <span class="ident">done</span>: <span class="bool-val">true</span>,
         };
 
         <span class="comment">// Run loopback serializer, handles all test validation</span>
@@ -1529,15 +1686,15 @@
         <span class="comment">// Create single byte payload buffer</span>
         <span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">HIDIOPacketBuffer</span> {
             <span class="comment">// Data packet</span>
-            <span class="ident">ptype</span>:   <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
+            <span class="ident">ptype</span>: <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
             <span class="comment">// Test packet id</span>
-            <span class="ident">id</span>:      <span class="number">2</span>,
+            <span class="ident">id</span>: <span class="number">2</span>,
             <span class="comment">// Standard USB 2.0 FS packet length</span>
             <span class="ident">max_len</span>: <span class="number">64</span>,
             <span class="comment">// 60 bytes, 0xAC; requires 2 byte header, and 2 bytes for id, which is 64 bytes</span>
-            <span class="ident">data</span>:    <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0xAC</span>; <span class="number">60</span>],
+            <span class="ident">data</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0xAC</span>; <span class="number">60</span>],
             <span class="comment">// Ready to go</span>
-            <span class="ident">done</span>:    <span class="bool-val">true</span>,
+            <span class="ident">done</span>: <span class="bool-val">true</span>,
         };
 
         <span class="comment">// Run loopback serializer, handles all test validation</span>
@@ -1551,15 +1708,15 @@
         <span class="comment">// Create single byte payload buffer</span>
         <span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">HIDIOPacketBuffer</span> {
             <span class="comment">// Data packet</span>
-            <span class="ident">ptype</span>:   <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
+            <span class="ident">ptype</span>: <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
             <span class="comment">// Test packet id</span>
-            <span class="ident">id</span>:      <span class="number">2</span>,
+            <span class="ident">id</span>: <span class="number">2</span>,
             <span class="comment">// Standard USB 2.0 FS packet length</span>
             <span class="ident">max_len</span>: <span class="number">64</span>,
             <span class="comment">// 110 bytes, 0xAC: 60 then 50 (62 then 52)</span>
-            <span class="ident">data</span>:    <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0xAC</span>; <span class="number">110</span>],
+            <span class="ident">data</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0xAC</span>; <span class="number">110</span>],
             <span class="comment">// Ready to go</span>
-            <span class="ident">done</span>:    <span class="bool-val">true</span>,
+            <span class="ident">done</span>: <span class="bool-val">true</span>,
         };
 
         <span class="comment">// Run loopback serializer, handles all test validation</span>
@@ -1573,21 +1730,20 @@
         <span class="comment">// Create single byte payload buffer</span>
         <span class="kw">let</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">HIDIOPacketBuffer</span> {
             <span class="comment">// Data packet</span>
-            <span class="ident">ptype</span>:   <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
+            <span class="ident">ptype</span>: <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span>,
             <span class="comment">// Test packet id</span>
-            <span class="ident">id</span>:      <span class="number">2</span>,
+            <span class="ident">id</span>: <span class="number">2</span>,
             <span class="comment">// Standard USB 2.0 FS packet length</span>
             <span class="ident">max_len</span>: <span class="number">64</span>,
             <span class="comment">// 170 bytes, 0xAC: 60, 60 then 50 (62, 62 then 52)</span>
-            <span class="ident">data</span>:    <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0xAC</span>; <span class="number">170</span>],
+            <span class="ident">data</span>: <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0xAC</span>; <span class="number">170</span>],
             <span class="comment">// Ready to go</span>
-            <span class="ident">done</span>:    <span class="bool-val">true</span>,
+            <span class="ident">done</span>: <span class="bool-val">true</span>,
         };
 
         <span class="comment">// Run loopback serializer, handles all test validation</span>
         <span class="ident">loopback_serializer</span>(<span class="ident">buffer</span>);
     }
 }
-
 </pre></div>
-</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g. <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g. <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g. <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../../";window.currentCrate = "hid_io";</script><script src="../../../../aliases.js"></script><script src="../../../../main.js"></script><script src="../../../../source-files.js"></script><script src="../../../../source-script.js"></script><script defer src="../../../../search-index.js"></script></body></html>
+</section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../../../../";window.currentCrate = "hid_io";</script><script src="../../../../aliases.js"></script><script src="../../../../main.js"></script><script src="../../../../source-script.js"></script><script src="../../../../source-files.js"></script><script defer src="../../../../search-index.js"></script></body></html>

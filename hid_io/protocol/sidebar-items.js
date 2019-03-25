@@ -1,1 +1,1 @@
-initSidebarItems({"mod":[["hidio",""]]});
+initSidebarItems({"mod":[["hidio","hidio packet encoder/decoder"]]});

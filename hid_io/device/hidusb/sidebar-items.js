@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["initialize","hidusb initialization"]]});
+initSidebarItems({"constant":[["DEV_PID",""],["DEV_VID",""],["INTERFACE_NUMBER",""],["USAGE",""],["USAGE_PAGE",""]],"fn":[["initialize","hidusb initialization"]],"struct":[["HIDUSBDevice",""]]});

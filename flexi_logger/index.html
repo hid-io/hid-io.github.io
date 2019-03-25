@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="API documentation for the Rust `flexi_logger` crate."><meta name="keywords" content="rust, rustlang, rust-lang, flexi_logger"><title>flexi_logger - Rust</title><link rel="stylesheet" type="text/css" href="../normalize.css"><link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../dark.css"><link rel="stylesheet" type="text/css" href="../light.css" id="themeStyle"><script src="../storage.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="shortcut icon" href="../favicon.ico"><style type="text/css">#crate-search{background-image:url("../down-arrow.svg");}</style></head><body class="rustdoc mod"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../flexi_logger/index.html'><img src='../rust-logo.png' alt='logo' width='100'></a><p class='location'>Crate flexi_logger</p><div class="sidebar-elems"><a id='all-types' href='all.html'><p>See all flexi_logger's items</p></a><div class="block items"><ul><li><a href="#modules">Modules</a></li><li><a href="#structs">Structs</a></li><li><a href="#enums">Enums</a></li><li><a href="#functions">Functions</a></li><li><a href="#types">Type Definitions</a></li></ul></div><p class='location'></p><script>window.sidebarCurrent = {name: 'flexi_logger', ty: 'mod', relpath: '../'};</script></div></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../settings.html"><img src="../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><h1 class='fqn'><span class='out-of-band'><span id='render-detail'><a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class='inner'>&#x2212;</span>]</a></span><a class='srclink' href='../src/flexi_logger/lib.rs.html#1-60' title='goto source code'>[src]</a></span><span class='in-band'>Crate <a class="mod" href=''>flexi_logger</a></span></h1><div class='docblock'><p>A flexible and easy-to-use logger that writes logs to stderr and/or to files.</p>
+<p>There are configuration options to e.g.</p>
+<ul>
+<li>decide whether you want to write your logs to stderr or to a file,</li>
+<li>configure the path and the filenames of the log files,</li>
+<li>use file rotation,</li>
+<li>specify the line format for the log lines,</li>
+<li>define additional log streams, e.g for alert or security messages,</li>
+<li>support changing the log specification on the fly, while the program is running,</li>
+</ul>
+<p><code>flexi_logger</code> uses a similar syntax as <a href="http://crates.io/crates/env_logger/"><code>env_logger</code></a>
+for specifying which logs should really be written (but is more graceful with the syntax,
+and can provide error information).</p>
+<p>See <a href="struct.Logger.html">Logger</a> for a full description of all configuration options,
+and the <a href="writers/index.html">writers</a> module for the usage of additional log writers.</p>
+<p>See <a href="https://crates.io/crates/flexi_logger">the homepage</a> for how to get started.</p>
+</div><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
+<table><tr class='module-item'><td><a class="mod" href="writers/index.html" title='flexi_logger::writers mod'>writers</a></td><td class='docblock-short'><p>This module contains a trait for additional log writers,
+and a configurable concrete implementation
+for a log writer that writes to a file or a series of files.</p>
+</td></tr></table><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table><tr class='module-item'><td><a class="struct" href="struct.LogSpecBuilder.html" title='flexi_logger::LogSpecBuilder struct'>LogSpecBuilder</a></td><td class='docblock-short'><p>Builder for <code>LogSpecification</code>.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.LogSpecification.html" title='flexi_logger::LogSpecification struct'>LogSpecification</a></td><td class='docblock-short'><p>Immutable struct that defines which loglines are to be written,
+based on the module, the log level, and the text.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Logger.html" title='flexi_logger::Logger struct'>Logger</a></td><td class='docblock-short'><p>The entry-point for using <code>flexi_logger</code>.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.ReconfigurationHandle.html" title='flexi_logger::ReconfigurationHandle struct'>ReconfigurationHandle</a></td><td class='docblock-short'><p>Allows reconfiguring the logger programmatically.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Record.html" title='flexi_logger::Record struct'>Record</a></td><td class='docblock-short'><p>The &quot;payload&quot; of a log message.</p>
+</td></tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
+<table><tr class='module-item'><td><a class="enum" href="enum.Duplicate.html" title='flexi_logger::Duplicate enum'>Duplicate</a></td><td class='docblock-short'><p>Used to control which messages are to be duplicated to stderr, when log_to_file() is used.</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.FlexiLoggerError.html" title='flexi_logger::FlexiLoggerError enum'>FlexiLoggerError</a></td><td class='docblock-short'><p>Describes errors in the initialization of <code>flexi_logger</code>.</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.Level.html" title='flexi_logger::Level enum'>Level</a></td><td class='docblock-short'><p>An enum representing the available verbosity levels of the logger.</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.LevelFilter.html" title='flexi_logger::LevelFilter enum'>LevelFilter</a></td><td class='docblock-short'><p>An enum representing the available verbosity level filters of the logger.</p>
+</td></tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+<table><tr class='module-item'><td><a class="fn" href="fn.default_format.html" title='flexi_logger::default_format fn'>default_format</a></td><td class='docblock-short'><p>A logline-formatter that produces log lines like <br>
+<code>INFO [my_prog::some_submodule] Task successfully read from conf.json</code></p>
+</td></tr><tr class='module-item'><td><a class="fn" href="fn.detailed_format.html" title='flexi_logger::detailed_format fn'>detailed_format</a></td><td class='docblock-short'><p>A logline-formatter that produces log lines like
+<br>
+<code>[2016-01-13 15:25:01.640870 +01:00] INFO [foo::bar] src/foo/bar.rs:26: Task successfully read from conf.json</code>
+<br>
+i.e. with timestamp, module path and file location.</p>
+</td></tr><tr class='module-item'><td><a class="fn" href="fn.opt_format.html" title='flexi_logger::opt_format fn'>opt_format</a></td><td class='docblock-short'><p>A logline-formatter that produces log lines like
+<br>
+<code>[2016-01-13 15:25:01.640870 +01:00] INFO [src/foo/bar:26] Task successfully read from conf.json</code>
+<br>
+i.e. with timestamp and file location.</p>
+</td></tr><tr class='module-item'><td><a class="fn" href="fn.with_thread.html" title='flexi_logger::with_thread fn'>with_thread</a></td><td class='docblock-short'><p>A logline-formatter that produces log lines like
+<br>
+<code>[2016-01-13 15:25:01.640870 +01:00] T[taskreader] INFO [src/foo/bar:26] Task successfully read from conf.json</code>
+<br>
+i.e. with timestamp, thread name and file location.</p>
+</td></tr></table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
+<table><tr class='module-item'><td><a class="type" href="type.FormatFunction.html" title='flexi_logger::FormatFunction type'>FormatFunction</a></td><td class='docblock-short'><p>Function type for Format functions.</p>
+</td></tr></table></section><section id="search" class="content hidden"></section><section class="footer"></section><aside id="help" class="hidden"><div><h1 class="hidden">Help</h1><div class="shortcuts"><h2>Keyboard Shortcuts</h2><dl><dt><kbd>?</kbd></dt><dd>Show this help dialog</dd><dt><kbd>S</kbd></dt><dd>Focus the search field</dd><dt><kbd>↑</kbd></dt><dd>Move up in search results</dd><dt><kbd>↓</kbd></dt><dd>Move down in search results</dd><dt><kbd>↹</kbd></dt><dd>Switch tab</dd><dt><kbd>&#9166;</kbd></dt><dd>Go to active search result</dd><dt><kbd>+</kbd></dt><dd>Expand all sections</dd><dt><kbd>-</kbd></dt><dd>Collapse all sections</dd></dl></div><div class="infos"><h2>Search Tricks</h2><p>Prefix searches with a type followed by a colon (e.g., <code>fn:</code>) to restrict the search to a given type.</p><p>Accepted types are: <code>fn</code>, <code>mod</code>, <code>struct</code>, <code>enum</code>, <code>trait</code>, <code>type</code>, <code>macro</code>, and <code>const</code>.</p><p>Search functions by type signature (e.g., <code>vec -> usize</code> or <code>* -> vec</code>)</p><p>Search multiple things at once by splitting your query with comma (e.g., <code>str,u8</code> or <code>String,struct:Vec,test</code>)</p></div></div></aside><script>window.rootPath = "../";window.currentCrate = "flexi_logger";</script><script src="../aliases.js"></script><script src="../main.js"></script><script defer src="../search-index.js"></script></body></html>

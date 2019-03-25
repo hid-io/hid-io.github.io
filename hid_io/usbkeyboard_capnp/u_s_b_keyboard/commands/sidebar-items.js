@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["_private",""],["cli_command_params",""],["cli_command_results",""],["key_event_params",""],["key_event_results",""]],"struct":[["Client",""],["Owned",""],["ServerDispatch",""],["ToClient",""]],"trait":[["Server",""]],"type":[["CliCommandParams",""],["CliCommandResults",""],["KeyEventParams",""],["KeyEventResults",""]]});

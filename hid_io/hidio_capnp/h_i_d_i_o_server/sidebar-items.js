@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["_private",""],["auth_params",""],["auth_results",""],["basic_params",""],["basic_results",""]],"struct":[["Client",""],["Owned",""],["ServerDispatch",""],["ToClient",""]],"trait":[["Server",""]],"type":[["AuthParams",""],["AuthResults",""],["BasicParams",""],["BasicResults",""]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["FileLogWriter","A configurable `LogWriter` that writes to a file or, if rotation is used, a sequence of files."],["FileLogWriterBuilder","Builder for `FileLogWriter`."]],"trait":[["LogWriter","Writes to a single log output stream."]]});

@@ -1,0 +1,1 @@
+initSidebarItems({"mod":[["_private",""],["is_registered_params",""],["is_registered_results",""],["register_params",""],["register_results",""]],"struct":[["Client",""],["Owned",""],["ServerDispatch",""],["ToClient",""]],"trait":[["Server",""]],"type":[["IsRegisteredParams",""],["IsRegisteredResults",""],["RegisterParams",""],["RegisterResults",""]]});
