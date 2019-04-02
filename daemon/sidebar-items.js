@@ -1,1 +1,1 @@
-initSidebarItems({"macro":[["declare_singleton",""]],"mod":[["daemon",""]]});
+initSidebarItems({"macro":[["declare_singleton",""]],"mod":[["daemon",""],["linux",""]]});
