@@ -1615,7 +1615,7 @@
 
         <span class="comment">// Validate serialization worked</span>
         <span class="macro">assert</span><span class="macro">!</span>(
-            <span class="ident">serialized</span>.<span class="ident">len</span>() <span class="op">&gt;</span> <span class="number">0</span>,
+            <span class="op">!</span><span class="ident">serialized</span>.<span class="ident">is_empty</span>(),
             <span class="string">&quot;Serialization bytes:{}&quot;</span>,
             <span class="ident">serialized</span>.<span class="ident">len</span>()
         );
@@ -1631,7 +1631,7 @@
                     <span class="ident">bytes_used</span> <span class="op">+=</span> <span class="ident">result</span> <span class="kw">as</span> <span class="ident">usize</span>;
                 }
                 <span class="kw">_</span> <span class="op">=&gt;</span> {
-                    <span class="macro">assert</span><span class="macro">!</span>(<span class="bool-val">false</span>, <span class="string">&quot;Failured decoding packet&quot;</span>);
+                    <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Failured decoding packet&quot;</span>);
                 }
             };
         }
