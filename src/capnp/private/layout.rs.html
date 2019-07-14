@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-0.9.4/src/private/layout.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>layout.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../capnp/index.html'><img src='../../../rust-logo.png' alt='logo' width='100'></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-0.10.0/src/private/layout.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>layout.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../capnp/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -3339,6 +3339,164 @@
 <span id="3339">3339</span>
 <span id="3340">3340</span>
 <span id="3341">3341</span>
+<span id="3342">3342</span>
+<span id="3343">3343</span>
+<span id="3344">3344</span>
+<span id="3345">3345</span>
+<span id="3346">3346</span>
+<span id="3347">3347</span>
+<span id="3348">3348</span>
+<span id="3349">3349</span>
+<span id="3350">3350</span>
+<span id="3351">3351</span>
+<span id="3352">3352</span>
+<span id="3353">3353</span>
+<span id="3354">3354</span>
+<span id="3355">3355</span>
+<span id="3356">3356</span>
+<span id="3357">3357</span>
+<span id="3358">3358</span>
+<span id="3359">3359</span>
+<span id="3360">3360</span>
+<span id="3361">3361</span>
+<span id="3362">3362</span>
+<span id="3363">3363</span>
+<span id="3364">3364</span>
+<span id="3365">3365</span>
+<span id="3366">3366</span>
+<span id="3367">3367</span>
+<span id="3368">3368</span>
+<span id="3369">3369</span>
+<span id="3370">3370</span>
+<span id="3371">3371</span>
+<span id="3372">3372</span>
+<span id="3373">3373</span>
+<span id="3374">3374</span>
+<span id="3375">3375</span>
+<span id="3376">3376</span>
+<span id="3377">3377</span>
+<span id="3378">3378</span>
+<span id="3379">3379</span>
+<span id="3380">3380</span>
+<span id="3381">3381</span>
+<span id="3382">3382</span>
+<span id="3383">3383</span>
+<span id="3384">3384</span>
+<span id="3385">3385</span>
+<span id="3386">3386</span>
+<span id="3387">3387</span>
+<span id="3388">3388</span>
+<span id="3389">3389</span>
+<span id="3390">3390</span>
+<span id="3391">3391</span>
+<span id="3392">3392</span>
+<span id="3393">3393</span>
+<span id="3394">3394</span>
+<span id="3395">3395</span>
+<span id="3396">3396</span>
+<span id="3397">3397</span>
+<span id="3398">3398</span>
+<span id="3399">3399</span>
+<span id="3400">3400</span>
+<span id="3401">3401</span>
+<span id="3402">3402</span>
+<span id="3403">3403</span>
+<span id="3404">3404</span>
+<span id="3405">3405</span>
+<span id="3406">3406</span>
+<span id="3407">3407</span>
+<span id="3408">3408</span>
+<span id="3409">3409</span>
+<span id="3410">3410</span>
+<span id="3411">3411</span>
+<span id="3412">3412</span>
+<span id="3413">3413</span>
+<span id="3414">3414</span>
+<span id="3415">3415</span>
+<span id="3416">3416</span>
+<span id="3417">3417</span>
+<span id="3418">3418</span>
+<span id="3419">3419</span>
+<span id="3420">3420</span>
+<span id="3421">3421</span>
+<span id="3422">3422</span>
+<span id="3423">3423</span>
+<span id="3424">3424</span>
+<span id="3425">3425</span>
+<span id="3426">3426</span>
+<span id="3427">3427</span>
+<span id="3428">3428</span>
+<span id="3429">3429</span>
+<span id="3430">3430</span>
+<span id="3431">3431</span>
+<span id="3432">3432</span>
+<span id="3433">3433</span>
+<span id="3434">3434</span>
+<span id="3435">3435</span>
+<span id="3436">3436</span>
+<span id="3437">3437</span>
+<span id="3438">3438</span>
+<span id="3439">3439</span>
+<span id="3440">3440</span>
+<span id="3441">3441</span>
+<span id="3442">3442</span>
+<span id="3443">3443</span>
+<span id="3444">3444</span>
+<span id="3445">3445</span>
+<span id="3446">3446</span>
+<span id="3447">3447</span>
+<span id="3448">3448</span>
+<span id="3449">3449</span>
+<span id="3450">3450</span>
+<span id="3451">3451</span>
+<span id="3452">3452</span>
+<span id="3453">3453</span>
+<span id="3454">3454</span>
+<span id="3455">3455</span>
+<span id="3456">3456</span>
+<span id="3457">3457</span>
+<span id="3458">3458</span>
+<span id="3459">3459</span>
+<span id="3460">3460</span>
+<span id="3461">3461</span>
+<span id="3462">3462</span>
+<span id="3463">3463</span>
+<span id="3464">3464</span>
+<span id="3465">3465</span>
+<span id="3466">3466</span>
+<span id="3467">3467</span>
+<span id="3468">3468</span>
+<span id="3469">3469</span>
+<span id="3470">3470</span>
+<span id="3471">3471</span>
+<span id="3472">3472</span>
+<span id="3473">3473</span>
+<span id="3474">3474</span>
+<span id="3475">3475</span>
+<span id="3476">3476</span>
+<span id="3477">3477</span>
+<span id="3478">3478</span>
+<span id="3479">3479</span>
+<span id="3480">3480</span>
+<span id="3481">3481</span>
+<span id="3482">3482</span>
+<span id="3483">3483</span>
+<span id="3484">3484</span>
+<span id="3485">3485</span>
+<span id="3486">3486</span>
+<span id="3487">3487</span>
+<span id="3488">3488</span>
+<span id="3489">3489</span>
+<span id="3490">3490</span>
+<span id="3491">3491</span>
+<span id="3492">3492</span>
+<span id="3493">3493</span>
+<span id="3494">3494</span>
+<span id="3495">3495</span>
+<span id="3496">3496</span>
+<span id="3497">3497</span>
+<span id="3498">3498</span>
+<span id="3499">3499</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2013-2015 Sandstorm Development Group, Inc. and contributors</span>
 <span class="comment">// Licensed under the MIT License:</span>
@@ -3365,15 +3523,15 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">ptr</span>;
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">cell</span>::<span class="ident">Cell</span>;
 
-<span class="kw">use</span> <span class="ident">data</span>;
-<span class="kw">use</span> <span class="ident">text</span>;
-<span class="kw">use</span> <span class="ident">private</span>::<span class="ident">capability</span>::{<span class="ident">ClientHook</span>};
-<span class="kw">use</span> <span class="ident">private</span>::<span class="ident">arena</span>::{<span class="ident">BuilderArena</span>, <span class="ident">ReaderArena</span>, <span class="ident">NullArena</span>, <span class="ident">SegmentId</span>};
-<span class="kw">use</span> <span class="ident">private</span>::<span class="ident">endian</span>::{<span class="ident">WireValue</span>, <span class="ident">Endian</span>};
-<span class="kw">use</span> <span class="ident">private</span>::<span class="ident">mask</span>::<span class="ident">Mask</span>;
-<span class="kw">use</span> <span class="ident">private</span>::<span class="ident">units</span>::<span class="kw-2">*</span>;
-<span class="kw">use</span> <span class="ident">private</span>::<span class="ident">zero</span>;
-<span class="kw">use</span> {<span class="ident">MessageSize</span>, <span class="prelude-ty">Result</span>, <span class="ident">Word</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">data</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">text</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">capability</span>::{<span class="ident">ClientHook</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">arena</span>::{<span class="ident">BuilderArena</span>, <span class="ident">ReaderArena</span>, <span class="ident">NullArena</span>, <span class="ident">SegmentId</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">endian</span>::{<span class="ident">WireValue</span>, <span class="ident">Endian</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">mask</span>::<span class="ident">Mask</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">units</span>::<span class="kw-2">*</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">zero</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">MessageSize</span>, <span class="prelude-ty">Result</span>, <span class="ident">Word</span>};
 
 <span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">ElementSize</span>::{<span class="ident">Void</span>, <span class="ident">Bit</span>, <span class="ident">Byte</span>, <span class="ident">TwoBytes</span>, <span class="ident">FourBytes</span>, <span class="ident">EightBytes</span>, <span class="ident">Pointer</span>, <span class="ident">InlineComposite</span>};
 
@@ -3498,7 +3656,7 @@
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_from_segment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">ReaderArena</span>, <span class="ident">segment_id</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">target_from_segment</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ReaderArena</span>, <span class="ident">segment_id</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">this_addr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span> <span class="op">=</span> <span class="self">self</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>;
         <span class="kw">let</span> <span class="ident">offset</span> <span class="op">=</span> <span class="number">1</span> <span class="op">+</span> ((<span class="self">self</span>.<span class="ident">offset_and_kind</span>.<span class="ident">get</span>() <span class="kw">as</span> <span class="ident">i32</span>) <span class="op">&gt;&gt;</span> <span class="number">2</span>);
         <span class="ident">arena</span>.<span class="ident">check_offset</span>(<span class="ident">segment_id</span>, <span class="ident">this_addr</span>, <span class="ident">offset</span>)
@@ -3654,17 +3812,17 @@
 <span class="kw">mod</span> <span class="ident">wire_helpers</span> {
     <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">mem</span>, <span class="ident">ptr</span>, <span class="ident">slice</span>};
 
-    <span class="kw">use</span> <span class="ident">private</span>::<span class="ident">capability</span>::<span class="ident">ClientHook</span>;
-    <span class="kw">use</span> <span class="ident">private</span>::<span class="ident">arena</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">private</span>::<span class="ident">layout</span>::{
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">capability</span>::<span class="ident">ClientHook</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">arena</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">layout</span>::{
         <span class="ident">CapTableBuilder</span>, <span class="ident">CapTableReader</span>, <span class="ident">ElementSize</span>, <span class="ident">ListBuilder</span>, <span class="ident">ListReader</span>,
         <span class="ident">StructBuilder</span>, <span class="ident">StructReader</span>, <span class="ident">StructSize</span>, <span class="ident">WirePointer</span>, <span class="ident">WirePointerKind</span>};
-    <span class="kw">use</span> <span class="ident">private</span>::<span class="ident">layout</span>::{<span class="ident">data_bits_per_element</span>, <span class="ident">pointers_per_element</span>};
-    <span class="kw">use</span> <span class="ident">private</span>::<span class="ident">layout</span>::<span class="ident">ElementSize</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">private</span>::<span class="ident">units</span>::<span class="kw-2">*</span>;
-    <span class="kw">use</span> <span class="ident">data</span>;
-    <span class="kw">use</span> <span class="ident">text</span>;
-    <span class="kw">use</span> {<span class="ident">Error</span>, <span class="ident">MessageSize</span>, <span class="prelude-ty">Result</span>, <span class="ident">Word</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">layout</span>::{<span class="ident">data_bits_per_element</span>, <span class="ident">pointers_per_element</span>};
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">layout</span>::<span class="ident">ElementSize</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">private</span>::<span class="ident">units</span>::<span class="kw-2">*</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">data</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">text</span>;
+    <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">Error</span>, <span class="ident">MessageSize</span>, <span class="prelude-ty">Result</span>, <span class="ident">Word</span>};
 
     <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SegmentAnd</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span> {
         <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">dead_code</span>)]</span>
@@ -3695,7 +3853,7 @@
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bounds_check</span>(<span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">ReaderArena</span>,
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bounds_check</span>(<span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
                         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
                         <span class="ident">start</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>, <span class="ident">size_in_words</span>: <span class="ident">usize</span>,
                         <span class="ident">_kind</span>: <span class="ident">WirePointerKind</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
@@ -3703,14 +3861,14 @@
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">amplified_read</span>(<span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">ReaderArena</span>,
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">amplified_read</span>(<span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
                           <span class="ident">virtual_amount</span>: <span class="ident">u64</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="ident">arena</span>.<span class="ident">amplified_read</span>(<span class="ident">virtual_amount</span>)
     }
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">allocate</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">amount</span>: <span class="ident">WordCount32</span>, <span class="ident">kind</span>: <span class="ident">WirePointerKind</span>) <span class="op">-&gt;</span> (<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Word</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>, <span class="ident">u32</span>)
@@ -3761,7 +3919,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">follow_builder_fars</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">ref_target</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Word</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Word</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>, <span class="ident">u32</span>)<span class="op">&gt;</span>
@@ -3803,7 +3961,7 @@
     <span class="doccomment">///   - the segment on which the pointed-to object lives</span>
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">follow_fars</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">ReaderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>)
         <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>, <span class="ident">u32</span>)<span class="op">&gt;</span>
@@ -3837,7 +3995,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">zero_object</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>)
     {
@@ -3876,7 +4034,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">zero_object_helper</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">tag</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Word</span>)
@@ -3941,7 +4099,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">zero_pointer_and_fars</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">_segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
     {
@@ -3960,7 +4118,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">total_size</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">ReaderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
         <span class="kw-2">mut</span> <span class="ident">nesting_limit</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">MessageSize</span><span class="op">&gt;</span>
@@ -4075,8 +4233,136 @@
         <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
     }
 
+    <span class="comment">// Helper for copy_message().</span>
+    <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">copy_struct</span>(
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">segment_id</span>: <span class="ident">u32</span>,
+        <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
+        <span class="ident">dst</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Word</span>,
+        <span class="ident">src</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>,
+        <span class="ident">data_size</span>: <span class="ident">isize</span>,
+        <span class="ident">pointer_count</span>: <span class="ident">isize</span>) {
+        <span class="ident">ptr</span>::<span class="ident">copy_nonoverlapping</span>(<span class="ident">src</span>, <span class="ident">dst</span>, <span class="ident">data_size</span> <span class="kw">as</span> <span class="ident">usize</span>);
+
+        <span class="kw">let</span> <span class="ident">src_refs</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">src</span>.<span class="ident">offset</span>(<span class="ident">data_size</span>));
+        <span class="kw">let</span> <span class="ident">dst_refs</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">dst</span>.<span class="ident">offset</span>(<span class="ident">data_size</span>));
+
+        <span class="kw">for</span> <span class="ident">ii</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">pointer_count</span> {
+            <span class="ident">copy_message</span>(<span class="ident">arena</span>, <span class="ident">segment_id</span>, <span class="ident">cap_table</span>, <span class="ident">dst_refs</span>.<span class="ident">offset</span>(<span class="ident">ii</span>), <span class="ident">src_refs</span>.<span class="ident">offset</span>(<span class="ident">ii</span>));
+        }
+    }
+
+    <span class="comment">// Copies from a trusted message.</span>
+    <span class="comment">// Returns (new_dst_ptr, new_dst, new_segment_id).</span>
+    <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">copy_message</span>(
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">segment_id</span>: <span class="ident">u32</span>,
+        <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
+        <span class="ident">dst</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
+        <span class="ident">src</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>) <span class="op">-&gt;</span> (<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Word</span>, <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>, <span class="ident">u32</span>)
+    {
+        <span class="kw">match</span> (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">kind</span>() {
+            <span class="ident">WirePointerKind</span>::<span class="ident">Struct</span> <span class="op">=&gt;</span> {
+                <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">is_null</span>() {
+                    <span class="ident">ptr</span>::<span class="ident">write_bytes</span>(<span class="ident">dst</span>, <span class="number">0</span>, <span class="number">1</span>);
+                    (<span class="ident">ptr</span>::<span class="ident">null_mut</span>(), <span class="ident">dst</span>, <span class="ident">segment_id</span>)
+                } <span class="kw">else</span> {
+                    <span class="kw">let</span> <span class="ident">src_ptr</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">target</span>();
+                    <span class="kw">let</span> (<span class="ident">dst_ptr</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>) <span class="op">=</span> <span class="ident">allocate</span>(
+                        <span class="ident">arena</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>, (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">struct_word_size</span>(), <span class="ident">WirePointerKind</span>::<span class="ident">Struct</span>);
+                    <span class="ident">copy_struct</span>(<span class="ident">arena</span>,
+                                <span class="ident">segment_id</span>,
+                                <span class="ident">cap_table</span>,
+                                <span class="ident">dst_ptr</span>,
+                                <span class="ident">src_ptr</span>,
+                                (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">struct_data_size</span>() <span class="kw">as</span> <span class="ident">isize</span>,
+                                (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">struct_ptr_count</span>() <span class="kw">as</span> <span class="ident">isize</span>);
+                    (<span class="kw-2">*</span><span class="ident">dst</span>).<span class="ident">set_struct_size_from_pieces</span>((<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">struct_data_size</span>(), (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">struct_ptr_count</span>());
+                    (<span class="ident">dst_ptr</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>)
+                }
+            }
+            <span class="ident">WirePointerKind</span>::<span class="ident">List</span> <span class="op">=&gt;</span> {
+                <span class="kw">match</span> (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_element_size</span>() {
+                    <span class="ident">ElementSize</span>::<span class="ident">Void</span> <span class="op">|</span>
+                    <span class="ident">ElementSize</span>::<span class="ident">Bit</span> <span class="op">|</span>
+                    <span class="ident">ElementSize</span>::<span class="ident">Byte</span> <span class="op">|</span>
+                    <span class="ident">ElementSize</span>::<span class="ident">TwoBytes</span> <span class="op">|</span>
+                    <span class="ident">ElementSize</span>::<span class="ident">FourBytes</span> <span class="op">|</span>
+                    <span class="ident">ElementSize</span>::<span class="ident">EightBytes</span> <span class="op">=&gt;</span> {
+                        <span class="kw">let</span> <span class="ident">word_count</span> <span class="op">=</span> <span class="ident">round_bits_up_to_words</span>(
+                            (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_element_count</span>() <span class="kw">as</span> <span class="ident">u64</span> <span class="op">*</span>
+                                <span class="ident">data_bits_per_element</span>((<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_element_size</span>()) <span class="kw">as</span> <span class="ident">u64</span>);
+                        <span class="kw">let</span> <span class="ident">src_ptr</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">target</span>();
+                        <span class="kw">let</span> (<span class="ident">dst_ptr</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>) <span class="op">=</span> <span class="ident">allocate</span>(
+                            <span class="ident">arena</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>, <span class="ident">word_count</span>, <span class="ident">WirePointerKind</span>::<span class="ident">List</span>);
+                        <span class="ident">ptr</span>::<span class="ident">copy_nonoverlapping</span>(<span class="ident">src_ptr</span>, <span class="ident">dst_ptr</span>, <span class="ident">word_count</span> <span class="kw">as</span> <span class="ident">usize</span>);
+                        (<span class="kw-2">*</span><span class="ident">dst</span>).<span class="ident">set_list_size_and_count</span>((<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_element_size</span>(),
+                                                       (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_element_count</span>());
+                        (<span class="ident">dst_ptr</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>)
+                    }
+
+                    <span class="ident">ElementSize</span>::<span class="ident">Pointer</span> <span class="op">=&gt;</span> {
+                        <span class="kw">let</span> <span class="ident">src_refs</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">transmute</span>((<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">target</span>());
+                        <span class="kw">let</span> (<span class="ident">dst_refs</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>) <span class="op">=</span> <span class="ident">allocate</span>(
+                            <span class="ident">arena</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>,
+                            (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_element_count</span>(),
+                            <span class="ident">WirePointerKind</span>::<span class="ident">List</span>);
+                        <span class="kw">for</span> <span class="ident">ii</span> <span class="kw">in</span> <span class="number">0</span> .. ((<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_element_count</span>() <span class="kw">as</span> <span class="ident">isize</span>) {
+                            <span class="ident">copy_message</span>(<span class="ident">arena</span>,
+                                         <span class="ident">segment_id</span>,
+                                         <span class="ident">cap_table</span>,
+                                         <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">dst_refs</span>.<span class="ident">offset</span>(<span class="ident">ii</span>)),
+                                         <span class="ident">src_refs</span>.<span class="ident">offset</span>(<span class="ident">ii</span>));
+                        }
+                        (<span class="kw-2">*</span><span class="ident">dst</span>).<span class="ident">set_list_size_and_count</span>(<span class="ident">ElementSize</span>::<span class="ident">Pointer</span>, (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_element_count</span>());
+                        (<span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">dst_refs</span>), <span class="ident">dst</span>, <span class="ident">segment_id</span>)
+                    }
+                    <span class="ident">ElementSize</span>::<span class="ident">InlineComposite</span> <span class="op">=&gt;</span> {
+                        <span class="kw">let</span> <span class="ident">src_ptr</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">target</span>();
+                        <span class="kw">let</span> (<span class="ident">dst_ptr</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>) <span class="op">=</span> <span class="ident">allocate</span>(
+                            <span class="ident">arena</span>,
+                            <span class="ident">dst</span>,
+                            <span class="ident">segment_id</span>,
+                            (<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_inline_composite_word_count</span>() <span class="op">+</span> <span class="number">1</span>,
+                            <span class="ident">WirePointerKind</span>::<span class="ident">List</span>);
+
+                        (<span class="kw-2">*</span><span class="ident">dst</span>).<span class="ident">set_list_inline_composite</span>((<span class="kw-2">*</span><span class="ident">src</span>).<span class="ident">list_inline_composite_word_count</span>());
+
+                        <span class="kw">let</span> <span class="ident">src_tag</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span> <span class="op">=</span> <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">src_ptr</span>);
+                        <span class="ident">ptr</span>::<span class="ident">copy_nonoverlapping</span>(<span class="ident">src_tag</span>, <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">dst_ptr</span>), <span class="number">1</span>);
+
+                        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">src_element</span> <span class="op">=</span> <span class="ident">src_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
+                        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">dst_element</span> <span class="op">=</span> <span class="ident">dst_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
+
+                        <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">src_tag</span>).<span class="ident">kind</span>() <span class="op">!=</span> <span class="ident">WirePointerKind</span>::<span class="ident">Struct</span> {
+                            <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;unsupported INLINE_COMPOSITE list&quot;</span>);
+                        }
+                        <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span> .. (<span class="kw-2">*</span><span class="ident">src_tag</span>).<span class="ident">inline_composite_list_element_count</span>() {
+                            <span class="ident">copy_struct</span>(<span class="ident">arena</span>,
+                                        <span class="ident">segment_id</span>,
+                                        <span class="ident">cap_table</span>,
+                                        <span class="ident">dst_element</span>,
+                                        <span class="ident">src_element</span>,
+                                        (<span class="kw-2">*</span><span class="ident">src_tag</span>).<span class="ident">struct_data_size</span>() <span class="kw">as</span> <span class="ident">isize</span>,
+                                        (<span class="kw-2">*</span><span class="ident">src_tag</span>).<span class="ident">struct_ptr_count</span>() <span class="kw">as</span> <span class="ident">isize</span>);
+                            <span class="ident">src_element</span> <span class="op">=</span> <span class="ident">src_element</span>.<span class="ident">offset</span>((<span class="kw-2">*</span><span class="ident">src_tag</span>).<span class="ident">struct_word_size</span>() <span class="kw">as</span> <span class="ident">isize</span>);
+                            <span class="ident">dst_element</span> <span class="op">=</span> <span class="ident">dst_element</span>.<span class="ident">offset</span>((<span class="kw-2">*</span><span class="ident">src_tag</span>).<span class="ident">struct_word_size</span>() <span class="kw">as</span> <span class="ident">isize</span>);
+                        }
+                        (<span class="ident">dst_ptr</span>, <span class="ident">dst</span>, <span class="ident">segment_id</span>)
+                    }
+                }
+            }
+            <span class="ident">WirePointerKind</span>::<span class="ident">Other</span> <span class="op">=&gt;</span> {
+                <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unchecked message contained an OTHER pointer.&quot;</span>)
+            }
+            <span class="ident">WirePointerKind</span>::<span class="ident">Far</span> <span class="op">=&gt;</span> {
+                <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Unchecked message contained a far pointer.&quot;</span>)
+            }
+        }
+    }
+
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">transfer_pointer</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">dst_segment_id</span>: <span class="ident">u32</span>, <span class="ident">dst</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">src_segment_id</span>: <span class="ident">u32</span>, <span class="ident">src</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>)
     {
@@ -4103,7 +4389,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">transfer_pointer_split</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">dst_segment_id</span>: <span class="ident">u32</span>, <span class="ident">dst</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">src_segment_id</span>: <span class="ident">u32</span>, <span class="ident">src_tag</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">src_ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Word</span>)
@@ -4168,7 +4454,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">init_struct_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
@@ -4195,20 +4481,28 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_writable_struct_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
-        <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
-        <span class="ident">segment_id</span>: <span class="ident">u32</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
+        <span class="kw-2">mut</span> <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
+        <span class="kw-2">mut</span> <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
         <span class="ident">size</span>: <span class="ident">StructSize</span>,
-        <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
+        <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
-        <span class="kw">let</span> <span class="ident">ref_target</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">mut_target</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ref_target</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">mut_target</span>();
 
         <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_null</span>() {
-            <span class="kw">if</span> <span class="ident">default_value</span>.<span class="ident">is_null</span>() <span class="op">||</span> (<span class="kw-2">*</span>(<span class="ident">default_value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>)).<span class="ident">is_null</span>() {
-                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">init_struct_pointer</span>(<span class="ident">arena</span>, <span class="ident">reff</span>, <span class="ident">segment_id</span>, <span class="ident">cap_table</span>, <span class="ident">size</span>));
+            <span class="kw">match</span> <span class="ident">default</span> {
+                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">init_struct_pointer</span>(<span class="ident">arena</span>, <span class="ident">reff</span>, <span class="ident">segment_id</span>, <span class="ident">cap_table</span>, <span class="ident">size</span>)),
+                <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="kw">if</span> (<span class="kw-2">*</span>(<span class="ident">d</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>)).<span class="ident">is_null</span>() <span class="op">=&gt;</span>
+                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">init_struct_pointer</span>(<span class="ident">arena</span>, <span class="ident">reff</span>, <span class="ident">segment_id</span>, <span class="ident">cap_table</span>, <span class="ident">size</span>)),
+                <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=&gt;</span> {
+                    <span class="kw">let</span> (<span class="ident">new_ref_target</span>, <span class="ident">new_reff</span>, <span class="ident">new_segment_id</span>) <span class="op">=</span>
+                        <span class="ident">copy_message</span>(<span class="ident">arena</span>, <span class="ident">segment_id</span>, <span class="ident">cap_table</span>, <span class="ident">reff</span>, <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">d</span>.<span class="ident">as_ptr</span>()));
+                    <span class="ident">reff</span> <span class="op">=</span> <span class="ident">new_reff</span>;
+                    <span class="ident">segment_id</span> <span class="op">=</span> <span class="ident">new_segment_id</span>;
+                    <span class="ident">ref_target</span> <span class="op">=</span> <span class="ident">new_ref_target</span>;
+                }
             }
-            <span class="macro">unimplemented</span><span class="macro">!</span>()
         }
 
         <span class="kw">let</span> (<span class="ident">old_ptr</span>, <span class="ident">old_ref</span>, <span class="ident">old_segment_id</span>) <span class="op">=</span> <span class="ident">follow_builder_fars</span>(<span class="ident">arena</span>, <span class="ident">reff</span>, <span class="ident">ref_target</span>, <span class="ident">segment_id</span>)<span class="question-mark">?</span>;
@@ -4275,7 +4569,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">init_list_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
@@ -4308,7 +4602,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">init_struct_list_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
@@ -4348,9 +4642,9 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_writable_list_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
-        <span class="ident">orig_ref</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
-        <span class="ident">orig_segment_id</span>: <span class="ident">u32</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
+        <span class="kw-2">mut</span> <span class="ident">orig_ref</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
+        <span class="kw-2">mut</span> <span class="ident">orig_segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
         <span class="ident">element_size</span>: <span class="ident">ElementSize</span>,
         <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ListBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
@@ -4358,13 +4652,17 @@
         <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">element_size</span> <span class="op">!=</span> <span class="ident">InlineComposite</span>,
                 <span class="string">&quot;Use get_writable_struct_list_pointer() for struct lists&quot;</span>);
 
-        <span class="kw">let</span> <span class="ident">orig_ref_target</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">orig_ref</span>).<span class="ident">mut_target</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">orig_ref_target</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">orig_ref</span>).<span class="ident">mut_target</span>();
 
         <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">orig_ref</span>).<span class="ident">is_null</span>() {
             <span class="kw">if</span> <span class="ident">default_value</span>.<span class="ident">is_null</span>() <span class="op">||</span> (<span class="kw-2">*</span>(<span class="ident">default_value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>)).<span class="ident">is_null</span>() {
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">ListBuilder</span>::<span class="ident">new_default</span>());
-                }
-            <span class="macro">unimplemented</span><span class="macro">!</span>()
+                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">ListBuilder</span>::<span class="ident">new_default</span>());
+            }
+            <span class="kw">let</span> (<span class="ident">new_orig_ref_target</span>, <span class="ident">new_orig_ref</span>, <span class="ident">new_orig_segment_id</span>) <span class="op">=</span> <span class="ident">copy_message</span>(
+                <span class="ident">arena</span>, <span class="ident">orig_segment_id</span>, <span class="ident">cap_table</span>, <span class="ident">orig_ref</span>, <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">default_value</span>));
+            <span class="ident">orig_ref_target</span> <span class="op">=</span> <span class="ident">new_orig_ref_target</span>;
+            <span class="ident">orig_ref</span> <span class="op">=</span> <span class="ident">new_orig_ref</span>;
+            <span class="ident">orig_segment_id</span> <span class="op">=</span> <span class="ident">new_orig_segment_id</span>;
         }
 
         <span class="comment">// We must verify that the pointer has the right size. Unlike in</span>
@@ -4467,20 +4765,24 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_writable_struct_list_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
-        <span class="ident">orig_ref</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
-        <span class="ident">orig_segment_id</span>: <span class="ident">u32</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
+        <span class="kw-2">mut</span> <span class="ident">orig_ref</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
+        <span class="kw-2">mut</span> <span class="ident">orig_segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
         <span class="ident">element_size</span>: <span class="ident">StructSize</span>,
         <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ListBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
-        <span class="kw">let</span> <span class="ident">orig_ref_target</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">orig_ref</span>).<span class="ident">mut_target</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">orig_ref_target</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">orig_ref</span>).<span class="ident">mut_target</span>();
 
         <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">orig_ref</span>).<span class="ident">is_null</span>() {
             <span class="kw">if</span> <span class="ident">default_value</span>.<span class="ident">is_null</span>() <span class="op">||</span> (<span class="kw-2">*</span>(<span class="ident">default_value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>)).<span class="ident">is_null</span>() {
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">ListBuilder</span>::<span class="ident">new_default</span>());
             }
-            <span class="macro">unimplemented</span><span class="macro">!</span>()
+            <span class="kw">let</span> (<span class="ident">new_orig_ref_target</span>, <span class="ident">new_orig_ref</span>, <span class="ident">new_orig_segment_id</span>) <span class="op">=</span> <span class="ident">copy_message</span>(
+                <span class="ident">arena</span>, <span class="ident">orig_segment_id</span>, <span class="ident">cap_table</span>, <span class="ident">orig_ref</span>, <span class="ident">mem</span>::<span class="ident">transmute</span>(<span class="ident">default_value</span>));
+            <span class="ident">orig_ref_target</span> <span class="op">=</span> <span class="ident">new_orig_ref_target</span>;
+            <span class="ident">orig_ref</span> <span class="op">=</span> <span class="ident">new_orig_ref</span>;
+            <span class="ident">orig_segment_id</span> <span class="op">=</span> <span class="ident">new_orig_segment_id</span>;
         }
 
         <span class="comment">// We must verify that the pointer has the right size and potentially upgrade it if not.</span>
@@ -4666,7 +4968,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">init_text_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">size</span>: <span class="ident">ByteCount32</span>) <span class="op">-&gt;</span> <span class="ident">SegmentAnd</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
@@ -4690,7 +4992,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_text_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">value</span>: <span class="kw-2">&amp;</span><span class="ident">str</span>) <span class="op">-&gt;</span> <span class="ident">SegmentAnd</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
@@ -4704,21 +5006,26 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_writable_text_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
-        <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
-        <span class="ident">segment_id</span>: <span class="ident">u32</span>,
-        <span class="ident">_default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>,
-        <span class="ident">default_size</span>: <span class="ident">ByteCount32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
+        <span class="kw-2">mut</span> <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
+        <span class="kw-2">mut</span> <span class="ident">segment_id</span>: <span class="ident">u32</span>,
+        <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
-        <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_null</span>() {
-            <span class="kw">if</span> <span class="ident">default_size</span> <span class="op">==</span> <span class="number">0</span> {
-                <span class="kw">return</span> <span class="ident">text</span>::<span class="ident">Builder</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> [], <span class="number">0</span>);
-            } <span class="kw">else</span> {
-                <span class="kw">let</span> <span class="ident">_builder</span> <span class="op">=</span> <span class="ident">init_text_pointer</span>(<span class="ident">arena</span>, <span class="ident">reff</span>, <span class="ident">segment_id</span>, <span class="ident">default_size</span>).<span class="ident">value</span>;
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+        <span class="kw">let</span> <span class="ident">ref_target</span> <span class="op">=</span> <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_null</span>() {
+            <span class="kw">match</span> <span class="ident">default</span> {
+                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="ident">text</span>::<span class="ident">Builder</span>::<span class="ident">new</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> [], <span class="number">0</span>),
+                <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=&gt;</span> {
+                    <span class="kw">let</span> (<span class="ident">new_ref_target</span>, <span class="ident">new_reff</span>, <span class="ident">new_segment_id</span>) <span class="op">=</span>
+                        <span class="ident">copy_message</span>(<span class="ident">arena</span>, <span class="ident">segment_id</span>, <span class="ident">CapTableBuilder</span>::<span class="ident">Plain</span>(::<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>()), <span class="ident">reff</span>, <span class="ident">d</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>);
+                    <span class="ident">reff</span> <span class="op">=</span> <span class="ident">new_reff</span>;
+                    <span class="ident">segment_id</span> <span class="op">=</span> <span class="ident">new_segment_id</span>;
+                    <span class="ident">new_ref_target</span>
+                }
             }
-        }
-        <span class="kw">let</span> <span class="ident">ref_target</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">mut_target</span>();
+        } <span class="kw">else</span> {
+            (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">mut_target</span>()
+        };
+
         <span class="kw">let</span> (<span class="ident">ptr</span>, <span class="ident">reff</span>, <span class="ident">_segment_id</span>) <span class="op">=</span> <span class="ident">follow_builder_fars</span>(<span class="ident">arena</span>, <span class="ident">reff</span>, <span class="ident">ref_target</span>, <span class="ident">segment_id</span>)<span class="question-mark">?</span>;
         <span class="kw">let</span> <span class="ident">cptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span> <span class="op">=</span> <span class="ident">ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>;
 
@@ -4743,7 +5050,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">init_data_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">size</span>: <span class="ident">ByteCount32</span>) <span class="op">-&gt;</span> <span class="ident">SegmentAnd</span><span class="op">&lt;</span><span class="ident">data</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
@@ -4760,7 +5067,7 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_data_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">value</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-&gt;</span> <span class="ident">SegmentAnd</span><span class="op">&lt;</span><span class="ident">data</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
@@ -4773,24 +5080,26 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">get_writable_data_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
-        <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
-        <span class="ident">segment_id</span>: <span class="ident">u32</span>,
-        <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>,
-        <span class="ident">default_size</span>: <span class="ident">ByteCount32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">data</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
+        <span class="kw-2">mut</span> <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
+        <span class="kw-2">mut</span> <span class="ident">segment_id</span>: <span class="ident">u32</span>,
+        <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">data</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
-        <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_null</span>() {
-            <span class="kw">if</span> <span class="ident">default_size</span> <span class="op">==</span> <span class="number">0</span> {
-                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span>[]);
-            } <span class="kw">else</span> {
-                <span class="kw">let</span> <span class="ident">builder</span> <span class="op">=</span> <span class="ident">init_data_pointer</span>(<span class="ident">arena</span>, <span class="ident">reff</span>, <span class="ident">segment_id</span>, <span class="ident">default_size</span>).<span class="ident">value</span>;
-                <span class="ident">ptr</span>::<span class="ident">copy_nonoverlapping</span>(<span class="ident">default_value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
-                                         <span class="ident">builder</span>.<span class="ident">as_mut_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="kw">_</span>,
-                                         <span class="ident">default_size</span> <span class="kw">as</span> <span class="ident">usize</span>);
-                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">builder</span>);
+        <span class="kw">let</span> <span class="ident">ref_target</span> <span class="op">=</span> <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_null</span>() {
+            <span class="kw">match</span> <span class="ident">default</span> {
+                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> []),
+                <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=&gt;</span> {
+                    <span class="kw">let</span> (<span class="ident">new_ref_target</span>, <span class="ident">new_reff</span>, <span class="ident">new_segment_id</span>) <span class="op">=</span>
+                        <span class="ident">copy_message</span>(<span class="ident">arena</span>, <span class="ident">segment_id</span>, <span class="ident">CapTableBuilder</span>::<span class="ident">Plain</span>(::<span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null_mut</span>()), <span class="ident">reff</span>, <span class="ident">d</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>);
+                    <span class="ident">reff</span> <span class="op">=</span> <span class="ident">new_reff</span>;
+                    <span class="ident">segment_id</span> <span class="op">=</span> <span class="ident">new_segment_id</span>;
+                    <span class="ident">new_ref_target</span>
+                }
             }
-        }
-        <span class="kw">let</span> <span class="ident">ref_target</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">mut_target</span>();
+        } <span class="kw">else</span> {
+            (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">mut_target</span>()
+        };
+
         <span class="kw">let</span> (<span class="ident">ptr</span>, <span class="ident">reff</span>, <span class="ident">_segment_id</span>) <span class="op">=</span> <span class="ident">follow_builder_fars</span>(<span class="ident">arena</span>, <span class="ident">reff</span>, <span class="ident">ref_target</span>, <span class="ident">segment_id</span>)<span class="question-mark">?</span>;
 
         <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">kind</span>() <span class="op">!=</span> <span class="ident">WirePointerKind</span>::<span class="ident">List</span> {
@@ -4806,7 +5115,7 @@
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_struct_pointer</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
@@ -4877,18 +5186,18 @@
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_capability_pointer</span>(
-        <span class="ident">_arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">_arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">_segment_id</span>: <span class="ident">u32</span>,
         <span class="kw-2">mut</span> <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
-        <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>)
+        <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>)
     {
         <span class="comment">// TODO if ref is not null, zero object.</span>
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">set_cap</span>(<span class="ident">cap_table</span>.<span class="ident">inject_cap</span>(<span class="ident">cap</span>) <span class="kw">as</span> <span class="ident">u32</span>); }
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">set_list_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
@@ -5019,10 +5328,10 @@
     }
 
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">copy_pointer</span>(
-        <span class="ident">dst_arena</span>: <span class="kw-2">&amp;</span><span class="ident">BuilderArena</span>,
+        <span class="ident">dst_arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">dst_segment_id</span>: <span class="ident">u32</span>, <span class="ident">dst_cap_table</span>: <span class="ident">CapTableBuilder</span>,
         <span class="ident">dst</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
-        <span class="ident">src_arena</span>: <span class="kw-2">&amp;</span><span class="ident">ReaderArena</span>,
+        <span class="ident">src_arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
         <span class="ident">src_segment_id</span>: <span class="ident">u32</span>, <span class="ident">src_cap_table</span>: <span class="ident">CapTableReader</span>,
         <span class="ident">src</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
         <span class="ident">nesting_limit</span>: <span class="ident">i32</span>,
@@ -5173,20 +5482,24 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">read_struct_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ReaderArena</span>,
-        <span class="ident">segment_id</span>: <span class="ident">u32</span>,
+        <span class="kw-2">mut</span> <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
+        <span class="kw-2">mut</span> <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableReader</span>,
-        <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
-        <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>,
+        <span class="kw-2">mut</span> <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
+        <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>,
         <span class="ident">nesting_limit</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
         <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_null</span>() {
-            <span class="kw">if</span> <span class="ident">default_value</span>.<span class="ident">is_null</span>() <span class="op">||</span> (<span class="kw-2">*</span>(<span class="ident">default_value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>)).<span class="ident">is_null</span>() {
-                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">StructReader</span>::<span class="ident">new_default</span>());
+            <span class="kw">match</span> <span class="ident">default</span> {
+                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">StructReader</span>::<span class="ident">new_default</span>()),
+                <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="kw">if</span> (<span class="kw-2">*</span>(<span class="ident">d</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>)).<span class="ident">is_null</span>() <span class="op">=&gt;</span>
+                    <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">StructReader</span>::<span class="ident">new_default</span>()),
+                <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=&gt;</span> {
+                    <span class="ident">reff</span> <span class="op">=</span> <span class="ident">d</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>;
+                    <span class="ident">arena</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">NULL_ARENA</span>;
+                    <span class="ident">segment_id</span> <span class="op">=</span> <span class="number">0</span>;
+                }
             }
-            <span class="comment">//segment = ::std::ptr::null();</span>
-            <span class="comment">//reff = default_value as *const WirePointer;</span>
-            <span class="macro">unimplemented</span><span class="macro">!</span>()
         }
 
         <span class="kw">if</span> <span class="ident">nesting_limit</span> <span class="op">&lt;=</span> <span class="number">0</span> {
@@ -5220,11 +5533,11 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">read_capability_pointer</span>(
-        <span class="ident">_arena</span>: <span class="kw-2">&amp;</span><span class="ident">ReaderArena</span>,
+        <span class="ident">_arena</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
         <span class="ident">_segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableReader</span>,
         <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
-        <span class="ident">_nesting_limit</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>
+        <span class="ident">_nesting_limit</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>
     {
         <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_null</span>() {
             <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">failed</span>(
@@ -5246,10 +5559,10 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">read_list_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ReaderArena</span>,
-        <span class="ident">segment_id</span>: <span class="ident">u32</span>,
+        <span class="kw-2">mut</span> <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
+        <span class="kw-2">mut</span> <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">cap_table</span>: <span class="ident">CapTableReader</span>,
-        <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
+        <span class="kw-2">mut</span> <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
         <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>,
         <span class="ident">expected_element_size</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ElementSize</span><span class="op">&gt;</span>,
         <span class="ident">nesting_limit</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ListReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
@@ -5258,7 +5571,9 @@
             <span class="kw">if</span> <span class="ident">default_value</span>.<span class="ident">is_null</span>() <span class="op">||</span> (<span class="kw-2">*</span>(<span class="ident">default_value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>)).<span class="ident">is_null</span>() {
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">ListReader</span>::<span class="ident">new_default</span>());
             }
-            <span class="macro">unimplemented</span><span class="macro">!</span>()
+            <span class="ident">reff</span> <span class="op">=</span> <span class="ident">default_value</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>;
+            <span class="ident">arena</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">NULL_ARENA</span>;
+            <span class="ident">segment_id</span> <span class="op">=</span> <span class="number">0</span>;
         }
 
         <span class="kw">if</span> <span class="ident">nesting_limit</span> <span class="op">&lt;=</span> <span class="number">0</span> {
@@ -5407,17 +5722,19 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">read_text_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ReaderArena</span>,
-        <span class="ident">segment_id</span>: <span class="ident">u32</span>,
-        <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
-        <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>,
-        <span class="ident">_default_size</span>: <span class="ident">ByteCount32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
+        <span class="kw-2">mut</span> <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
+        <span class="kw-2">mut</span> <span class="ident">segment_id</span>: <span class="ident">u32</span>,
+        <span class="kw-2">mut</span> <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
+        <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
         <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_null</span>() {
-            <span class="kw">if</span> <span class="ident">default_value</span>.<span class="ident">is_null</span>() {
-                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="string">&quot;&quot;</span>);
-            } <span class="kw">else</span> {
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+            <span class="kw">match</span> <span class="ident">default</span> {
+                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span><span class="string">&quot;&quot;</span>),
+                <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=&gt;</span> {
+                    <span class="ident">reff</span> <span class="op">=</span> <span class="ident">d</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>;
+                    <span class="ident">arena</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">NULL_ARENA</span>;
+                    <span class="ident">segment_id</span> <span class="op">=</span> <span class="number">0</span>;
+                }
             }
         }
 
@@ -5454,17 +5771,19 @@
 
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">unsafe</span> <span class="kw">fn</span> <span class="ident">read_data_pointer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ReaderArena</span>,
-        <span class="ident">segment_id</span>: <span class="ident">u32</span>,
-        <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
-        <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>,
-        <span class="ident">_default_size</span>: <span class="ident">ByteCount32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">data</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
+        <span class="kw-2">mut</span> <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
+        <span class="kw-2">mut</span> <span class="ident">segment_id</span>: <span class="ident">u32</span>,
+        <span class="kw-2">mut</span> <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
+        <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span>[<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">data</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
         <span class="kw">if</span> (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_null</span>() {
-            <span class="kw">if</span> <span class="ident">default_value</span>.<span class="ident">is_null</span>() {
-                <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span>[]);
-            } <span class="kw">else</span> {
-                <span class="macro">unimplemented</span><span class="macro">!</span>()
+            <span class="kw">match</span> <span class="ident">default</span> {
+                <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="kw-2">&amp;</span>[]),
+                <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=&gt;</span> {
+                    <span class="ident">reff</span> <span class="op">=</span> <span class="ident">d</span>.<span class="ident">as_ptr</span>() <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>;
+                    <span class="ident">arena</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw">super</span>::<span class="ident">NULL_ARENA</span>;
+                    <span class="ident">segment_id</span> <span class="op">=</span> <span class="number">0</span>;
+                }
             }
         }
 
@@ -5495,7 +5814,7 @@
 
 <span class="kw">static</span> <span class="ident">NULL_ARENA</span>: <span class="ident">NullArena</span> <span class="op">=</span> <span class="ident">NullArena</span>;
 
-<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">CapTable</span> <span class="op">=</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>;
+<span class="kw">pub</span> <span class="kw">type</span> <span class="ident">CapTable</span> <span class="op">=</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>;
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Copy</span>, <span class="ident">Clone</span>)]</span>
 <span class="kw">pub</span> <span class="kw">enum</span> <span class="ident">CapTableReader</span> {
@@ -5503,15 +5822,15 @@
     <span class="comment">// making values of this type take 16 bytes of memory. Now we instead</span>
     <span class="comment">// represent a null CapTableReader with `Plain(ptr::null())`.</span>
 
-    <span class="ident">Plain</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
+    <span class="ident">Plain</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">CapTableReader</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extract_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extract_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
             <span class="ident">CapTableReader</span>::<span class="ident">Plain</span>(<span class="ident">hooks</span>) <span class="op">=&gt;</span> {
                 <span class="kw">if</span> <span class="ident">hooks</span>.<span class="ident">is_null</span>() { <span class="kw">return</span> <span class="prelude-val">None</span> }
-                <span class="kw">let</span> <span class="ident">hooks</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">hooks</span> };
+                <span class="kw">let</span> <span class="ident">hooks</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">hooks</span> };
                 <span class="kw">if</span> <span class="ident">index</span> <span class="op">&gt;=</span> <span class="ident">hooks</span>.<span class="ident">len</span>() { <span class="prelude-val">None</span> }
                 <span class="kw">else</span> {
                     <span class="kw">match</span> <span class="ident">hooks</span>[<span class="ident">index</span>] {
@@ -5530,26 +5849,21 @@
     <span class="comment">// making values of this type take 16 bytes of memory. Now we instead</span>
     <span class="comment">// represent a null CapTableBuilder with `Plain(ptr::null_mut())`.</span>
 
-    <span class="ident">Plain</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
+    <span class="ident">Plain</span>(<span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
 }
 
 <span class="kw">impl</span> <span class="ident">CapTableBuilder</span> {
-    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span><span class="op">=</span><span class="string">&quot;0.9.2&quot;</span>, <span class="ident">note</span><span class="op">=</span><span class="string">&quot;use into_reader()&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_reader</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">CapTableReader</span> {
-        <span class="self">self</span>.<span class="ident">into_reader</span>()
-    }
-
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_reader</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">CapTableReader</span> {
         <span class="kw">match</span> <span class="self">self</span> {
             <span class="ident">CapTableBuilder</span>::<span class="ident">Plain</span>(<span class="ident">hooks</span>) <span class="op">=&gt;</span> <span class="ident">CapTableReader</span>::<span class="ident">Plain</span>(<span class="ident">hooks</span>),
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extract_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">extract_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">index</span>: <span class="ident">usize</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
             <span class="ident">CapTableBuilder</span>::<span class="ident">Plain</span>(<span class="ident">hooks</span>) <span class="op">=&gt;</span> {
                 <span class="kw">if</span> <span class="ident">hooks</span>.<span class="ident">is_null</span>() { <span class="kw">return</span> <span class="prelude-val">None</span> }
-                <span class="kw">let</span> <span class="ident">hooks</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">hooks</span> };
+                <span class="kw">let</span> <span class="ident">hooks</span>: <span class="kw-2">&amp;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">*</span><span class="ident">hooks</span> };
                 <span class="kw">if</span> <span class="ident">index</span> <span class="op">&gt;=</span> <span class="ident">hooks</span>.<span class="ident">len</span>() { <span class="prelude-val">None</span> }
                 <span class="kw">else</span> {
                     <span class="kw">match</span> <span class="ident">hooks</span>[<span class="ident">index</span>] {
@@ -5561,14 +5875,14 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inject_cap</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">inject_cap</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
             <span class="ident">CapTableBuilder</span>::<span class="ident">Plain</span>(<span class="ident">hooks</span>) <span class="op">=&gt;</span> {
                 <span class="kw">if</span> <span class="ident">hooks</span>.<span class="ident">is_null</span>() {
                     <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Called inject_cap() on a null capability table. You need \
                             to call imbue_mut() on this message before adding capabilities.&quot;</span>);
                 }
-                <span class="kw">let</span> <span class="ident">hooks</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">hooks</span> };
+                <span class="kw">let</span> <span class="ident">hooks</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">hooks</span> };
                 <span class="ident">hooks</span>.<span class="ident">push</span>(<span class="prelude-val">Some</span>(<span class="ident">cap</span>));
                 <span class="ident">hooks</span>.<span class="ident">len</span>() <span class="op">-</span> <span class="number">1</span>
             }
@@ -5582,7 +5896,7 @@
                     <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;Called drop_cap() on a null capability table. You need \
                             to call imbue_mut() on this message before adding capabilities.&quot;</span>);
                 }
-                <span class="kw">let</span> <span class="ident">hooks</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">hooks</span> };
+                <span class="kw">let</span> <span class="ident">hooks</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> <span class="op">=</span> <span class="kw">unsafe</span> { <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="kw-2">*</span><span class="ident">hooks</span> };
                 <span class="kw">if</span> <span class="ident">index</span> <span class="op">&lt;</span> <span class="ident">hooks</span>.<span class="ident">len</span>() { <span class="ident">hooks</span>[<span class="ident">index</span>] <span class="op">=</span> <span class="prelude-val">None</span>; }
             }
         }
@@ -5592,7 +5906,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PointerReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>  {
-    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ReaderArena</span>,
+    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
     <span class="ident">cap_table</span>: <span class="ident">CapTableReader</span>,
     <span class="ident">pointer</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
     <span class="ident">segment_id</span>: <span class="ident">u32</span>,
@@ -5609,7 +5923,7 @@
             <span class="ident">nesting_limit</span>: <span class="number">0x7fffffff</span> }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_root</span>(<span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ReaderArena</span>,
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_root</span>(<span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
                     <span class="ident">segment_id</span>: <span class="ident">u32</span>,
                     <span class="ident">location</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>,
                     <span class="ident">nesting_limit</span>: <span class="ident">i32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>
@@ -5656,17 +5970,18 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_struct</span>(<span class="self">self</span>, <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_struct</span>(<span class="self">self</span>, <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
         <span class="kw">let</span> <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">pointer</span>.<span class="ident">is_null</span>() { <span class="ident">zero_pointer</span>() } <span class="kw">else</span> { <span class="self">self</span>.<span class="ident">pointer</span> };
         <span class="kw">unsafe</span> {
             <span class="ident">wire_helpers</span>::<span class="ident">read_struct_pointer</span>(<span class="self">self</span>.<span class="ident">arena</span>,
                                               <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="self">self</span>.<span class="ident">cap_table</span>, <span class="ident">reff</span>,
-                                              <span class="ident">default_value</span>, <span class="self">self</span>.<span class="ident">nesting_limit</span>)
+                                              <span class="ident">default</span>, <span class="self">self</span>.<span class="ident">nesting_limit</span>)
         }
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_list</span>(<span class="self">self</span>, <span class="ident">expected_element_size</span>: <span class="ident">ElementSize</span>,
-                    <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ListReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+                    <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ListReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+        <span class="kw">let</span> <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">default</span> { <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>(), <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=&gt;</span> <span class="ident">d</span>.<span class="ident">as_ptr</span>() };
         <span class="kw">let</span> <span class="ident">reff</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">pointer</span>.<span class="ident">is_null</span>() { <span class="ident">zero_pointer</span>() } <span class="kw">else</span> { <span class="self">self</span>.<span class="ident">pointer</span> };
         <span class="kw">unsafe</span> {
             <span class="ident">wire_helpers</span>::<span class="ident">read_list_pointer</span>(
@@ -5692,21 +6007,21 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="self">self</span>, <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>, <span class="ident">default_size</span>: <span class="ident">ByteCount32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="self">self</span>, <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
         <span class="kw">let</span> <span class="ident">reff</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">pointer</span>.<span class="ident">is_null</span>() { <span class="ident">zero_pointer</span>() } <span class="kw">else</span> { <span class="self">self</span>.<span class="ident">pointer</span> };
         <span class="kw">unsafe</span> {
-            <span class="ident">wire_helpers</span>::<span class="ident">read_text_pointer</span>(<span class="self">self</span>.<span class="ident">arena</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="ident">reff</span>, <span class="ident">default_value</span>, <span class="ident">default_size</span>)
+            <span class="ident">wire_helpers</span>::<span class="ident">read_text_pointer</span>(<span class="self">self</span>.<span class="ident">arena</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="ident">reff</span>, <span class="ident">default</span>)
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>, <span class="ident">default_size</span>: <span class="ident">ByteCount32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">data</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">data</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
         <span class="kw">let</span> <span class="ident">reff</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">pointer</span>.<span class="ident">is_null</span>() { <span class="ident">zero_pointer</span>() } <span class="kw">else</span> { <span class="self">self</span>.<span class="ident">pointer</span> };
         <span class="kw">unsafe</span> {
-            <span class="ident">wire_helpers</span>::<span class="ident">read_data_pointer</span>(<span class="self">self</span>.<span class="ident">arena</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="ident">reff</span>, <span class="ident">default_value</span>, <span class="ident">default_size</span>)
+            <span class="ident">wire_helpers</span>::<span class="ident">read_data_pointer</span>(<span class="self">self</span>.<span class="ident">arena</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="ident">reff</span>, <span class="ident">default</span>)
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_capability</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_capability</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
         <span class="kw">let</span> <span class="ident">reff</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span> <span class="op">=</span> <span class="kw">if</span> <span class="self">self</span>.<span class="ident">pointer</span>.<span class="ident">is_null</span>() { <span class="ident">zero_pointer</span>() } <span class="kw">else</span> { <span class="self">self</span>.<span class="ident">pointer</span> };
         <span class="kw">unsafe</span> {
             <span class="ident">wire_helpers</span>::<span class="ident">read_capability_pointer</span>(
@@ -5724,14 +6039,14 @@
 
             <span class="kw">match</span> <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">kind</span>() } {
                 <span class="ident">WirePointerKind</span>::<span class="ident">Far</span> <span class="op">=&gt;</span>
-                    <span class="prelude-val">Err</span>(::<span class="ident">Error</span>::<span class="ident">failed</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unexpected FAR pointer&quot;</span>))),
+                    <span class="prelude-val">Err</span>(<span class="kw">crate</span>::<span class="ident">Error</span>::<span class="ident">failed</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unexpected FAR pointer&quot;</span>))),
                 <span class="ident">WirePointerKind</span>::<span class="ident">Struct</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">PointerType</span>::<span class="ident">Struct</span>),
                 <span class="ident">WirePointerKind</span>::<span class="ident">List</span> <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">PointerType</span>::<span class="ident">List</span>),
                 <span class="ident">WirePointerKind</span>::<span class="ident">Other</span> <span class="op">=&gt;</span> {
                     <span class="kw">if</span> <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="ident">reff</span>).<span class="ident">is_capability</span>() } {
                         <span class="prelude-val">Ok</span>(<span class="ident">PointerType</span>::<span class="ident">Capability</span>)
                     } <span class="kw">else</span> {
-                        <span class="prelude-val">Err</span>(::<span class="ident">Error</span>::<span class="ident">failed</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unknown pointer type&quot;</span>)))
+                        <span class="prelude-val">Err</span>(<span class="kw">crate</span>::<span class="ident">Error</span>::<span class="ident">failed</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Unknown pointer type&quot;</span>)))
                     }
                 }
             }
@@ -5748,7 +6063,7 @@
             <span class="ident">PointerType</span>::<span class="ident">Struct</span> <span class="op">=&gt;</span> {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">data_trunc</span> <span class="op">=</span> <span class="bool-val">false</span>;
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ptr_trunc</span> <span class="op">=</span> <span class="bool-val">false</span>;
-                <span class="kw">let</span> <span class="ident">st</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_struct</span>(<span class="ident">ptr</span>::<span class="ident">null</span>())<span class="question-mark">?</span>;
+                <span class="kw">let</span> <span class="ident">st</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_struct</span>(<span class="prelude-val">None</span>)<span class="question-mark">?</span>;
                 <span class="kw">if</span> <span class="ident">st</span>.<span class="ident">get_data_section_size</span>() <span class="op">==</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> <span class="ident">st</span>.<span class="ident">get_pointer_section_size</span>() <span class="op">==</span> <span class="number">0</span> {
                     <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">pointer</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span> <span class="op">==</span> <span class="ident">st</span>.<span class="ident">get_location</span>())
                 } <span class="kw">else</span> {
@@ -5766,7 +6081,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">PointerBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
     <span class="ident">segment_id</span>: <span class="ident">u32</span>,
     <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
     <span class="ident">pointer</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>
@@ -5775,7 +6090,7 @@
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">PointerBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
     <span class="attribute">#[<span class="ident">inline</span>]</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_root</span>(
-        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+        <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
         <span class="ident">segment_id</span>: <span class="ident">u32</span>,
         <span class="ident">location</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">Word</span>)
         <span class="op">-&gt;</span> <span class="self">Self</span>
@@ -5800,7 +6115,7 @@
         <span class="kw">unsafe</span> { (<span class="kw-2">*</span><span class="self">self</span>.<span class="ident">pointer</span>).<span class="ident">is_null</span>() }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_struct</span>(<span class="self">self</span>, <span class="ident">size</span>: <span class="ident">StructSize</span>, <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_struct</span>(<span class="self">self</span>, <span class="ident">size</span>: <span class="ident">StructSize</span>, <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">StructBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">wire_helpers</span>::<span class="ident">get_writable_struct_pointer</span>(
                 <span class="self">self</span>.<span class="ident">arena</span>,
@@ -5808,13 +6123,14 @@
                 <span class="self">self</span>.<span class="ident">segment_id</span>,
                 <span class="self">self</span>.<span class="ident">cap_table</span>,
                 <span class="ident">size</span>,
-                <span class="ident">default_value</span>)
+                <span class="ident">default</span>)
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_list</span>(<span class="self">self</span>, <span class="ident">element_size</span>: <span class="ident">ElementSize</span>, <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_list</span>(<span class="self">self</span>, <span class="ident">element_size</span>: <span class="ident">ElementSize</span>, <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>)
                     <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ListBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
+        <span class="kw">let</span> <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">default</span> { <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>(), <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=&gt;</span> <span class="ident">d</span>.<span class="ident">as_ptr</span>() };
         <span class="kw">unsafe</span> {
             <span class="ident">wire_helpers</span>::<span class="ident">get_writable_list_pointer</span>(
                 <span class="self">self</span>.<span class="ident">arena</span>, <span class="self">self</span>.<span class="ident">pointer</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="self">self</span>.<span class="ident">cap_table</span>, <span class="ident">element_size</span>, <span class="ident">default_value</span>)
@@ -5822,34 +6138,34 @@
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_struct_list</span>(<span class="self">self</span>, <span class="ident">element_size</span>: <span class="ident">StructSize</span>,
-                           <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ListBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
+                           <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ListBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
+        <span class="kw">let</span> <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">default</span> { <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">std</span>::<span class="ident">ptr</span>::<span class="ident">null</span>(), <span class="prelude-val">Some</span>(<span class="ident">d</span>) <span class="op">=&gt;</span> <span class="ident">d</span>.<span class="ident">as_ptr</span>() };
         <span class="kw">unsafe</span> {
             <span class="ident">wire_helpers</span>::<span class="ident">get_writable_struct_list_pointer</span>(
                 <span class="self">self</span>.<span class="ident">arena</span>, <span class="self">self</span>.<span class="ident">pointer</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="self">self</span>.<span class="ident">cap_table</span>, <span class="ident">element_size</span>, <span class="ident">default_value</span>)
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="self">self</span>, <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>, <span class="ident">default_size</span>: <span class="ident">ByteCount32</span>)
-                    <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_text</span>(<span class="self">self</span>, <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">text</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
         <span class="kw">unsafe</span> {
             <span class="ident">wire_helpers</span>::<span class="ident">get_writable_text_pointer</span>(
                 <span class="self">self</span>.<span class="ident">arena</span>,
-                <span class="self">self</span>.<span class="ident">pointer</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="ident">default_value</span>, <span class="ident">default_size</span>)
+                <span class="self">self</span>.<span class="ident">pointer</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="ident">default</span>)
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data</span>(<span class="self">self</span>, <span class="ident">default_value</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">Word</span>, <span class="ident">default_size</span>: <span class="ident">ByteCount32</span>)
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data</span>(<span class="self">self</span>, <span class="ident">default</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">Word</span>]<span class="op">&gt;</span>)
                     <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">data</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
     {
         <span class="kw">unsafe</span> {
             <span class="ident">wire_helpers</span>::<span class="ident">get_writable_data_pointer</span>(
-                <span class="self">self</span>.<span class="ident">arena</span>, <span class="self">self</span>.<span class="ident">pointer</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="ident">default_value</span>, <span class="ident">default_size</span>)
+                <span class="self">self</span>.<span class="ident">arena</span>, <span class="self">self</span>.<span class="ident">pointer</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="ident">default</span>)
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_capability</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_capability</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="ident">wire_helpers</span>::<span class="ident">read_capability_pointer</span>(
                 <span class="self">self</span>.<span class="ident">arena</span>.<span class="ident">as_reader</span>(),
@@ -5921,7 +6237,7 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_capability</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>) {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">set_capability</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>) {
         <span class="ident">wire_helpers</span>::<span class="ident">set_capability_pointer</span>(
             <span class="self">self</span>.<span class="ident">arena</span>, <span class="self">self</span>.<span class="ident">segment_id</span>, <span class="self">self</span>.<span class="ident">cap_table</span>, <span class="self">self</span>.<span class="ident">pointer</span>, <span class="ident">cap</span>);
     }
@@ -5952,11 +6268,6 @@
         }
     }
 
-    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span><span class="op">=</span><span class="string">&quot;0.9.2&quot;</span>, <span class="ident">note</span><span class="op">=</span><span class="string">&quot;use into_reader()&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_reader</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">PointerReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">into_reader</span>()
-    }
-
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_reader</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">PointerReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="ident">PointerReader</span> {
             <span class="ident">arena</span>: <span class="self">self</span>.<span class="ident">arena</span>.<span class="ident">as_reader</span>(),
@@ -5970,7 +6281,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StructReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ReaderArena</span>,
+    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
     <span class="ident">cap_table</span>: <span class="ident">CapTableReader</span>,
     <span class="ident">data</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>,
     <span class="ident">pointers</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">WirePointer</span>,
@@ -6000,6 +6311,21 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data_section_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">BitCount32</span> { <span class="self">self</span>.<span class="ident">data_size</span> }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_pointer_section_size</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">WirePointerCount16</span> { <span class="self">self</span>.<span class="ident">pointer_count</span> }
+
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_pointer_section_as_list</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ListReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
+        <span class="ident">ListReader</span> {
+            <span class="ident">arena</span>: <span class="self">self</span>.<span class="ident">arena</span>,
+            <span class="ident">segment_id</span>: <span class="self">self</span>.<span class="ident">segment_id</span>,
+            <span class="ident">cap_table</span>: <span class="self">self</span>.<span class="ident">cap_table</span>,
+            <span class="ident">ptr</span>: <span class="self">self</span>.<span class="ident">pointers</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="kw">_</span>,
+            <span class="ident">element_count</span>: <span class="self">self</span>.<span class="ident">pointer_count</span> <span class="kw">as</span> <span class="ident">ElementCount32</span>,
+            <span class="ident">element_size</span>: <span class="ident">ElementSize</span>::<span class="ident">Pointer</span>,
+            <span class="ident">step</span>: <span class="number">1</span> <span class="op">*</span> <span class="ident">BITS_PER_WORD</span> <span class="kw">as</span> <span class="ident">BitCount32</span>,
+            <span class="ident">struct_data_size</span>: <span class="number">0</span>,
+            <span class="ident">struct_pointer_count</span>: <span class="number">0</span>,
+            <span class="ident">nesting_limit</span>: <span class="self">self</span>.<span class="ident">nesting_limit</span>,
+        }
+    }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">get_data_section_as_blob</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> [<span class="ident">u8</span>] {
         <span class="kw">if</span> <span class="self">self</span>.<span class="ident">data_size</span> <span class="op">==</span> <span class="number">0</span> {
@@ -6141,7 +6467,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">StructBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
     <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
     <span class="ident">data</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span>,
     <span class="ident">pointers</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">WirePointer</span>,
@@ -6151,11 +6477,6 @@
 }
 
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> <span class="ident">StructBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span><span class="op">=</span><span class="string">&quot;0.9.2&quot;</span>, <span class="ident">note</span><span class="op">=</span><span class="string">&quot;use into_reader()&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_reader</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">StructReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">into_reader</span>()
-    }
-
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_reader</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">StructReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
         <span class="ident">StructReader</span> {
             <span class="ident">arena</span>: <span class="self">self</span>.<span class="ident">arena</span>.<span class="ident">as_reader</span>(),
@@ -6260,7 +6581,7 @@
             <span class="comment">// (but ignore empty sections).</span>
             <span class="kw">if</span> (<span class="ident">shared_data_size</span> <span class="op">==</span> <span class="number">0</span> <span class="op">||</span> <span class="ident">other</span>.<span class="ident">data</span> <span class="op">==</span> <span class="self">self</span>.<span class="ident">data</span>) <span class="op">&amp;&amp;</span>
                 (<span class="ident">shared_pointer_count</span> <span class="op">==</span> <span class="number">0</span> <span class="op">||</span> <span class="ident">other</span>.<span class="ident">pointers</span> <span class="op">==</span> <span class="self">self</span>.<span class="ident">pointers</span>) {
-                <span class="kw">return</span> <span class="prelude-val">Err</span>(::<span class="ident">Error</span>::<span class="ident">failed</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Only one of the section pointers is pointing to ourself&quot;</span>)))
+                <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="kw">crate</span>::<span class="ident">Error</span>::<span class="ident">failed</span>(<span class="macro">format</span><span class="macro">!</span>(<span class="string">&quot;Only one of the section pointers is pointing to ourself&quot;</span>)))
             }
 
             <span class="comment">// So `other` appears to be a reader for this same struct. No copying is needed.</span>
@@ -6312,7 +6633,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ListReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">ReaderArena</span>,
+    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">ReaderArena</span>,
     <span class="ident">cap_table</span>: <span class="ident">CapTableReader</span>,
     <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>,
     <span class="ident">segment_id</span>: <span class="ident">u32</span>,
@@ -6504,7 +6825,7 @@
 
 <span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>, <span class="ident">Copy</span>)]</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ListBuilder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="ident">BuilderArena</span>,
+    <span class="ident">arena</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw">dyn</span> <span class="ident">BuilderArena</span>,
     <span class="ident">cap_table</span>: <span class="ident">CapTableBuilder</span>,
     <span class="ident">ptr</span>: <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">u8</span>,
     <span class="ident">segment_id</span>: <span class="ident">u32</span>,
@@ -6530,11 +6851,6 @@
             <span class="ident">struct_data_size</span>: <span class="number">0</span>,
             <span class="ident">struct_pointer_count</span>: <span class="number">0</span>,
         }
-    }
-
-    <span class="attribute">#[<span class="ident">deprecated</span>(<span class="ident">since</span><span class="op">=</span><span class="string">&quot;0.9.2&quot;</span>, <span class="ident">note</span><span class="op">=</span><span class="string">&quot;use into_reader()&quot;</span>)]</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">as_reader</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ListReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {
-        <span class="self">self</span>.<span class="ident">into_reader</span>()
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">into_reader</span>(<span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">ListReader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span> {

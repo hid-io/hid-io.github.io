@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Next","A future of the next element of a stream."]],"trait":[["StreamExt","An extension trait which adds utility methods to `Stream` types."]]});

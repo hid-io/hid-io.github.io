@@ -1,1 +1,0 @@
-initSidebarItems({"macro":[["await","Wait for a future to complete."]],"mod":[["io","Use I/O with `async` / `await`."],["sink","Use sinks with `async` / `await`."],["stream","Use streams with `async` / `await`."]]});

@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-rpc-0.9.0/src/local.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>local.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../capnp_rpc/index.html'><img src='../../rust-logo.png' alt='logo' width='100'></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-rpc-0.10.0/src/local.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>local.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../capnp_rpc/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -376,7 +376,7 @@
 <span class="kw">use</span> <span class="ident">capnp</span>::<span class="ident">private</span>::<span class="ident">capability</span>::{<span class="ident">ClientHook</span>, <span class="ident">ParamsHook</span>, <span class="ident">PipelineHook</span>, <span class="ident">PipelineOp</span>,
                                  <span class="ident">RequestHook</span>, <span class="ident">ResponseHook</span>, <span class="ident">ResultsHook</span>};
 
-<span class="kw">use</span> <span class="ident">attach</span>::<span class="ident">Attach</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">attach</span>::<span class="ident">Attach</span>;
 <span class="kw">use</span> <span class="ident">futures</span>::<span class="ident">Future</span>;
 <span class="kw">use</span> <span class="ident">futures</span>::<span class="ident">sync</span>::<span class="ident">oneshot</span>;
 
@@ -385,22 +385,22 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">mem</span>;
 
 <span class="kw">pub</span> <span class="kw">trait</span> <span class="ident">ResultsDoneHook</span> {
-    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>;
+    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>;
     <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">any_pointer</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>;
 }
 
-<span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span> {
+<span class="kw">impl</span> <span class="ident">Clone</span> <span class="kw">for</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">clone</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">add_ref</span>()
     }
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Response</span> {
-    <span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>
+    <span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>
 }
 
 <span class="kw">impl</span> <span class="ident">Response</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Response</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Response</span> {
         <span class="ident">Response</span> {
             <span class="ident">results</span>: <span class="ident">results</span>
         }
@@ -415,12 +415,12 @@
 
 <span class="kw">struct</span> <span class="ident">Params</span> {
     <span class="ident">request</span>: <span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>,
-    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Params</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">request</span>: <span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>,
-           <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>)
+           <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>)
            <span class="op">-&gt;</span> <span class="ident">Params</span>
     {
         <span class="ident">Params</span> {
@@ -432,7 +432,7 @@
 
 <span class="kw">impl</span> <span class="ident">ParamsHook</span> <span class="kw">for</span> <span class="ident">Params</span> {
     <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">any_pointer</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">request</span>.<span class="ident">get_root_as_reader</span>());
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">request</span>.<span class="ident">get_root_as_reader</span>()<span class="question-mark">?</span>;
         <span class="ident">result</span>.<span class="ident">imbue</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">cap_table</span>);
         <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
     }
@@ -440,12 +440,12 @@
 
 <span class="kw">struct</span> <span class="ident">Results</span> {
     <span class="ident">message</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;&gt;</span>,
-    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
-    <span class="ident">results_done_fulfiller</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">oneshot</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">results_done_fulfiller</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">oneshot</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Results</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">fulfiller</span>: <span class="ident">oneshot</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Results</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">fulfiller</span>: <span class="ident">oneshot</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Results</span> {
         <span class="ident">Results</span> {
             <span class="ident">message</span>: <span class="prelude-val">Some</span>(::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span>::<span class="ident">new_default</span>()),
             <span class="ident">cap_table</span>: <span class="ident">Vec</span>::<span class="ident">new</span>(),
@@ -469,7 +469,7 @@
     <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">any_pointer</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span> {
             <span class="ident">Results</span> { <span class="ident">message</span>: <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">message</span>), <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">cap_table</span>, .. } <span class="op">=&gt;</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_root</span>());
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_root</span>()<span class="question-mark">?</span>;
                 <span class="ident">result</span>.<span class="ident">imbue_mut</span>(<span class="ident">cap_table</span>);
                 <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
             }
@@ -477,12 +477,12 @@
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">tail_call</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">_request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RequestHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">tail_call</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">_request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">RequestHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">unimplemented</span><span class="macro">!</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">direct_tail_call</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">_request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RequestHook</span><span class="op">&gt;</span>)
-                        <span class="op">-&gt;</span> (<span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;</span>)
+    <span class="kw">fn</span> <span class="ident">direct_tail_call</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">_request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">RequestHook</span><span class="op">&gt;</span>)
+                        <span class="op">-&gt;</span> (<span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;</span>)
     {
         <span class="macro">unimplemented</span><span class="macro">!</span>()
     }
@@ -494,7 +494,7 @@
 
 <span class="kw">struct</span> <span class="ident">ResultsDoneInner</span> {
     <span class="ident">message</span>: ::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>,
-    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">struct</span> <span class="ident">ResultsDone</span> {
@@ -503,7 +503,7 @@
 
 <span class="kw">impl</span> <span class="ident">ResultsDone</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">message</span>: <span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>,
-           <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+           <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
     )
         <span class="op">-&gt;</span> <span class="ident">ResultsDone</span>
     {
@@ -517,11 +517,11 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ResultsDoneHook</span> <span class="kw">for</span> <span class="ident">ResultsDone</span> {
-    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span> {
         <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ResultsDone</span> { <span class="ident">inner</span>: <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">clone</span>() })
     }
     <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">any_pointer</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">message</span>.<span class="ident">get_root_as_reader</span>());
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">message</span>.<span class="ident">get_root_as_reader</span>()<span class="question-mark">?</span>;
         <span class="ident">result</span>.<span class="ident">imbue</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">cap_table</span>);
         <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
     }
@@ -530,16 +530,16 @@
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Request</span> {
     <span class="ident">message</span>: <span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>,
-    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
     <span class="ident">interface_id</span>: <span class="ident">u64</span>,
     <span class="ident">method_id</span>: <span class="ident">u16</span>,
-    <span class="ident">client</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>,
+    <span class="ident">client</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Request</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">interface_id</span>: <span class="ident">u64</span>, <span class="ident">method_id</span>: <span class="ident">u16</span>,
            <span class="ident">_size_hint</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">MessageSize</span><span class="op">&gt;</span>,
-           <span class="ident">client</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>)
+           <span class="ident">client</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>)
            <span class="op">-&gt;</span> <span class="ident">Request</span>
     {
         <span class="ident">Request</span> {
@@ -566,19 +566,19 @@
         <span class="kw">let</span> <span class="ident">Request</span> { <span class="ident">message</span>, <span class="ident">cap_table</span>, <span class="ident">interface_id</span>, <span class="ident">method_id</span>, <span class="ident">client</span> } <span class="op">=</span> <span class="ident">tmp</span>;
         <span class="kw">let</span> <span class="ident">params</span> <span class="op">=</span> <span class="ident">Params</span>::<span class="ident">new</span>(<span class="ident">message</span>, <span class="ident">cap_table</span>);
 
-        <span class="kw">let</span> (<span class="ident">results_done_fulfiller</span>, <span class="ident">results_done_promise</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;&gt;</span>();
+        <span class="kw">let</span> (<span class="ident">results_done_fulfiller</span>, <span class="ident">results_done_promise</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>::<span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;&gt;</span>();
         <span class="kw">let</span> <span class="ident">results_done_promise</span> <span class="op">=</span> <span class="ident">results_done_promise</span>.<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">e</span><span class="op">|</span> <span class="ident">e</span>.<span class="ident">into</span>());
         <span class="kw">let</span> <span class="ident">results</span> <span class="op">=</span> <span class="ident">Results</span>::<span class="ident">new</span>(<span class="ident">results_done_fulfiller</span>);
         <span class="kw">let</span> <span class="ident">promise</span> <span class="op">=</span> <span class="ident">client</span>.<span class="ident">call</span>(<span class="ident">interface_id</span>, <span class="ident">method_id</span>, <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">params</span>), <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">results</span>));
 
-        <span class="kw">let</span> (<span class="ident">pipeline_sender</span>, <span class="kw-2">mut</span> <span class="ident">pipeline</span>) <span class="op">=</span> ::<span class="ident">queued</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>();
+        <span class="kw">let</span> (<span class="ident">pipeline_sender</span>, <span class="kw-2">mut</span> <span class="ident">pipeline</span>) <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">queued</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>();
 
         <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="ident">promise</span>.<span class="ident">join</span>(<span class="ident">results_done_promise</span>).<span class="ident">and_then</span>(<span class="kw">move</span> <span class="op">|</span>((), <span class="ident">results_done_hook</span>)<span class="op">|</span> {
-            <span class="ident">pipeline_sender</span>.<span class="ident">complete</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">results_done_hook</span>.<span class="ident">add_ref</span>())) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;</span>);
+            <span class="ident">pipeline_sender</span>.<span class="ident">complete</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">results_done_hook</span>.<span class="ident">add_ref</span>())) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;</span>);
             <span class="prelude-val">Ok</span>((<span class="ident">capability</span>::<span class="ident">Response</span>::<span class="ident">new</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">Response</span>::<span class="ident">new</span>(<span class="ident">results_done_hook</span>))), ()))
         });
 
-        <span class="kw">let</span> (<span class="ident">left</span>, <span class="ident">right</span>) <span class="op">=</span> ::<span class="ident">split</span>::<span class="ident">split</span>(<span class="ident">p</span>);
+        <span class="kw">let</span> (<span class="ident">left</span>, <span class="ident">right</span>) <span class="op">=</span> <span class="kw">crate</span>::<span class="ident">split</span>::<span class="ident">split</span>(<span class="ident">p</span>);
 
         <span class="ident">pipeline</span>.<span class="ident">drive</span>(<span class="ident">right</span>);
         <span class="kw">let</span> <span class="ident">pipeline</span> <span class="op">=</span> <span class="ident">any_pointer</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">pipeline</span>));
@@ -589,14 +589,14 @@
         }
     }
     <span class="kw">fn</span> <span class="ident">tail_send</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>)
-                 <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">u32</span>, <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;</span>)<span class="op">&gt;</span>
+                 <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">u32</span>, <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;</span>)<span class="op">&gt;</span>
     {
         <span class="macro">unimplemented</span><span class="macro">!</span>()
     }
 }
 
 <span class="kw">struct</span> <span class="ident">PipelineInner</span> {
-    <span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>,
+    <span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Pipeline</span> {
@@ -604,7 +604,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Pipeline</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Pipeline</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Pipeline</span> {
         <span class="ident">Pipeline</span> {
             <span class="ident">inner</span>: <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="ident">RefCell</span>::<span class="ident">new</span>(<span class="ident">PipelineInner</span> { <span class="ident">results</span>: <span class="ident">results</span> }))
         }
@@ -618,19 +618,19 @@
 }
 
 <span class="kw">impl</span> <span class="ident">PipelineHook</span> <span class="kw">for</span> <span class="ident">Pipeline</span> {
-    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;</span> {
         <span class="ident">Box</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>())
     }
-    <span class="kw">fn</span> <span class="ident">get_pipelined_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ops</span>: <span class="kw-2">&amp;</span>[<span class="ident">PipelineOp</span>]) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_pipelined_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ops</span>: <span class="kw-2">&amp;</span>[<span class="ident">PipelineOp</span>]) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">borrow_mut</span>().<span class="ident">results</span>.<span class="ident">get</span>().<span class="ident">unwrap</span>().<span class="ident">get_pipelined_cap</span>(<span class="ident">ops</span>) {
             <span class="prelude-val">Ok</span>(<span class="ident">v</span>) <span class="op">=&gt;</span> <span class="ident">v</span>,
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="ident">Box</span>::<span class="ident">new</span>(::<span class="ident">broken</span>::<span class="ident">Client</span>::<span class="ident">new</span>(<span class="ident">e</span>, <span class="bool-val">true</span>, <span class="number">0</span>)) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>,
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="kw">crate</span>::<span class="ident">broken</span>::<span class="ident">Client</span>::<span class="ident">new</span>(<span class="ident">e</span>, <span class="bool-val">true</span>, <span class="number">0</span>)) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>,
         }
     }
 }
 
 <span class="kw">struct</span> <span class="ident">ClientInner</span> {
-    <span class="ident">server</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">capability</span>::<span class="ident">Server</span><span class="op">&gt;</span>,
+    <span class="ident">server</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">capability</span>::<span class="ident">Server</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Client</span> {
@@ -638,7 +638,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">Client</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">capability</span>::<span class="ident">Server</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Client</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">server</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">capability</span>::<span class="ident">Server</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Client</span> {
         <span class="ident">Client</span> {
             <span class="ident">inner</span>: <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="ident">RefCell</span>::<span class="ident">new</span>(<span class="ident">ClientInner</span> { <span class="ident">server</span>: <span class="ident">server</span> }))
         }
@@ -652,7 +652,7 @@
 }
 
 <span class="kw">impl</span> <span class="ident">ClientHook</span> <span class="kw">for</span> <span class="ident">Client</span> {
-    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> {
         <span class="ident">Box</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>())
     }
     <span class="kw">fn</span> <span class="ident">new_call</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">interface_id</span>: <span class="ident">u64</span>, <span class="ident">method_id</span>: <span class="ident">u16</span>,
@@ -663,7 +663,7 @@
             <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">Request</span>::<span class="ident">new</span>(<span class="ident">interface_id</span>, <span class="ident">method_id</span>, <span class="ident">size_hint</span>, <span class="self">self</span>.<span class="ident">add_ref</span>())))
     }
 
-    <span class="kw">fn</span> <span class="ident">call</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">interface_id</span>: <span class="ident">u64</span>, <span class="ident">method_id</span>: <span class="ident">u16</span>, <span class="ident">params</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ParamsHook</span><span class="op">&gt;</span>, <span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsHook</span><span class="op">&gt;</span>)
+    <span class="kw">fn</span> <span class="ident">call</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">interface_id</span>: <span class="ident">u64</span>, <span class="ident">method_id</span>: <span class="ident">u16</span>, <span class="ident">params</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ParamsHook</span><span class="op">&gt;</span>, <span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsHook</span><span class="op">&gt;</span>)
         <span class="op">-&gt;</span> <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>
     {
         <span class="comment">// We don&#39;t want to actually dispatch the call synchronously, because we don&#39;t want the callee</span>
@@ -691,11 +691,11 @@
         <span class="number">0</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">get_resolved</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_resolved</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
         <span class="prelude-val">None</span>
     }
 
-    <span class="kw">fn</span> <span class="ident">when_more_resolved</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Promise</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">when_more_resolved</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Promise</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;&gt;</span> {
         <span class="prelude-val">None</span>
     }
 }

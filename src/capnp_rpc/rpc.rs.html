@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-rpc-0.9.0/src/rpc.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>rpc.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../capnp_rpc/index.html'><img src='../../rust-logo.png' alt='logo' width='100'></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-rpc-0.10.0/src/rpc.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>rpc.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../capnp_rpc/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">   1</span>
 <span id="2">   2</span>
 <span id="3">   3</span>
 <span id="4">   4</span>
@@ -2942,7 +2942,6 @@
 <span id="2942">2942</span>
 <span id="2943">2943</span>
 <span id="2944">2944</span>
-<span id="2945">2945</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2013-2015 Sandstorm Development Group, Inc. and contributors</span>
 <span class="comment">// Licensed under the MIT License:</span>
@@ -2981,13 +2980,13 @@
 <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">rc</span>::{<span class="ident">Rc</span>, <span class="ident">Weak</span>};
 <span class="kw">use</span> <span class="ident">std</span>::{<span class="ident">cmp</span>, <span class="ident">mem</span>};
 
-<span class="kw">use</span> <span class="ident">rpc_capnp</span>::{<span class="ident">call</span>, <span class="ident">cap_descriptor</span>, <span class="ident">disembargo</span>, <span class="ident">exception</span>,
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">rpc_capnp</span>::{<span class="ident">call</span>, <span class="ident">cap_descriptor</span>, <span class="ident">disembargo</span>, <span class="ident">exception</span>,
                 <span class="ident">message</span>, <span class="ident">message_target</span>, <span class="ident">payload</span>, <span class="ident">resolve</span>, <span class="ident">return_</span>, <span class="ident">promised_answer</span>};
-<span class="kw">use</span> <span class="ident">forked_promise</span>::<span class="ident">ForkedPromise</span>;
-<span class="kw">use</span> <span class="ident">attach</span>::<span class="ident">Attach</span>;
-<span class="kw">use</span> {<span class="ident">broken</span>, <span class="ident">local</span>, <span class="ident">queued</span>};
-<span class="kw">use</span> <span class="ident">local</span>::<span class="ident">ResultsDoneHook</span>;
-<span class="kw">use</span> <span class="ident">task_set</span>::<span class="ident">TaskSet</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">forked_promise</span>::<span class="ident">ForkedPromise</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">attach</span>::<span class="ident">Attach</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">broken</span>, <span class="ident">local</span>, <span class="ident">queued</span>};
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">local</span>::<span class="ident">ResultsDoneHook</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">task_set</span>::<span class="ident">TaskSet</span>;
 
 <span class="comment">/*
 struct Defer&lt;F&gt; where F: FnOnce() {
@@ -3212,7 +3211,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     <span class="ident">return_has_been_sent</span>: <span class="ident">bool</span>,
 
     <span class="comment">// Send pipelined calls here.  Becomes null as soon as a `Finish` is received.</span>
-    <span class="ident">pipeline</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">pipeline</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;&gt;</span>,
 
     <span class="comment">// For locally-redirected calls (Call.sendResultsTo.yourself), this is a promise for the call</span>
     <span class="comment">// result, to be picked up by a subsequent `Return`.</span>
@@ -3242,7 +3241,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Export</span> {
     <span class="ident">refcount</span>: <span class="ident">u32</span>,
-    <span class="ident">client_hook</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>,
+    <span class="ident">client_hook</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>,
 
     <span class="comment">// If this export is a promise (not a settled capability), the `resolve_op` represents the</span>
     <span class="comment">// ongoing operation to wait for that promise to resolve and then send a `Resolve` message.</span>
@@ -3250,7 +3249,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 }
 
 <span class="kw">impl</span> <span class="ident">Export</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">client_hook</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Export</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">client_hook</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Export</span> {
         <span class="ident">Export</span> {
             <span class="ident">refcount</span>: <span class="number">1</span>,
             <span class="ident">client_hook</span>: <span class="ident">client_hook</span>,
@@ -3297,7 +3296,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
     <span class="kw">for</span> <span class="ident">op</span> <span class="kw">in</span> <span class="ident">ops</span>.<span class="ident">iter</span>() {
-        <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">op</span>.<span class="ident">which</span>()) {
+        <span class="kw">match</span> <span class="ident">op</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
             <span class="ident">promised_answer</span>::<span class="ident">op</span>::<span class="ident">Noop</span>(()) <span class="op">=&gt;</span> {
                 <span class="ident">result</span>.<span class="ident">push</span>(<span class="ident">PipelineOp</span>::<span class="ident">Noop</span>);
             }
@@ -3346,7 +3345,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 }
 
-<span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> ::<span class="ident">task_set</span>::<span class="ident">TaskReaper</span><span class="op">&lt;</span>(), ::<span class="ident">capnp</span>::<span class="ident">Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ConnectionErrorHandler</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> {
+<span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">crate</span>::<span class="ident">task_set</span>::<span class="ident">TaskReaper</span><span class="op">&lt;</span>(), ::<span class="ident">capnp</span>::<span class="ident">Error</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">ConnectionErrorHandler</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">task_failed</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">error</span>: ::<span class="ident">capnp</span>::<span class="ident">Error</span>) {
         <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">state</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">weak_state</span>.<span class="ident">upgrade</span>() {
             <span class="ident">state</span>.<span class="ident">disconnect</span>(<span class="ident">error</span>)
@@ -3355,7 +3354,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span> {
-    <span class="ident">bootstrap_cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>,
+    <span class="ident">bootstrap_cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>,
     <span class="ident">exports</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">ExportTable</span><span class="op">&lt;</span><span class="ident">Export</span><span class="op">&gt;&gt;</span>,
     <span class="ident">questions</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">ExportTable</span><span class="op">&lt;</span><span class="ident">Question</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
     <span class="ident">answers</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">ImportTable</span><span class="op">&lt;</span><span class="ident">Answer</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
@@ -3365,8 +3364,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
     <span class="ident">embargoes</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">ExportTable</span><span class="op">&lt;</span><span class="ident">Embargo</span><span class="op">&gt;&gt;</span>,
 
-    <span class="ident">tasks</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span>::<span class="ident">task_set</span>::<span class="ident">TaskSetHandle</span><span class="op">&lt;</span>(), ::<span class="ident">capnp</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
-    <span class="ident">connection</span>: <span class="ident">RefCell</span><span class="op">&lt;</span>::<span class="ident">std</span>::<span class="ident">result</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">Connection</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>, ::<span class="ident">capnp</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">tasks</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">task_set</span>::<span class="ident">TaskSetHandle</span><span class="op">&lt;</span>(), ::<span class="ident">capnp</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">connection</span>: <span class="ident">RefCell</span><span class="op">&lt;</span>::<span class="ident">std</span>::<span class="ident">result</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">Connection</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>, ::<span class="ident">capnp</span>::<span class="ident">Error</span><span class="op">&gt;&gt;</span>,
     <span class="ident">disconnect_fulfiller</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">oneshot</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>,
 
     <span class="ident">client_downcast_map</span>: <span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">WeakClient</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
@@ -3374,8 +3373,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">bootstrap_cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>,
-        <span class="ident">connection</span>: <span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">Connection</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
+        <span class="ident">bootstrap_cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>,
+        <span class="ident">connection</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">Connection</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
         <span class="ident">disconnect_fulfiller</span>: <span class="ident">oneshot</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;&gt;</span>)
         <span class="op">-&gt;</span> (<span class="ident">TaskSet</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>, <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>)
     {
@@ -3525,7 +3524,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bootstrap</span>(<span class="ident">state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">bootstrap</span>(<span class="ident">state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">question_id</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">questions</span>.<span class="ident">borrow_mut</span>().<span class="ident">push</span>(<span class="ident">Question</span>::<span class="ident">new</span>());
 
         <span class="kw">let</span> (<span class="ident">fulfiller</span>, <span class="ident">promise</span>) <span class="op">=</span> <span class="ident">oneshot</span>::<span class="ident">channel</span>();
@@ -3591,13 +3590,13 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 
     <span class="kw">fn</span> <span class="ident">handle_message</span>(<span class="ident">weak_state</span>: <span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
-                      <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
+                      <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
 
         <span class="comment">// Someday Rust will have non-lexical borrows and this thing won&#39;t be needed.</span>
         <span class="kw">enum</span> <span class="ident">BorrowWorkaround</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span> {
-            <span class="ident">ReturnResults</span>(<span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">QuestionRef</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
+            <span class="ident">ReturnResults</span>(<span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">QuestionRef</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
             <span class="ident">EraseQuestion</span>(<span class="ident">QuestionId</span>),
-            <span class="ident">Call</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>),
+            <span class="ident">Call</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>),
             <span class="ident">Unimplemented</span>,
             <span class="ident">Done</span>,
         }
@@ -3610,22 +3609,22 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
         <span class="kw">let</span> <span class="ident">connection_state1</span> <span class="op">=</span> <span class="ident">connection_state</span>.<span class="ident">clone</span>();
         <span class="kw">let</span> <span class="ident">intermediate</span> <span class="op">=</span> {
-            <span class="kw">let</span> <span class="ident">reader</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>::<span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Reader</span><span class="op">&gt;</span>());
+            <span class="kw">let</span> <span class="ident">reader</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>::<span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Reader</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
             <span class="kw">match</span> <span class="ident">reader</span>.<span class="ident">which</span>() {
                 <span class="prelude-val">Ok</span>(<span class="ident">message</span>::<span class="ident">Unimplemented</span>(<span class="ident">message</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>);
-                    <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">which</span>()) {
+                    <span class="kw">let</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">message</span><span class="question-mark">?</span>;
+                    <span class="kw">match</span> <span class="ident">message</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                         <span class="ident">message</span>::<span class="ident">Resolve</span>(<span class="ident">resolve</span>) <span class="op">=&gt;</span> {
-                            <span class="kw">let</span> <span class="ident">resolve</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">resolve</span>);
-                            <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">resolve</span>.<span class="ident">which</span>()) {
+                            <span class="kw">let</span> <span class="ident">resolve</span> <span class="op">=</span> <span class="ident">resolve</span><span class="question-mark">?</span>;
+                            <span class="kw">match</span> <span class="ident">resolve</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                                 <span class="ident">resolve</span>::<span class="ident">Cap</span>(<span class="ident">c</span>) <span class="op">=&gt;</span> {
-                                    <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">c</span>).<span class="ident">which</span>()) {
+                                    <span class="kw">match</span> <span class="ident">c</span><span class="question-mark">?</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                                         <span class="ident">cap_descriptor</span>::<span class="prelude-val">None</span>(()) <span class="op">=&gt;</span> (),
                                         <span class="ident">cap_descriptor</span>::<span class="ident">SenderHosted</span>(<span class="ident">export_id</span>) <span class="op">=&gt;</span> {
-                                            <span class="macro">try</span><span class="macro">!</span>(<span class="ident">connection_state</span>.<span class="ident">release_export</span>(<span class="ident">export_id</span>, <span class="number">1</span>));
+                                            <span class="ident">connection_state</span>.<span class="ident">release_export</span>(<span class="ident">export_id</span>, <span class="number">1</span>)<span class="question-mark">?</span>;
                                         }
                                         <span class="ident">cap_descriptor</span>::<span class="ident">SenderPromise</span>(<span class="ident">export_id</span>) <span class="op">=&gt;</span> {
-                                            <span class="macro">try</span><span class="macro">!</span>(<span class="ident">connection_state</span>.<span class="ident">release_export</span>(<span class="ident">export_id</span>, <span class="number">1</span>));
+                                            <span class="ident">connection_state</span>.<span class="ident">release_export</span>(<span class="ident">export_id</span>, <span class="number">1</span>)<span class="question-mark">?</span>;
                                         }
                                         <span class="ident">cap_descriptor</span>::<span class="ident">ReceiverAnswer</span>(<span class="kw">_</span>) <span class="op">|</span>
                                         <span class="ident">cap_descriptor</span>::<span class="ident">ReceiverHosted</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> (),
@@ -3646,12 +3645,12 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     }
                 }
                 <span class="prelude-val">Ok</span>(<span class="ident">message</span>::<span class="ident">Abort</span>(<span class="ident">abort</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">remote_exception_to_error</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">abort</span>)))
+                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">remote_exception_to_error</span>(<span class="ident">abort</span><span class="question-mark">?</span>))
                 }
                 <span class="prelude-val">Ok</span>(<span class="ident">message</span>::<span class="ident">Bootstrap</span>(<span class="ident">bootstrap</span>)) <span class="op">=&gt;</span> {
                     <span class="kw">use</span> ::<span class="ident">capnp</span>::<span class="ident">traits</span>::<span class="ident">ImbueMut</span>;
 
-                    <span class="kw">let</span> <span class="ident">bootstrap</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">bootstrap</span>);
+                    <span class="kw">let</span> <span class="ident">bootstrap</span> <span class="op">=</span> <span class="ident">bootstrap</span><span class="question-mark">?</span>;
                     <span class="kw">let</span> <span class="ident">answer_id</span> <span class="op">=</span> <span class="ident">bootstrap</span>.<span class="ident">get_question_id</span>();
 
                     <span class="kw">if</span> <span class="ident">connection_state</span>.<span class="ident">connection</span>.<span class="ident">borrow</span>().<span class="ident">is_err</span>() {
@@ -3663,7 +3662,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                         .<span class="ident">new_outgoing_message</span>(<span class="number">50</span>); <span class="comment">// XXX size hint</span>
 
                     <span class="kw">let</span> <span class="ident">result_exports</span> <span class="op">=</span> {
-                        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">response</span>.<span class="ident">get_body</span>()).<span class="ident">init_as</span>::<span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&gt;</span>().<span class="ident">init_return</span>();
+                        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">response</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">init_as</span>::<span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&gt;</span>().<span class="ident">init_return</span>();
                         <span class="ident">ret</span>.<span class="ident">set_answer_id</span>(<span class="ident">answer_id</span>);
 
                         <span class="kw">let</span> <span class="ident">cap</span> <span class="op">=</span> <span class="ident">connection_state1</span>.<span class="ident">bootstrap_cap</span>.<span class="ident">clone</span>();
@@ -3683,7 +3682,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     <span class="kw">let</span> <span class="ident">slots</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">connection_state1</span>.<span class="ident">answers</span>.<span class="ident">borrow_mut</span>().<span class="ident">slots</span>;
                     <span class="kw">let</span> <span class="ident">answer</span> <span class="op">=</span> <span class="ident">slots</span>.<span class="ident">entry</span>(<span class="ident">answer_id</span>).<span class="ident">or_insert_with</span>(<span class="ident">Answer</span>::<span class="ident">new</span>);
                     <span class="kw">if</span> <span class="ident">answer</span>.<span class="ident">active</span> {
-                        <span class="macro">try</span><span class="macro">!</span>(<span class="ident">connection_state1</span>.<span class="ident">release_exports</span>(<span class="kw-2">&amp;</span><span class="ident">result_exports</span>));
+                        <span class="ident">connection_state1</span>.<span class="ident">release_exports</span>(<span class="kw-2">&amp;</span><span class="ident">result_exports</span>)<span class="question-mark">?</span>;
                         <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">failed</span>(<span class="string">&quot;questionId is already in use&quot;</span>.<span class="ident">to_string</span>()));
                     }
                     <span class="ident">answer</span>.<span class="ident">active</span> <span class="op">=</span> <span class="bool-val">true</span>;
@@ -3696,12 +3695,11 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     <span class="ident">BorrowWorkaround</span>::<span class="ident">Done</span>
                 }
                 <span class="prelude-val">Ok</span>(<span class="ident">message</span>::<span class="ident">Call</span>(<span class="ident">call</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">call</span>);
-                    <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">connection_state</span>.<span class="ident">get_message_target</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">call</span>.<span class="ident">get_target</span>())));
+                    <span class="kw">let</span> <span class="ident">t</span> <span class="op">=</span> <span class="ident">connection_state</span>.<span class="ident">get_message_target</span>(<span class="ident">call</span><span class="question-mark">?</span>.<span class="ident">get_target</span>()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
                     <span class="ident">BorrowWorkaround</span>::<span class="ident">Call</span>(<span class="ident">t</span>)
                 }
                 <span class="prelude-val">Ok</span>(<span class="ident">message</span>::<span class="ident">Return</span>(<span class="ident">oret</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">oret</span>);
+                    <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">oret</span><span class="question-mark">?</span>;
                     <span class="kw">let</span> <span class="ident">question_id</span> <span class="op">=</span> <span class="ident">ret</span>.<span class="ident">get_answer_id</span>();
 
                     <span class="kw">match</span> <span class="ident">connection_state</span>.<span class="ident">questions</span>.<span class="ident">borrow_mut</span>().<span class="ident">slots</span>[<span class="ident">question_id</span> <span class="kw">as</span> <span class="ident">usize</span>] {
@@ -3709,18 +3707,18 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                             <span class="ident">question</span>.<span class="ident">is_awaiting_return</span> <span class="op">=</span> <span class="bool-val">false</span>;
                             <span class="kw">match</span> <span class="ident">question</span>.<span class="ident">self_ref</span> {
                                 <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">question_ref</span>) <span class="op">=&gt;</span> {
-                                    <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">ret</span>.<span class="ident">which</span>()) {
+                                    <span class="kw">match</span> <span class="ident">ret</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                                         <span class="ident">return_</span>::<span class="ident">Results</span>(<span class="ident">results</span>) <span class="op">=&gt;</span> {
                                             <span class="kw">let</span> <span class="ident">cap_table</span> <span class="op">=</span>
                                                 <span class="ident">ConnectionState</span>::<span class="ident">receive_caps</span>(<span class="ident">connection_state1</span>,
-                                                                              <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">results</span>).<span class="ident">get_cap_table</span>()));
+                                                                              <span class="ident">results</span><span class="question-mark">?</span>.<span class="ident">get_cap_table</span>()<span class="question-mark">?</span>);
                                             <span class="ident">BorrowWorkaround</span>::<span class="ident">ReturnResults</span>(<span class="ident">question_ref</span>.<span class="ident">upgrade</span>()
                                                                             .<span class="ident">expect</span>(<span class="string">&quot;dangling question ref?&quot;</span>),
-                                                                            <span class="macro">try</span><span class="macro">!</span>(<span class="ident">cap_table</span>))
+                                                                            <span class="ident">cap_table</span><span class="question-mark">?</span>)
                                         }
                                         <span class="ident">return_</span>::<span class="ident">Exception</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
                                             <span class="kw">let</span> <span class="ident">tmp</span> <span class="op">=</span> <span class="ident">question_ref</span>.<span class="ident">upgrade</span>().<span class="ident">expect</span>(<span class="string">&quot;dangling question ref?&quot;</span>);
-                                            <span class="ident">tmp</span>.<span class="ident">borrow_mut</span>().<span class="ident">reject</span>(<span class="ident">remote_exception_to_error</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">e</span>)));
+                                            <span class="ident">tmp</span>.<span class="ident">borrow_mut</span>().<span class="ident">reject</span>(<span class="ident">remote_exception_to_error</span>(<span class="ident">e</span><span class="question-mark">?</span>));
                                             <span class="ident">BorrowWorkaround</span>::<span class="ident">Done</span>
                                         }
                                         <span class="ident">return_</span>::<span class="ident">Canceled</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
@@ -3754,7 +3752,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                                     }
                                 }
                                 <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
-                                    <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">ret</span>.<span class="ident">which</span>()) {
+                                    <span class="kw">match</span> <span class="ident">ret</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                                         <span class="ident">return_</span>::<span class="ident">TakeFromOtherQuestion</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
                                             <span class="macro">unimplemented</span><span class="macro">!</span>()
                                         }
@@ -3775,7 +3773,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     }
                 }
                 <span class="prelude-val">Ok</span>(<span class="ident">message</span>::<span class="ident">Finish</span>(<span class="ident">finish</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">finish</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">finish</span>);
+                    <span class="kw">let</span> <span class="ident">finish</span> <span class="op">=</span> <span class="ident">finish</span><span class="question-mark">?</span>;
 
                     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">exports_to_release</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
                     <span class="kw">let</span> <span class="ident">answer_id</span> <span class="op">=</span> <span class="ident">finish</span>.<span class="ident">get_question_id</span>();
@@ -3812,15 +3810,15 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                         <span class="ident">answers_slots</span>.<span class="ident">remove</span>(<span class="kw-2">&amp;</span><span class="ident">answer_id</span>);
                     }
 
-                    <span class="macro">try</span><span class="macro">!</span>(<span class="ident">connection_state1</span>.<span class="ident">release_exports</span>(<span class="kw-2">&amp;</span><span class="ident">exports_to_release</span>));
+                    <span class="ident">connection_state1</span>.<span class="ident">release_exports</span>(<span class="kw-2">&amp;</span><span class="ident">exports_to_release</span>)<span class="question-mark">?</span>;
 
                     <span class="ident">BorrowWorkaround</span>::<span class="ident">Done</span>
                 }
                 <span class="prelude-val">Ok</span>(<span class="ident">message</span>::<span class="ident">Resolve</span>(<span class="ident">resolve</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">resolve</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">resolve</span>);
-                    <span class="kw">let</span> <span class="ident">replacement_or_error</span> <span class="op">=</span> <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">resolve</span>.<span class="ident">which</span>()) {
+                    <span class="kw">let</span> <span class="ident">resolve</span> <span class="op">=</span> <span class="ident">resolve</span><span class="question-mark">?</span>;
+                    <span class="kw">let</span> <span class="ident">replacement_or_error</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">resolve</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                         <span class="ident">resolve</span>::<span class="ident">Cap</span>(<span class="ident">c</span>) <span class="op">=&gt;</span> {
-                            <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">ConnectionState</span>::<span class="ident">receive_cap</span>(<span class="ident">connection_state</span>.<span class="ident">clone</span>(), <span class="macro">try</span><span class="macro">!</span>(<span class="ident">c</span>))) {
+                            <span class="kw">match</span> <span class="ident">ConnectionState</span>::<span class="ident">receive_cap</span>(<span class="ident">connection_state</span>.<span class="ident">clone</span>(), <span class="ident">c</span><span class="question-mark">?</span>)<span class="question-mark">?</span> {
                                 <span class="prelude-val">Some</span>(<span class="ident">cap</span>) <span class="op">=&gt;</span> <span class="prelude-val">Ok</span>(<span class="ident">cap</span>),
                                 <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
                                     <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">failed</span>(
@@ -3833,7 +3831,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                             <span class="comment">// confuse PromiseClient::Resolve() into thinking that the remote</span>
                             <span class="comment">// promise resolved to a local capability and therefore a Disembargo is</span>
                             <span class="comment">// needed. We must actually reject the promise.</span>
-                            <span class="prelude-val">Err</span>(<span class="ident">remote_exception_to_error</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">e</span>)))
+                            <span class="prelude-val">Err</span>(<span class="ident">remote_exception_to_error</span>(<span class="ident">e</span><span class="question-mark">?</span>))
                         }
                     };
 
@@ -3860,17 +3858,17 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     <span class="ident">BorrowWorkaround</span>::<span class="ident">Done</span>
                 }
                 <span class="prelude-val">Ok</span>(<span class="ident">message</span>::<span class="ident">Release</span>(<span class="ident">release</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">release</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">release</span>);
-                    <span class="macro">try</span><span class="macro">!</span>(<span class="ident">connection_state</span>.<span class="ident">release_export</span>(<span class="ident">release</span>.<span class="ident">get_id</span>(), <span class="ident">release</span>.<span class="ident">get_reference_count</span>()));
+                    <span class="kw">let</span> <span class="ident">release</span> <span class="op">=</span> <span class="ident">release</span><span class="question-mark">?</span>;
+                    <span class="ident">connection_state</span>.<span class="ident">release_export</span>(<span class="ident">release</span>.<span class="ident">get_id</span>(), <span class="ident">release</span>.<span class="ident">get_reference_count</span>())<span class="question-mark">?</span>;
                     <span class="ident">BorrowWorkaround</span>::<span class="ident">Done</span>
                 }
                 <span class="prelude-val">Ok</span>(<span class="ident">message</span>::<span class="ident">Disembargo</span>(<span class="ident">disembargo</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">disembargo</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">disembargo</span>);
+                    <span class="kw">let</span> <span class="ident">disembargo</span> <span class="op">=</span> <span class="ident">disembargo</span><span class="question-mark">?</span>;
                     <span class="kw">let</span> <span class="ident">context</span> <span class="op">=</span> <span class="ident">disembargo</span>.<span class="ident">get_context</span>();
-                    <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">context</span>.<span class="ident">which</span>()) {
+                    <span class="kw">match</span> <span class="ident">context</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                         <span class="ident">disembargo</span>::<span class="ident">context</span>::<span class="ident">SenderLoopback</span>(<span class="ident">embargo_id</span>) <span class="op">=&gt;</span> {
                             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">target</span> <span class="op">=</span>
-                                <span class="macro">try</span><span class="macro">!</span>(<span class="ident">connection_state</span>.<span class="ident">get_message_target</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">disembargo</span>.<span class="ident">get_target</span>())));
+                                <span class="ident">connection_state</span>.<span class="ident">get_message_target</span>(<span class="ident">disembargo</span>.<span class="ident">get_target</span>()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
                             <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">resolved</span>) <span class="op">=</span> <span class="ident">target</span>.<span class="ident">get_resolved</span>() {
                                 <span class="ident">target</span> <span class="op">=</span> <span class="ident">resolved</span>;
                             }
@@ -3887,7 +3885,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                                 <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">c</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">connection_state_ref</span>.<span class="ident">connection</span>.<span class="ident">borrow_mut</span>() {
                                     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">c</span>.<span class="ident">new_outgoing_message</span>(<span class="number">100</span>); <span class="comment">// TODO estimate size</span>
                                     {
-                                        <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">init_as</span>();
+                                        <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">init_as</span>();
                                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">disembargo</span> <span class="op">=</span> <span class="ident">root</span>.<span class="ident">init_disembargo</span>();
                                         <span class="ident">disembargo</span>.<span class="ident">reborrow</span>().<span class="ident">init_context</span>().<span class="ident">set_receiver_loopback</span>(<span class="ident">embargo_id</span>);
 
@@ -3942,24 +3940,24 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         <span class="kw">match</span> <span class="ident">intermediate</span> {
             <span class="ident">BorrowWorkaround</span>::<span class="ident">Call</span>(<span class="ident">capability</span>) <span class="op">=&gt;</span> {
                 <span class="kw">let</span> (<span class="ident">interface_id</span>, <span class="ident">method_id</span>, <span class="ident">question_id</span>, <span class="ident">cap_table_array</span>, <span class="ident">redirect_results</span>) <span class="op">=</span> {
-                    <span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>::<span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Reader</span><span class="op">&gt;</span>()).<span class="ident">which</span>()) {
-                        <span class="ident">message</span>::<span class="ident">Call</span>(<span class="ident">call</span>) <span class="op">=&gt;</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">call</span>),
+                    <span class="kw">let</span> <span class="ident">call</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>::<span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Reader</span><span class="op">&gt;</span>()<span class="question-mark">?</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
+                        <span class="ident">message</span>::<span class="ident">Call</span>(<span class="ident">call</span>) <span class="op">=&gt;</span> <span class="ident">call</span><span class="question-mark">?</span>,
                         <span class="kw">_</span> <span class="op">=&gt;</span> {
                             <span class="comment">// exception already reported?</span>
                             <span class="macro">unreachable</span><span class="macro">!</span>()
                         }
                     };
-                    <span class="kw">let</span> <span class="ident">redirect_results</span> <span class="op">=</span> <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">call</span>.<span class="ident">get_send_results_to</span>().<span class="ident">which</span>()) {
+                    <span class="kw">let</span> <span class="ident">redirect_results</span> <span class="op">=</span> <span class="kw">match</span> <span class="ident">call</span>.<span class="ident">get_send_results_to</span>().<span class="ident">which</span>()<span class="question-mark">?</span> {
                         <span class="ident">call</span>::<span class="ident">send_results_to</span>::<span class="ident">Caller</span>(()) <span class="op">=&gt;</span> <span class="bool-val">false</span>,
                         <span class="ident">call</span>::<span class="ident">send_results_to</span>::<span class="ident">Yourself</span>(()) <span class="op">=&gt;</span> <span class="bool-val">true</span>,
                         <span class="ident">call</span>::<span class="ident">send_results_to</span>::<span class="ident">ThirdParty</span>(<span class="kw">_</span>) <span class="op">=&gt;</span>
                             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">Error</span>::<span class="ident">failed</span>(<span class="string">&quot;Unsupported `Call.sendResultsTo`.&quot;</span>.<span class="ident">to_string</span>())),
                     };
-                    <span class="kw">let</span> <span class="ident">payload</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">call</span>.<span class="ident">get_params</span>());
+                    <span class="kw">let</span> <span class="ident">payload</span> <span class="op">=</span> <span class="ident">call</span>.<span class="ident">get_params</span>()<span class="question-mark">?</span>;
 
                     (<span class="ident">call</span>.<span class="ident">get_interface_id</span>(), <span class="ident">call</span>.<span class="ident">get_method_id</span>(), <span class="ident">call</span>.<span class="ident">get_question_id</span>(),
-                     <span class="macro">try</span><span class="macro">!</span>(<span class="ident">ConnectionState</span>::<span class="ident">receive_caps</span>(<span class="ident">connection_state</span>.<span class="ident">clone</span>(),
-                                                        <span class="macro">try</span><span class="macro">!</span>(<span class="ident">payload</span>.<span class="ident">get_cap_table</span>()))),
+                     <span class="ident">ConnectionState</span>::<span class="ident">receive_caps</span>(<span class="ident">connection_state</span>.<span class="ident">clone</span>(),
+                                                   <span class="ident">payload</span>.<span class="ident">get_cap_table</span>()<span class="question-mark">?</span>)<span class="question-mark">?</span>,
                      <span class="ident">redirect_results</span>)
                 };
 
@@ -4051,8 +4049,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     .<span class="ident">expect</span>(<span class="string">&quot;no connection?&quot;</span>)
                     .<span class="ident">new_outgoing_message</span>(<span class="number">50</span>); <span class="comment">// XXX size hint</span>
                 {
-                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">out_message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>());
-                    <span class="macro">try</span><span class="macro">!</span>(<span class="ident">root</span>.<span class="ident">set_unimplemented</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>())));
+                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">out_message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>;
+                    <span class="ident">root</span>.<span class="ident">set_unimplemented</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
                 }
                 <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">out_message</span>.<span class="ident">send</span>();
             }
@@ -4108,7 +4106,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
     <span class="kw">fn</span> <span class="ident">release_exports</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">exports</span>: <span class="kw-2">&amp;</span>[<span class="ident">ExportId</span>]) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> {
         <span class="kw">for</span> <span class="kw-2">&amp;</span><span class="ident">export_id</span> <span class="kw">in</span> <span class="ident">exports</span> {
-            <span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">release_export</span>(<span class="ident">export_id</span>, <span class="number">1</span>));
+            <span class="self">self</span>.<span class="ident">release_export</span>(<span class="ident">export_id</span>, <span class="number">1</span>)<span class="question-mark">?</span>;
         }
         <span class="prelude-val">Ok</span>(())
     }
@@ -4118,9 +4116,9 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 
     <span class="kw">fn</span> <span class="ident">get_message_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">target</span>: <span class="ident">message_target</span>::<span class="ident">Reader</span>)
-                          <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>
+                          <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>
     {
-        <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">target</span>.<span class="ident">which</span>()) {
+        <span class="kw">match</span> <span class="ident">target</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
             <span class="ident">message_target</span>::<span class="ident">ImportedCap</span>(<span class="ident">export_id</span>) <span class="op">=&gt;</span> {
                 <span class="kw">match</span> <span class="self">self</span>.<span class="ident">exports</span>.<span class="ident">borrow</span>().<span class="ident">slots</span>.<span class="ident">get</span>(<span class="ident">export_id</span> <span class="kw">as</span> <span class="ident">usize</span>) {
                     <span class="prelude-val">Some</span>(<span class="kw-2">&amp;</span><span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">exp</span>)) <span class="op">=&gt;</span> {
@@ -4132,7 +4130,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                 }
             }
             <span class="ident">message_target</span>::<span class="ident">PromisedAnswer</span>(<span class="ident">promised_answer</span>) <span class="op">=&gt;</span> {
-                <span class="kw">let</span> <span class="ident">promised_answer</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">promised_answer</span>);
+                <span class="kw">let</span> <span class="ident">promised_answer</span> <span class="op">=</span> <span class="ident">promised_answer</span><span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">question_id</span> <span class="op">=</span> <span class="ident">promised_answer</span>.<span class="ident">get_question_id</span>();
 
                 <span class="kw">match</span> <span class="self">self</span>.<span class="ident">answers</span>.<span class="ident">borrow</span>().<span class="ident">slots</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">question_id</span>) {
@@ -4144,9 +4142,9 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                             <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">pipeline</span>) <span class="op">=&gt;</span> <span class="ident">pipeline</span>.<span class="ident">add_ref</span>(),
                             <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">broken</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">Error</span>::<span class="ident">failed</span>(
                                 <span class="string">&quot;Pipeline call on a request that returned not capabilities or was \
-                                 already closed.&quot;</span>.<span class="ident">to_string</span>()))) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;</span>,
+                                 already closed.&quot;</span>.<span class="ident">to_string</span>()))) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;</span>,
                         };
-                        <span class="kw">let</span> <span class="ident">ops</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">to_pipeline_ops</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">promised_answer</span>.<span class="ident">get_transform</span>())));
+                        <span class="kw">let</span> <span class="ident">ops</span> <span class="op">=</span> <span class="ident">to_pipeline_ops</span>(<span class="ident">promised_answer</span>.<span class="ident">get_transform</span>()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
                         <span class="prelude-val">Ok</span>(<span class="ident">pipeline</span>.<span class="ident">get_pipelined_cap</span>(<span class="kw-2">&amp;</span><span class="ident">ops</span>))
                     }
                 }
@@ -4163,8 +4161,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     <span class="doccomment">/// resolved, and so the request may have been built on the assumption that it would be sent over</span>
     <span class="doccomment">/// this network connection, but then the promise resolved to point somewhere else before the</span>
     <span class="doccomment">/// request was sent.  Now the request has to be redirected to the new target instead.</span>
-    <span class="kw">fn</span> <span class="ident">write_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cap</span>: <span class="kw-2">&amp;</span><span class="ident">ClientHook</span>, <span class="ident">target</span>: <span class="ident">message_target</span>::<span class="ident">Builder</span>)
-        <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>
+    <span class="kw">fn</span> <span class="ident">write_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">cap</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span>, <span class="ident">target</span>: <span class="ident">message_target</span>::<span class="ident">Builder</span>)
+        <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>
     {
         <span class="kw">if</span> <span class="ident">cap</span>.<span class="ident">get_brand</span>() <span class="op">==</span> <span class="self">self</span>.<span class="ident">get_brand</span>() {
             <span class="kw">match</span> <span class="ident">Client</span>::<span class="ident">from_ptr</span>(<span class="ident">cap</span>.<span class="ident">get_ptr</span>(), <span class="self">self</span>) {
@@ -4176,7 +4174,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">get_innermost_client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">client_ref</span>: <span class="kw-2">&amp;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_innermost_client</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">client_ref</span>: <span class="kw-2">&amp;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">client</span> <span class="op">=</span> <span class="ident">client_ref</span>.<span class="ident">clone</span>();
         <span class="kw">while</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">inner</span>) <span class="op">=</span> <span class="ident">client</span>.<span class="ident">get_resolved</span>() {
             <span class="ident">client</span> <span class="op">=</span> <span class="ident">inner</span>;
@@ -4197,7 +4195,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     <span class="doccomment">/// to eventually resolve to the ClientHook produced by `promise`.  This method waits for that</span>
     <span class="doccomment">/// resolve to happen and then sends the appropriate `Resolve` message to the peer.</span>
     <span class="kw">fn</span> <span class="ident">resolve_exported_promise</span>(<span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>, <span class="ident">export_id</span>: <span class="ident">ExportId</span>,
-                                <span class="ident">promise</span>: <span class="ident">Promise</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span>)
+                                <span class="ident">promise</span>: <span class="ident">Promise</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span>)
                                 <span class="op">-&gt;</span> <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>
     {
         <span class="kw">let</span> <span class="ident">weak_connection_state</span> <span class="op">=</span> <span class="ident">Rc</span>::<span class="ident">downgrade</span>(<span class="ident">state</span>);
@@ -4238,11 +4236,11 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">connection_state</span>.<span class="ident">connection</span>.<span class="ident">borrow_mut</span>().<span class="ident">as_mut</span>().<span class="ident">expect</span>(<span class="string">&quot;not connected?&quot;</span>)
                         .<span class="ident">new_outgoing_message</span>(<span class="number">100</span>); <span class="comment">// XXX size hint?</span>
                     {
-                        <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>());
+                        <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>;
                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">resolve</span> <span class="op">=</span> <span class="ident">root</span>.<span class="ident">init_resolve</span>();
                         <span class="ident">resolve</span>.<span class="ident">set_promise_id</span>(<span class="ident">export_id</span>);
-                        <span class="kw">let</span> <span class="ident">_export</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">ConnectionState</span>::<span class="ident">write_descriptor</span>(<span class="kw-2">&amp;</span><span class="ident">connection_state</span>, <span class="kw-2">&amp;</span><span class="ident">resolution</span>,
-                                                                             <span class="ident">resolve</span>.<span class="ident">init_cap</span>()));
+                        <span class="kw">let</span> <span class="ident">_export</span> <span class="op">=</span> <span class="ident">ConnectionState</span>::<span class="ident">write_descriptor</span>(<span class="kw-2">&amp;</span><span class="ident">connection_state</span>, <span class="kw-2">&amp;</span><span class="ident">resolution</span>,
+                                                                        <span class="ident">resolve</span>.<span class="ident">init_cap</span>())<span class="question-mark">?</span>;
                     }
                     <span class="kw">let</span> <span class="kw">_</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">send</span>();
                     <span class="prelude-val">Ok</span>(())
@@ -4252,7 +4250,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">connection_state</span>.<span class="ident">connection</span>.<span class="ident">borrow_mut</span>().<span class="ident">as_mut</span>().<span class="ident">expect</span>(<span class="string">&quot;not connected?&quot;</span>)
                         .<span class="ident">new_outgoing_message</span>(<span class="number">100</span>); <span class="comment">// XXX size hint?</span>
                     {
-                        <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>());
+                        <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>;
                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">resolve</span> <span class="op">=</span> <span class="ident">root</span>.<span class="ident">init_resolve</span>();
                         <span class="ident">resolve</span>.<span class="ident">set_promise_id</span>(<span class="ident">export_id</span>);
                         <span class="ident">from_error</span>(<span class="kw-2">&amp;</span><span class="ident">e</span>, <span class="ident">resolve</span>.<span class="ident">init_exception</span>());
@@ -4265,7 +4263,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 
     <span class="kw">fn</span> <span class="ident">write_descriptor</span>(<span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
-                        <span class="ident">cap</span>: <span class="kw-2">&amp;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>,
+                        <span class="ident">cap</span>: <span class="kw-2">&amp;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>,
                         <span class="kw-2">mut</span> <span class="ident">descriptor</span>: <span class="ident">cap_descriptor</span>::<span class="ident">Builder</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ExportId</span><span class="op">&gt;&gt;</span> {
 
         <span class="comment">// Find the innermost wrapped capability.</span>
@@ -4318,7 +4316,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 
     <span class="kw">fn</span> <span class="ident">write_descriptors</span>(<span class="ident">state</span>: <span class="kw-2">&amp;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
-                         <span class="ident">cap_table</span>: <span class="kw-2">&amp;</span>[<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>],
+                         <span class="ident">cap_table</span>: <span class="kw-2">&amp;</span>[<span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>],
                          <span class="ident">payload</span>: <span class="ident">payload</span>::<span class="ident">Builder</span>)
                          <span class="op">-&gt;</span> <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">ExportId</span><span class="op">&gt;</span>
     {
@@ -4344,7 +4342,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 
     <span class="kw">fn</span> <span class="ident">import</span>(<span class="ident">state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
-              <span class="ident">import_id</span>: <span class="ident">ImportId</span>, <span class="ident">is_promise</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> {
+              <span class="ident">import_id</span>: <span class="ident">ImportId</span>, <span class="ident">is_promise</span>: <span class="ident">bool</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">connection_state</span> <span class="op">=</span> <span class="ident">state</span>.<span class="ident">clone</span>();
 
         <span class="kw">let</span> <span class="ident">import_client</span> <span class="op">=</span> {
@@ -4376,7 +4374,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                             <span class="comment">// Create a promise for this import&#39;s resolution.</span>
 
                             <span class="kw">let</span> <span class="ident">client</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">Client</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">import_client</span>.<span class="ident">into</span>());
-                            <span class="kw">let</span> <span class="ident">client</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">client</span>;
+                            <span class="kw">let</span> <span class="ident">client</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">client</span>;
 
                             <span class="comment">// XXX do I need something like this?</span>
                             <span class="comment">// Make sure the import is not destroyed while this promise exists.</span>
@@ -4408,9 +4406,9 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 
     <span class="kw">fn</span> <span class="ident">receive_cap</span>(<span class="ident">state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>, <span class="ident">descriptor</span>: <span class="ident">cap_descriptor</span>::<span class="ident">Reader</span>)
-                   <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>
+                   <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>
     {
-        <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">descriptor</span>.<span class="ident">which</span>()) {
+        <span class="kw">match</span> <span class="ident">descriptor</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
             <span class="ident">cap_descriptor</span>::<span class="prelude-val">None</span>(()) <span class="op">=&gt;</span> {
                 <span class="prelude-val">Ok</span>(<span class="prelude-val">None</span>)
             }
@@ -4428,14 +4426,14 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                 }
             }
             <span class="ident">cap_descriptor</span>::<span class="ident">ReceiverAnswer</span>(<span class="ident">receiver_answer</span>) <span class="op">=&gt;</span> {
-                <span class="kw">let</span> <span class="ident">promised_answer</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">receiver_answer</span>);
+                <span class="kw">let</span> <span class="ident">promised_answer</span> <span class="op">=</span> <span class="ident">receiver_answer</span><span class="question-mark">?</span>;
                 <span class="kw">let</span> <span class="ident">question_id</span> <span class="op">=</span> <span class="ident">promised_answer</span>.<span class="ident">get_question_id</span>();
                 <span class="kw">match</span> <span class="ident">state</span>.<span class="ident">answers</span>.<span class="ident">borrow</span>().<span class="ident">slots</span>.<span class="ident">get</span>(<span class="kw-2">&amp;</span><span class="ident">question_id</span>) {
                     <span class="prelude-val">Some</span>(<span class="ident">answer</span>) <span class="op">=&gt;</span> {
                         <span class="kw">if</span> <span class="ident">answer</span>.<span class="ident">active</span> {
                             <span class="kw">match</span> <span class="ident">answer</span>.<span class="ident">pipeline</span> {
                                 <span class="prelude-val">Some</span>(<span class="kw-2">ref</span> <span class="ident">pipeline</span>) <span class="op">=&gt;</span> {
-                                    <span class="kw">let</span> <span class="ident">ops</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">to_pipeline_ops</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">promised_answer</span>.<span class="ident">get_transform</span>())));
+                                    <span class="kw">let</span> <span class="ident">ops</span> <span class="op">=</span> <span class="ident">to_pipeline_ops</span>(<span class="ident">promised_answer</span>.<span class="ident">get_transform</span>()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
                                     <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="prelude-val">Some</span>(<span class="ident">pipeline</span>.<span class="ident">get_pipelined_cap</span>(<span class="kw-2">&amp;</span><span class="ident">ops</span>)));
                                 }
                                 <span class="prelude-val">None</span> <span class="op">=&gt;</span> (),
@@ -4454,11 +4452,11 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
     <span class="kw">fn</span> <span class="ident">receive_caps</span>(<span class="ident">state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
                     <span class="ident">cap_table</span>: ::<span class="ident">capnp</span>::<span class="ident">struct_list</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">cap_descriptor</span>::<span class="ident">Owned</span><span class="op">&gt;</span>)
-        <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>
+        <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;&gt;</span>
     {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span> <span class="op">=</span> <span class="ident">Vec</span>::<span class="ident">new</span>();
         <span class="kw">for</span> <span class="ident">idx</span> <span class="kw">in</span> <span class="number">0</span>..<span class="ident">cap_table</span>.<span class="ident">len</span>() {
-            <span class="ident">result</span>.<span class="ident">push</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">ConnectionState</span>::<span class="ident">receive_cap</span>(<span class="ident">state</span>.<span class="ident">clone</span>(), <span class="ident">cap_table</span>.<span class="ident">get</span>(<span class="ident">idx</span>))));
+            <span class="ident">result</span>.<span class="ident">push</span>(<span class="ident">ConnectionState</span>::<span class="ident">receive_cap</span>(<span class="ident">state</span>.<span class="ident">clone</span>(), <span class="ident">cap_table</span>.<span class="ident">get</span>(<span class="ident">idx</span>))<span class="question-mark">?</span>);
         }
         <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
     }
@@ -4536,14 +4534,14 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
 <span class="kw">struct</span> <span class="ident">ResponseState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span> {
     <span class="ident">_connection_state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
-    <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>,
-    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>,
+    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
     <span class="ident">_question_ref</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">QuestionRef</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">enum</span> <span class="ident">ResponseVariant</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span> {
     <span class="ident">Rpc</span>(<span class="ident">ResponseState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span>),
-    <span class="ident">LocallyRedirected</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>),
+    <span class="ident">LocallyRedirected</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>),
 }
 
 <span class="kw">struct</span> <span class="ident">Response</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span> {
@@ -4553,8 +4551,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="ident">Response</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">connection_state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
            <span class="ident">question_ref</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">QuestionRef</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
-           <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>,
-           <span class="ident">cap_table_array</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Response</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> {
+           <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>,
+           <span class="ident">cap_table_array</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Response</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> {
         <span class="ident">Response</span> {
             <span class="ident">variant</span>: <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="ident">ResponseVariant</span>::<span class="ident">Rpc</span>(<span class="ident">ResponseState</span> {
                 <span class="ident">_connection_state</span>: <span class="ident">connection_state</span>,
@@ -4564,7 +4562,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
             })),
         }
     }
-    <span class="kw">fn</span> <span class="ident">redirected</span>(<span class="ident">results_done</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>)
+    <span class="kw">fn</span> <span class="ident">redirected</span>(<span class="ident">results_done</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>)
         <span class="op">-&gt;</span> <span class="ident">Response</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span>
     {
         <span class="ident">Response</span> {
@@ -4583,9 +4581,9 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">any_pointer</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">variant</span> {
             <span class="ident">ResponseVariant</span>::<span class="ident">Rpc</span>(<span class="kw-2">ref</span> <span class="ident">state</span>) <span class="op">=&gt;</span> {
-                <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">state</span>.<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>::<span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Reader</span><span class="op">&gt;</span>()).<span class="ident">which</span>()) {
+                <span class="kw">match</span> <span class="ident">state</span>.<span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>::<span class="op">&lt;</span><span class="ident">message</span>::<span class="ident">Reader</span><span class="op">&gt;</span>()<span class="question-mark">?</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                     <span class="ident">message</span>::<span class="ident">Return</span>(<span class="prelude-val">Ok</span>(<span class="ident">ret</span>)) <span class="op">=&gt;</span> {
-                        <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">ret</span>.<span class="ident">which</span>()) {
+                        <span class="kw">match</span> <span class="ident">ret</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                             <span class="ident">return_</span>::<span class="ident">Results</span>(<span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">payload</span>)) <span class="op">=&gt;</span> {
                                 <span class="kw">use</span> ::<span class="ident">capnp</span>::<span class="ident">traits</span>::<span class="ident">Imbue</span>;
                                 <span class="ident">payload</span>.<span class="ident">imbue</span>(<span class="kw-2">&amp;</span><span class="ident">state</span>.<span class="ident">cap_table</span>);
@@ -4607,15 +4605,15 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 <span class="kw">struct</span> <span class="ident">Request</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span> {
     <span class="ident">connection_state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
     <span class="ident">target</span>: <span class="ident">Client</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span>,
-    <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">OutgoingMessage</span><span class="op">&gt;</span>,
-    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">OutgoingMessage</span><span class="op">&gt;</span>,
+    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 }
 
-<span class="kw">fn</span> <span class="ident">get_call</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">OutgoingMessage</span><span class="op">&gt;</span>)
+<span class="kw">fn</span> <span class="ident">get_call</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="kw-2">mut</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">OutgoingMessage</span><span class="op">&gt;</span>)
                 <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">call</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span>
 {
-    <span class="kw">let</span> <span class="ident">message_root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>());
-    <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">message_root</span>.<span class="ident">which</span>()) {
+    <span class="kw">let</span> <span class="ident">message_root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>;
+    <span class="kw">match</span> <span class="ident">message_root</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
         <span class="ident">message</span>::<span class="ident">Call</span>(<span class="ident">call</span>) <span class="op">=&gt;</span> {
             <span class="ident">call</span>
         }
@@ -4648,8 +4646,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 
     <span class="kw">fn</span> <span class="ident">send_internal</span>(<span class="ident">connection_state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
-                     <span class="kw-2">mut</span> <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">OutgoingMessage</span><span class="op">&gt;</span>,
-                     <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+                     <span class="kw-2">mut</span> <span class="ident">message</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">OutgoingMessage</span><span class="op">&gt;</span>,
+                     <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
                      <span class="ident">is_tail_call</span>: <span class="ident">bool</span>)
                      <span class="op">-&gt;</span> (<span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">QuestionRef</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>, <span class="ident">Promise</span><span class="op">&lt;</span><span class="ident">Response</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span>)
     {
@@ -4718,7 +4716,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                 <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">replacement</span> <span class="op">=</span> <span class="ident">redirect</span>.<span class="ident">new_call</span>(<span class="ident">call_builder</span>.<span class="ident">reborrow</span>().<span class="ident">get_interface_id</span>(),
                                                         <span class="ident">call_builder</span>.<span class="ident">reborrow</span>().<span class="ident">get_method_id</span>(), <span class="prelude-val">None</span>);
 
-                <span class="ident">replacement</span>.<span class="ident">set</span>(<span class="ident">call_builder</span>.<span class="ident">get_params</span>().<span class="ident">unwrap</span>().<span class="ident">get_content</span>().<span class="ident">as_reader</span>()).<span class="ident">unwrap</span>();
+                <span class="ident">replacement</span>.<span class="ident">set</span>(<span class="ident">call_builder</span>.<span class="ident">get_params</span>().<span class="ident">unwrap</span>().<span class="ident">get_content</span>().<span class="ident">into_reader</span>()).<span class="ident">unwrap</span>();
                 <span class="ident">replacement</span>.<span class="ident">send</span>()
             }
             <span class="prelude-val">None</span> <span class="op">=&gt;</span> {
@@ -4747,7 +4745,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         }
     }
     <span class="kw">fn</span> <span class="ident">tail_send</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>)
-                 <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">u32</span>, <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;</span>)<span class="op">&gt;</span>
+                 <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span>(<span class="ident">u32</span>, <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;</span>)<span class="op">&gt;</span>
     {
         <span class="kw">let</span> <span class="ident">tmp</span> <span class="op">=</span> <span class="kw-2">*</span><span class="self">self</span>;
         <span class="kw">let</span> <span class="ident">Request</span> { <span class="ident">connection_state</span>, <span class="ident">target</span>, <span class="kw-2">mut</span> <span class="ident">message</span>, <span class="ident">cap_table</span> } <span class="op">=</span> <span class="ident">tmp</span>;
@@ -4758,7 +4756,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         }
 
         <span class="kw">let</span> <span class="ident">write_target_result</span> <span class="op">=</span> {
-            <span class="kw">let</span> <span class="ident">call_builder</span>: ::<span class="ident">rpc_capnp</span>::<span class="ident">call</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">get_call</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">message</span>).<span class="ident">unwrap</span>();
+            <span class="kw">let</span> <span class="ident">call_builder</span>: <span class="kw">crate</span>::<span class="ident">rpc_capnp</span>::<span class="ident">call</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">get_call</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">message</span>).<span class="ident">unwrap</span>();
             <span class="ident">target</span>.<span class="ident">write_target</span>(<span class="ident">call_builder</span>.<span class="ident">get_target</span>().<span class="ident">unwrap</span>())
         };
 
@@ -4797,8 +4795,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
     <span class="ident">resolve_self_promise</span>: <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>,
     <span class="ident">promise_clients_to_resolve</span>:
-         <span class="ident">RefCell</span><span class="op">&lt;</span>::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span><span class="op">&lt;</span>(<span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">PromiseClient</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PipelineOp</span><span class="op">&gt;</span>), ()<span class="op">&gt;&gt;</span>,
-    <span class="ident">resolution_waiters</span>: ::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>,
+         <span class="ident">RefCell</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span><span class="op">&lt;</span>(<span class="ident">Weak</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">PromiseClient</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PipelineOp</span><span class="op">&gt;</span>), ()<span class="op">&gt;&gt;</span>,
+    <span class="ident">resolution_waiters</span>: <span class="kw">crate</span>::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span><span class="op">&lt;</span>(), ()<span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="ident">PipelineState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span> {
@@ -4853,8 +4851,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
             <span class="ident">connection_state</span>: <span class="ident">connection_state</span>.<span class="ident">clone</span>(),
             <span class="ident">redirect_later</span>: <span class="prelude-val">None</span>,
             <span class="ident">resolve_self_promise</span>: <span class="ident">Promise</span>::<span class="ident">from_future</span>(<span class="ident">future</span>::<span class="ident">empty</span>()),
-            <span class="ident">promise_clients_to_resolve</span>: <span class="ident">RefCell</span>::<span class="ident">new</span>(::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>()),
-            <span class="ident">resolution_waiters</span>: ::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>(),
+            <span class="ident">promise_clients_to_resolve</span>: <span class="ident">RefCell</span>::<span class="ident">new</span>(<span class="kw">crate</span>::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>()),
+            <span class="ident">resolution_waiters</span>: <span class="kw">crate</span>::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>(),
         }));
         <span class="kw">match</span> <span class="ident">redirect_later</span> {
             <span class="prelude-val">Some</span>(<span class="ident">redirect_later_promise</span>) <span class="op">=&gt;</span> {
@@ -4890,8 +4888,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
             <span class="ident">connection_state</span>: <span class="ident">connection_state</span>,
             <span class="ident">redirect_later</span>: <span class="prelude-val">None</span>,
             <span class="ident">resolve_self_promise</span>: <span class="ident">Promise</span>::<span class="ident">from_future</span>(<span class="ident">future</span>::<span class="ident">empty</span>()),
-            <span class="ident">promise_clients_to_resolve</span>: <span class="ident">RefCell</span>::<span class="ident">new</span>(::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>()),
-            <span class="ident">resolution_waiters</span>: ::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>(),
+            <span class="ident">promise_clients_to_resolve</span>: <span class="ident">RefCell</span>::<span class="ident">new</span>(<span class="kw">crate</span>::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>()),
+            <span class="ident">resolution_waiters</span>: <span class="kw">crate</span>::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>(),
         }));
 
         <span class="ident">Pipeline</span> { <span class="ident">state</span>: <span class="ident">state</span> }
@@ -4899,13 +4897,13 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 }
 
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="ident">PipelineHook</span> <span class="kw">for</span> <span class="ident">Pipeline</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;</span> {
         <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">Pipeline</span> { <span class="ident">state</span>: <span class="self">self</span>.<span class="ident">state</span>.<span class="ident">clone</span>() })
     }
-    <span class="kw">fn</span> <span class="ident">get_pipelined_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ops</span>: <span class="kw-2">&amp;</span>[<span class="ident">PipelineOp</span>]) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_pipelined_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ops</span>: <span class="kw-2">&amp;</span>[<span class="ident">PipelineOp</span>]) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">get_pipelined_cap_move</span>(<span class="ident">ops</span>.<span class="ident">into</span>())
     }
-    <span class="kw">fn</span> <span class="ident">get_pipelined_cap_move</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ops</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PipelineOp</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_pipelined_cap_move</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ops</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">PipelineOp</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">state</span>.<span class="ident">borrow</span>() {
             <span class="ident">PipelineState</span> {<span class="ident">variant</span>: <span class="ident">PipelineVariant</span>::<span class="ident">Waiting</span>(<span class="kw-2">ref</span> <span class="ident">question_ref</span>),
                             <span class="kw-2">ref</span> <span class="ident">connection_state</span>, <span class="kw-2">ref</span> <span class="ident">redirect_later</span>, <span class="kw-2">ref</span> <span class="ident">promise_clients_to_resolve</span>, ..} <span class="op">=&gt;</span> {
@@ -4942,13 +4940,13 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 }
 
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">Params</span> {
-    <span class="ident">request</span>: <span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>,
-    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>,
+    <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">Params</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">request</span>: <span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>,
-           <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>)
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">IncomingMessage</span><span class="op">&gt;</span>,
+           <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>)
            <span class="op">-&gt;</span> <span class="ident">Params</span>
     {
         <span class="ident">Params</span> {
@@ -4960,11 +4958,11 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
 <span class="kw">impl</span> <span class="ident">ParamsHook</span> <span class="kw">for</span> <span class="ident">Params</span> {
     <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">any_pointer</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
-        <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="self">self</span>.<span class="ident">request</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>());
-        <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">root</span>.<span class="ident">which</span>()) {
+        <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">request</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>;
+        <span class="kw">match</span> <span class="ident">root</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
             <span class="ident">message</span>::<span class="ident">Call</span>(<span class="ident">call</span>) <span class="op">=&gt;</span> {
                 <span class="kw">use</span> ::<span class="ident">capnp</span>::<span class="ident">traits</span>::<span class="ident">Imbue</span>;
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">content</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">call</span>).<span class="ident">get_params</span>()).<span class="ident">get_content</span>();
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">call</span><span class="question-mark">?</span>.<span class="ident">get_params</span>()<span class="question-mark">?</span>.<span class="ident">get_content</span>();
                 <span class="ident">content</span>.<span class="ident">imbue</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">cap_table</span>);
                 <span class="prelude-val">Ok</span>(<span class="ident">content</span>)
             }
@@ -4976,8 +4974,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 }
 
 <span class="kw">enum</span> <span class="ident">ResultsVariant</span> {
-    <span class="ident">Rpc</span>(<span class="ident">Box</span><span class="op">&lt;</span>::<span class="ident">OutgoingMessage</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
-    <span class="ident">LocallyRedirected</span>(::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
+    <span class="ident">Rpc</span>(<span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="kw">crate</span>::<span class="ident">OutgoingMessage</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
+    <span class="ident">LocallyRedirected</span>(::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
 }
 
 <span class="kw">struct</span> <span class="ident">ResultsInner</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span> {
@@ -5064,12 +5062,12 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
             <span class="kw">match</span> <span class="ident">inner</span>.<span class="ident">variant</span> {
                 <span class="prelude-val">None</span> <span class="op">=&gt;</span> <span class="macro">unreachable</span><span class="macro">!</span>(),
                 <span class="prelude-val">Some</span>(<span class="ident">ResultsVariant</span>::<span class="ident">Rpc</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">message</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">cap_table</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>());
-                    <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">root</span>.<span class="ident">which</span>()) {
+                    <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>;
+                    <span class="kw">match</span> <span class="ident">root</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                         <span class="ident">message</span>::<span class="ident">Return</span>(<span class="ident">ret</span>) <span class="op">=&gt;</span> {
-                            <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">ret</span>).<span class="ident">which</span>()) {
+                            <span class="kw">match</span> <span class="ident">ret</span><span class="question-mark">?</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                                 <span class="ident">return_</span>::<span class="ident">Results</span>(<span class="ident">payload</span>) <span class="op">=&gt;</span> {
-                                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">content</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">payload</span>).<span class="ident">get_content</span>();
+                                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">payload</span><span class="question-mark">?</span>.<span class="ident">get_content</span>();
                                     <span class="ident">content</span>.<span class="ident">imbue_mut</span>(<span class="ident">cap_table</span>);
                                     <span class="prelude-val">Ok</span>(<span class="ident">content</span>)
                                 }
@@ -5084,7 +5082,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     }
                 }
                 <span class="prelude-val">Some</span>(<span class="ident">ResultsVariant</span>::<span class="ident">LocallyRedirected</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">message</span>, <span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">cap_table</span>)) <span class="op">=&gt;</span> {
-                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_root</span>());
+                    <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_root</span>()<span class="question-mark">?</span>;
                     <span class="ident">result</span>.<span class="ident">imbue_mut</span>(<span class="ident">cap_table</span>);
                     <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
                 }
@@ -5094,12 +5092,12 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">tail_call</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">_request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RequestHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">tail_call</span>(<span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">_request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">RequestHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">unimplemented</span><span class="macro">!</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">direct_tail_call</span>(<span class="kw-2">mut</span> <span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RequestHook</span><span class="op">&gt;</span>)
-                        <span class="op">-&gt;</span> (<span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;</span>)
+    <span class="kw">fn</span> <span class="ident">direct_tail_call</span>(<span class="kw-2">mut</span> <span class="self">self</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="self">Self</span><span class="op">&gt;</span>, <span class="ident">request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">RequestHook</span><span class="op">&gt;</span>)
+                        <span class="op">-&gt;</span> (<span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>, <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;</span>)
     {
         <span class="kw">if</span> <span class="kw">let</span> (<span class="prelude-val">Some</span>(<span class="ident">inner</span>), <span class="prelude-val">Some</span>(<span class="ident">fulfiller</span>)) <span class="op">=</span> (<span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">take</span>(), <span class="self">self</span>.<span class="ident">results_done_fulfiller</span>.<span class="ident">take</span>()) {
             <span class="kw">let</span> <span class="ident">state</span> <span class="op">=</span> <span class="ident">inner</span>.<span class="ident">connection_state</span>.<span class="ident">clone</span>();
@@ -5141,8 +5139,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 }
 
 <span class="kw">enum</span> <span class="ident">ResultsDoneVariant</span> {
-    <span class="ident">Rpc</span>(<span class="ident">Rc</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
-    <span class="ident">LocallyRedirected</span>(::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
+    <span class="ident">Rpc</span>(<span class="ident">Rc</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
+    <span class="ident">LocallyRedirected</span>(::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>, <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>),
 }
 
 <span class="kw">struct</span> <span class="ident">ResultsDone</span> {
@@ -5153,12 +5151,12 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     <span class="kw">fn</span> <span class="ident">from_results_inner</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span>(<span class="ident">results_inner</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">ResultsInner</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span>,
                                  <span class="ident">call_status</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>,
                                  <span class="ident">pipeline_sender</span>: <span class="ident">queued</span>::<span class="ident">PipelineInnerSender</span>)
-                                 <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span>
+                                 <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span>
         <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span>
     {
         <span class="kw">match</span> <span class="ident">results_inner</span> {
             <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
-                <span class="ident">pipeline_sender</span>.<span class="ident">complete</span>(<span class="ident">Box</span>::<span class="ident">new</span>(::<span class="ident">broken</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">e</span>.<span class="ident">clone</span>())));
+                <span class="ident">pipeline_sender</span>.<span class="ident">complete</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="kw">crate</span>::<span class="ident">broken</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">e</span>.<span class="ident">clone</span>())));
                 <span class="prelude-val">Err</span>(<span class="ident">e</span>)
             }
             <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">results_inner</span>) <span class="op">=&gt;</span> {
@@ -5171,7 +5169,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                         <span class="kw">match</span> (<span class="ident">finish_received</span>.<span class="ident">get</span>(), <span class="ident">call_status</span>) {
                             (<span class="bool-val">true</span>, <span class="kw">_</span>) <span class="op">=&gt;</span> {
                                 <span class="kw">let</span> <span class="ident">hook</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ResultsDone</span>::<span class="ident">rpc</span>(<span class="ident">Rc</span>::<span class="ident">new</span>(<span class="ident">message</span>.<span class="ident">take</span>()), <span class="ident">cap_table</span>))
-                                    <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>;
+                                    <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>;
                                 <span class="ident">pipeline_sender</span>.<span class="ident">complete</span>(<span class="ident">Box</span>::<span class="ident">new</span>(
                                     <span class="ident">local</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">hook</span>.<span class="ident">clone</span>())));
 
@@ -5180,7 +5178,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                                     <span class="prelude-val">Ok</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">connection</span>) <span class="op">=&gt;</span> {
                                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">connection</span>.<span class="ident">new_outgoing_message</span>(<span class="number">50</span>); <span class="comment">// XXX size hint</span>
                                         {
-                                            <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>());
+                                            <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>;
                                             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">root</span>.<span class="ident">init_return</span>();
                                             <span class="ident">ret</span>.<span class="ident">set_answer_id</span>(<span class="ident">answer_id</span>);
                                             <span class="ident">ret</span>.<span class="ident">set_release_param_caps</span>(<span class="bool-val">false</span>);
@@ -5196,11 +5194,11 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                             }
                             (<span class="bool-val">false</span>, <span class="prelude-val">Ok</span>(())) <span class="op">=&gt;</span> {
                                 <span class="kw">let</span> <span class="ident">exports</span> <span class="op">=</span> {
-                                    <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>());
-                                    <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">root</span>.<span class="ident">which</span>()) {
+                                    <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>;
+                                    <span class="kw">match</span> <span class="ident">root</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                                         <span class="ident">message</span>::<span class="ident">Return</span>(<span class="ident">ret</span>) <span class="op">=&gt;</span> {
-                                            <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">ret</span>).<span class="ident">which</span>()) {
-                                                ::<span class="ident">rpc_capnp</span>::<span class="ident">return_</span>::<span class="ident">Results</span>(<span class="prelude-val">Ok</span>(<span class="ident">payload</span>)) <span class="op">=&gt;</span> {
+                                            <span class="kw">match</span> <span class="ident">ret</span><span class="question-mark">?</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
+                                                <span class="kw">crate</span>::<span class="ident">rpc_capnp</span>::<span class="ident">return_</span>::<span class="ident">Results</span>(<span class="prelude-val">Ok</span>(<span class="ident">payload</span>)) <span class="op">=&gt;</span> {
                                                     <span class="ident">ConnectionState</span>::<span class="ident">write_descriptors</span>(<span class="kw-2">&amp;</span><span class="ident">connection_state</span>,
                                                                                        <span class="kw-2">&amp;</span><span class="ident">cap_table</span>,
                                                                                        <span class="ident">payload</span>)
@@ -5218,7 +5216,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 
                                 <span class="kw">let</span> (<span class="ident">_promise</span>, <span class="ident">m</span>) <span class="op">=</span> <span class="ident">message</span>.<span class="ident">send</span>();
                                 <span class="ident">connection_state</span>.<span class="ident">answer_has_sent_return</span>(<span class="ident">answer_id</span>, <span class="ident">exports</span>);
-                                <span class="kw">let</span> <span class="ident">hook</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ResultsDone</span>::<span class="ident">rpc</span>(<span class="ident">m</span>, <span class="ident">cap_table</span>)) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>;
+                                <span class="kw">let</span> <span class="ident">hook</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ResultsDone</span>::<span class="ident">rpc</span>(<span class="ident">m</span>, <span class="ident">cap_table</span>)) <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>;
                                 <span class="ident">pipeline_sender</span>.<span class="ident">complete</span>(<span class="ident">Box</span>::<span class="ident">new</span>(
                                     <span class="ident">local</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">hook</span>.<span class="ident">clone</span>())));
                                 <span class="prelude-val">Ok</span>(<span class="ident">hook</span>)
@@ -5229,7 +5227,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                                     <span class="prelude-val">Ok</span>(<span class="kw-2">ref</span> <span class="kw-2">mut</span> <span class="ident">connection</span>) <span class="op">=&gt;</span> {
                                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">message</span> <span class="op">=</span> <span class="ident">connection</span>.<span class="ident">new_outgoing_message</span>(<span class="number">50</span>); <span class="comment">// XXX size hint</span>
                                         {
-                                            <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_body</span>()).<span class="ident">get_as</span>());
+                                            <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Builder</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_body</span>()<span class="question-mark">?</span>.<span class="ident">get_as</span>()<span class="question-mark">?</span>;
                                             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">root</span>.<span class="ident">init_return</span>();
                                             <span class="ident">ret</span>.<span class="ident">set_answer_id</span>(<span class="ident">answer_id</span>);
                                             <span class="ident">ret</span>.<span class="ident">set_release_param_caps</span>(<span class="bool-val">false</span>);
@@ -5243,7 +5241,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                                 <span class="ident">connection_state</span>.<span class="ident">answer_has_sent_return</span>(<span class="ident">answer_id</span>, <span class="ident">Vec</span>::<span class="ident">new</span>());
 
                                 <span class="ident">pipeline_sender</span>.<span class="ident">complete</span>(<span class="ident">Box</span>::<span class="ident">new</span>(
-                                    ::<span class="ident">broken</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">e</span>.<span class="ident">clone</span>())));
+                                    <span class="kw">crate</span>::<span class="ident">broken</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">e</span>.<span class="ident">clone</span>())));
 
                                 <span class="prelude-val">Err</span>(<span class="ident">e</span>)
                             }
@@ -5251,8 +5249,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                     }
                     <span class="prelude-val">Some</span>(<span class="ident">ResultsVariant</span>::<span class="ident">LocallyRedirected</span>(<span class="ident">results_done</span>, <span class="ident">cap_table</span>)) <span class="op">=&gt;</span> {
                         <span class="kw">let</span> <span class="ident">hook</span> <span class="op">=</span> <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ResultsDone</span>::<span class="ident">redirected</span>(<span class="ident">results_done</span>, <span class="ident">cap_table</span>))
-                            <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>;
-                        <span class="ident">pipeline_sender</span>.<span class="ident">complete</span>(<span class="ident">Box</span>::<span class="ident">new</span>(::<span class="ident">local</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">hook</span>.<span class="ident">clone</span>())));
+                            <span class="kw">as</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span>;
+                        <span class="ident">pipeline_sender</span>.<span class="ident">complete</span>(<span class="ident">Box</span>::<span class="ident">new</span>(<span class="kw">crate</span>::<span class="ident">local</span>::<span class="ident">Pipeline</span>::<span class="ident">new</span>(<span class="ident">hook</span>.<span class="ident">clone</span>())));
                         <span class="prelude-val">Ok</span>(<span class="ident">hook</span>)
                     }
                 }
@@ -5261,7 +5259,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 
     <span class="kw">fn</span> <span class="ident">rpc</span>(<span class="ident">message</span>: <span class="ident">Rc</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;&gt;</span>,
-           <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>)
+           <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>)
            <span class="op">-&gt;</span> <span class="ident">ResultsDone</span>
     {
         <span class="ident">ResultsDone</span> {
@@ -5270,7 +5268,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
     }
 
     <span class="kw">fn</span> <span class="ident">redirected</span>(<span class="ident">message</span>: ::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">message</span>::<span class="ident">HeapAllocator</span><span class="op">&gt;</span>,
-                  <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>)
+                  <span class="ident">cap_table</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>)
                   <span class="op">-&gt;</span> <span class="ident">ResultsDone</span>
     {
         <span class="ident">ResultsDone</span> {
@@ -5280,19 +5278,19 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 }
 
 <span class="kw">impl</span> <span class="ident">ResultsDoneHook</span> <span class="kw">for</span> <span class="ident">ResultsDone</span> {
-    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsDoneHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsDoneHook</span><span class="op">&gt;</span> {
         <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">ResultsDone</span> { <span class="ident">inner</span>: <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">clone</span>() })
     }
     <span class="kw">fn</span> <span class="ident">get</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(<span class="kw-2">&amp;</span><span class="lifetime">&#39;a</span> <span class="self">self</span>) <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">any_pointer</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;&gt;</span> {
         <span class="kw">use</span> ::<span class="ident">capnp</span>::<span class="ident">traits</span>::<span class="ident">Imbue</span>;
         <span class="kw">match</span> <span class="kw-2">*</span><span class="self">self</span>.<span class="ident">inner</span> {
             <span class="ident">ResultsDoneVariant</span>::<span class="ident">Rpc</span>(<span class="kw-2">ref</span> <span class="ident">message</span>, <span class="kw-2">ref</span> <span class="ident">cap_table</span>) <span class="op">=&gt;</span> {
-                <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_root_as_reader</span>());
-                <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">root</span>.<span class="ident">which</span>()) {
+                <span class="kw">let</span> <span class="ident">root</span>: <span class="ident">message</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_root_as_reader</span>()<span class="question-mark">?</span>;
+                <span class="kw">match</span> <span class="ident">root</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
                     <span class="ident">message</span>::<span class="ident">Return</span>(<span class="ident">ret</span>) <span class="op">=&gt;</span> {
-                        <span class="kw">match</span> <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">ret</span>).<span class="ident">which</span>()) {
-                            ::<span class="ident">rpc_capnp</span>::<span class="ident">return_</span>::<span class="ident">Results</span>(<span class="ident">payload</span>) <span class="op">=&gt;</span> {
-                                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">content</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">payload</span>).<span class="ident">get_content</span>();
+                        <span class="kw">match</span> <span class="ident">ret</span><span class="question-mark">?</span>.<span class="ident">which</span>()<span class="question-mark">?</span> {
+                            <span class="kw">crate</span>::<span class="ident">rpc_capnp</span>::<span class="ident">return_</span>::<span class="ident">Results</span>(<span class="ident">payload</span>) <span class="op">=&gt;</span> {
+                                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">content</span> <span class="op">=</span> <span class="ident">payload</span><span class="question-mark">?</span>.<span class="ident">get_content</span>();
                                 <span class="ident">content</span>.<span class="ident">imbue</span>(<span class="ident">cap_table</span>);
                                 <span class="prelude-val">Ok</span>(<span class="ident">content</span>)
                             }
@@ -5307,7 +5305,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                 }
             }
             <span class="ident">ResultsDoneVariant</span>::<span class="ident">LocallyRedirected</span>(<span class="kw-2">ref</span> <span class="ident">message</span>, <span class="kw-2">ref</span> <span class="ident">cap_table</span>) <span class="op">=&gt;</span> {
-                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">message</span>.<span class="ident">get_root_as_reader</span>());
+                <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">result</span>: <span class="ident">any_pointer</span>::<span class="ident">Reader</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">get_root_as_reader</span>()<span class="question-mark">?</span>;
                 <span class="ident">result</span>.<span class="ident">imbue</span>(<span class="ident">cap_table</span>);
                 <span class="prelude-val">Ok</span>(<span class="ident">result</span>)
             }
@@ -5483,15 +5481,15 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 <span class="kw">struct</span> <span class="ident">PromiseClient</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">VatId</span>: <span class="lifetime">&#39;static</span> {
     <span class="ident">connection_state</span>: <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
     <span class="ident">is_resolved</span>: <span class="ident">bool</span>,
-    <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>,
+    <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>,
     <span class="ident">import_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ImportId</span><span class="op">&gt;</span>,
     <span class="ident">received_call</span>: <span class="ident">bool</span>,
-    <span class="ident">resolution_waiters</span>: ::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">resolution_waiters</span>: <span class="kw">crate</span>::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span><span class="op">&lt;</span>(), <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="ident">PromiseClient</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> {
     <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">connection_state</span>: <span class="kw-2">&amp;</span><span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">ConnectionState</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span>,
-           <span class="ident">initial</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>,
+           <span class="ident">initial</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>,
            <span class="ident">import_id</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">ImportId</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">Rc</span><span class="op">&lt;</span><span class="ident">RefCell</span><span class="op">&lt;</span><span class="ident">PromiseClient</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
         <span class="ident">Rc</span>::<span class="ident">new</span>(<span class="ident">RefCell</span>::<span class="ident">new</span>(<span class="ident">PromiseClient</span> {
             <span class="ident">connection_state</span>: <span class="ident">connection_state</span>.<span class="ident">clone</span>(),
@@ -5499,11 +5497,11 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
             <span class="ident">cap</span>: <span class="ident">initial</span>,
             <span class="ident">import_id</span>: <span class="ident">import_id</span>,
             <span class="ident">received_call</span>: <span class="bool-val">false</span>,
-            <span class="ident">resolution_waiters</span>: ::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>(),
+            <span class="ident">resolution_waiters</span>: <span class="kw">crate</span>::<span class="ident">sender_queue</span>::<span class="ident">SenderQueue</span>::<span class="ident">new</span>(),
         }))
     }
 
-    <span class="kw">fn</span> <span class="ident">resolve</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">replacement</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span>) {
+    <span class="kw">fn</span> <span class="ident">resolve</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">replacement</span>: <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;</span>) {
         <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">replacement</span>, <span class="ident">is_error</span>) <span class="op">=</span> <span class="kw">match</span> <span class="ident">replacement</span> {
             <span class="prelude-val">Ok</span>(<span class="ident">v</span>) <span class="op">=&gt;</span> (<span class="ident">v</span>, <span class="bool-val">false</span>),
             <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> (<span class="ident">broken</span>::<span class="ident">new_cap</span>(<span class="ident">e</span>), <span class="bool-val">true</span>),
@@ -5653,8 +5651,8 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">write_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">target</span>: ::<span class="ident">rpc_capnp</span>::<span class="ident">message_target</span>::<span class="ident">Builder</span>)
-                    <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>
+    <span class="kw">fn</span> <span class="ident">write_target</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">target</span>: <span class="kw">crate</span>::<span class="ident">rpc_capnp</span>::<span class="ident">message_target</span>::<span class="ident">Builder</span>)
+                    <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span>
     {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">variant</span> {
             <span class="ident">ClientVariant</span>::<span class="ident">Import</span>(<span class="kw-2">ref</span> <span class="ident">import_client</span>) <span class="op">=&gt;</span> {
@@ -5744,14 +5742,14 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 }
 
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> <span class="ident">ClientHook</span> <span class="kw">for</span> <span class="ident">Client</span><span class="op">&lt;</span><span class="ident">VatId</span><span class="op">&gt;</span> {
-    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> {
         <span class="ident">Box</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">clone</span>())
     }
     <span class="kw">fn</span> <span class="ident">new_call</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">interface_id</span>: <span class="ident">u64</span>, <span class="ident">method_id</span>: <span class="ident">u16</span>,
                 <span class="ident">size_hint</span>: <span class="prelude-ty">Option</span><span class="op">&lt;</span>::<span class="ident">capnp</span>::<span class="ident">MessageSize</span><span class="op">&gt;</span>)
                 <span class="op">-&gt;</span> ::<span class="ident">capnp</span>::<span class="ident">capability</span>::<span class="ident">Request</span><span class="op">&lt;</span><span class="ident">any_pointer</span>::<span class="ident">Owned</span>, <span class="ident">any_pointer</span>::<span class="ident">Owned</span><span class="op">&gt;</span>
     {
-        <span class="kw">let</span> <span class="ident">request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">RequestHook</span><span class="op">&gt;</span> <span class="op">=</span>
+        <span class="kw">let</span> <span class="ident">request</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">RequestHook</span><span class="op">&gt;</span> <span class="op">=</span>
             <span class="kw">match</span> <span class="ident">Request</span>::<span class="ident">new</span>(<span class="self">self</span>.<span class="ident">connection_state</span>.<span class="ident">clone</span>(), <span class="ident">size_hint</span>, <span class="self">self</span>.<span class="ident">clone</span>())
         {
             <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">request</span>) <span class="op">=&gt;</span> {
@@ -5770,17 +5768,17 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         ::<span class="ident">capnp</span>::<span class="ident">capability</span>::<span class="ident">Request</span>::<span class="ident">new</span>(<span class="ident">request</span>)
     }
 
-    <span class="kw">fn</span> <span class="ident">call</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">interface_id</span>: <span class="ident">u64</span>, <span class="ident">method_id</span>: <span class="ident">u16</span>, <span class="ident">params</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ParamsHook</span><span class="op">&gt;</span>,
-            <span class="kw-2">mut</span> <span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ResultsHook</span><span class="op">&gt;</span>)
+    <span class="kw">fn</span> <span class="ident">call</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">interface_id</span>: <span class="ident">u64</span>, <span class="ident">method_id</span>: <span class="ident">u16</span>, <span class="ident">params</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ParamsHook</span><span class="op">&gt;</span>,
+            <span class="kw-2">mut</span> <span class="ident">results</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ResultsHook</span><span class="op">&gt;</span>)
         <span class="op">-&gt;</span> <span class="ident">Promise</span><span class="op">&lt;</span>(), <span class="ident">Error</span><span class="op">&gt;</span>
     {
         <span class="comment">// Implement call() by copying params and results messages.</span>
 
         <span class="kw">let</span> <span class="ident">maybe_request</span> <span class="op">=</span> <span class="ident">params</span>.<span class="ident">get</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">p</span><span class="op">|</span> {
-            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">request</span> <span class="op">=</span> <span class="macro">try</span><span class="macro">!</span>(<span class="ident">p</span>.<span class="ident">target_size</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> {
+            <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">request</span> <span class="op">=</span> <span class="ident">p</span>.<span class="ident">target_size</span>().<span class="ident">and_then</span>(<span class="op">|</span><span class="ident">s</span><span class="op">|</span> {
                 <span class="prelude-val">Ok</span>(<span class="self">self</span>.<span class="ident">new_call</span>(<span class="ident">interface_id</span>, <span class="ident">method_id</span>, <span class="prelude-val">Some</span>(<span class="ident">s</span>)))
-            }));
-            <span class="macro">try</span><span class="macro">!</span>(<span class="ident">request</span>.<span class="ident">get</span>().<span class="ident">set_as</span>(<span class="ident">p</span>));
+            })<span class="question-mark">?</span>;
+            <span class="ident">request</span>.<span class="ident">get</span>().<span class="ident">set_as</span>(<span class="ident">p</span>)<span class="question-mark">?</span>;
             <span class="prelude-val">Ok</span>(<span class="ident">request</span>)
         });
 
@@ -5790,7 +5788,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
                 <span class="kw">let</span> ::<span class="ident">capnp</span>::<span class="ident">capability</span>::<span class="ident">RemotePromise</span> { <span class="ident">promise</span>, .. } <span class="op">=</span> <span class="ident">request</span>.<span class="ident">send</span>();
 
                 <span class="kw">let</span> <span class="ident">promise</span> <span class="op">=</span> <span class="ident">promise</span>.<span class="ident">and_then</span>(<span class="kw">move</span> <span class="op">|</span><span class="ident">response</span><span class="op">|</span> {
-                    <span class="macro">try</span><span class="macro">!</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">results</span>.<span class="ident">get</span>()).<span class="ident">set_as</span>(<span class="macro">try</span><span class="macro">!</span>(<span class="ident">response</span>.<span class="ident">get</span>())));
+                    <span class="ident">results</span>.<span class="ident">get</span>()<span class="question-mark">?</span>.<span class="ident">set_as</span>(<span class="ident">response</span>.<span class="ident">get</span>()<span class="question-mark">?</span>)<span class="question-mark">?</span>;
                     <span class="prelude-val">Ok</span>(())
                 });
 
@@ -5826,7 +5824,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         <span class="self">self</span>.<span class="ident">connection_state</span>.<span class="ident">get_brand</span>()
     }
 
-    <span class="kw">fn</span> <span class="ident">get_resolved</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_resolved</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">variant</span> {
             <span class="ident">ClientVariant</span>::<span class="ident">Import</span>(<span class="kw-2">ref</span> <span class="ident">_import_client</span>) <span class="op">=&gt;</span> {
                 <span class="prelude-val">None</span>
@@ -5847,7 +5845,7 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
         }
     }
 
-    <span class="kw">fn</span> <span class="ident">when_more_resolved</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Promise</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">when_more_resolved</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">Promise</span><span class="op">&lt;</span><span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>, <span class="ident">Error</span><span class="op">&gt;&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">variant</span> {
             <span class="ident">ClientVariant</span>::<span class="ident">Import</span>(<span class="kw-2">ref</span> <span class="ident">_import_client</span>) <span class="op">=&gt;</span> {
                 <span class="prelude-val">None</span>
@@ -5868,20 +5866,20 @@ impl &lt;F&gt; Drop for Defer&lt;F&gt; where F: FnOnce() {
 <span class="comment">// ===================================</span>
 
 <span class="kw">struct</span> <span class="ident">SingleCapPipeline</span> {
-    <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>,
+    <span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">SingleCapPipeline</span> {
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">SingleCapPipeline</span> {
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">cap</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">SingleCapPipeline</span> {
         <span class="ident">SingleCapPipeline</span> { <span class="ident">cap</span>: <span class="ident">cap</span> }
     }
 }
 
 <span class="kw">impl</span> <span class="ident">PipelineHook</span> <span class="kw">for</span> <span class="ident">SingleCapPipeline</span> {
-    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">PipelineHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">add_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">PipelineHook</span><span class="op">&gt;</span> {
         <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">SingleCapPipeline</span> {<span class="ident">cap</span>: <span class="self">self</span>.<span class="ident">cap</span>.<span class="ident">clone</span>() })
     }
-    <span class="kw">fn</span> <span class="ident">get_pipelined_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ops</span>: <span class="kw-2">&amp;</span>[<span class="ident">PipelineOp</span>]) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">ClientHook</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_pipelined_cap</span>(<span class="kw-2">&amp;</span><span class="self">self</span>, <span class="ident">ops</span>: <span class="kw-2">&amp;</span>[<span class="ident">PipelineOp</span>]) <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">ClientHook</span><span class="op">&gt;</span> {
         <span class="kw">if</span> <span class="ident">ops</span>.<span class="ident">is_empty</span>() {
             <span class="self">self</span>.<span class="ident">cap</span>.<span class="ident">add_ref</span>()
         } <span class="kw">else</span> {
