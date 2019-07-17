@@ -13289,7 +13289,7 @@
 <span id="13289">13289</span>
 <span id="13290">13290</span>
 </pre><div class="example-wrap"><pre class="rust ">
-<span class="comment">// Generated automatically from xproto.xml by rs_client.py on Sun Jul 14 16:05:52 2019.</span>
+<span class="comment">// Generated automatically from xproto.xml by rs_client.py on Wed Jul 17 19:06:09 2019.</span>
 <span class="comment">// Do not edit!</span>
 
 <span class="attribute">#![<span class="ident">allow</span>(<span class="ident">unused_unsafe</span>)]</span>
@@ -16353,8 +16353,8 @@
     }
     <span class="doccomment">/// Constructs a new CirculateNotifyEvent</span>
     <span class="doccomment">/// `response_type` must be set to one of:</span>
-    <span class="doccomment">///     - `CIRCULATE_REQUEST`</span>
     <span class="doccomment">///     - `CIRCULATE_NOTIFY`</span>
+    <span class="doccomment">///     - `CIRCULATE_REQUEST`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">response_type</span>: <span class="ident">u8</span>,
                <span class="ident">event</span>: <span class="ident">Window</span>,
                <span class="ident">window</span>: <span class="ident">Window</span>,
@@ -16362,8 +16362,8 @@
             <span class="op">-&gt;</span> <span class="ident">CirculateNotifyEvent</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="ident">raw</span> <span class="op">=</span> <span class="ident">libc</span>::<span class="ident">malloc</span>(<span class="number">32</span> <span class="kw">as</span> <span class="ident">usize</span>) <span class="kw">as</span> <span class="kw-2">*</span><span class="kw-2">mut</span> <span class="ident">xcb_circulate_notify_event_t</span>;
-            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">response_type</span> <span class="op">==</span> <span class="ident">CIRCULATE_REQUEST</span> <span class="op">||</span>
-                    <span class="ident">response_type</span> <span class="op">==</span> <span class="ident">CIRCULATE_NOTIFY</span>,
+            <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">response_type</span> <span class="op">==</span> <span class="ident">CIRCULATE_NOTIFY</span> <span class="op">||</span>
+                    <span class="ident">response_type</span> <span class="op">==</span> <span class="ident">CIRCULATE_REQUEST</span>,
                     <span class="string">&quot;wrong response_type supplied to CirculateNotifyEvent::new&quot;</span>);
             (<span class="kw-2">*</span><span class="ident">raw</span>).<span class="ident">response_type</span> <span class="op">=</span> <span class="ident">response_type</span>;
             (<span class="kw-2">*</span><span class="ident">raw</span>).<span class="ident">event</span> <span class="op">=</span> <span class="ident">event</span>;
