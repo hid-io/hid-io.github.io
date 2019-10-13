@@ -6,5 +6,4 @@ implementors["capnp_futures"] = [];
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

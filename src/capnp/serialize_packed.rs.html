@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/Users/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-0.10.0/src/serialize_packed.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>serialize_packed.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../capnp/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/capnp-0.10.3/src/serialize_packed.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>serialize_packed.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../normalize.css"><link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../dark.css"><link rel="stylesheet" type="text/css" href="../../light.css" id="themeStyle"><script src="../../storage.js"></script><noscript><link rel="stylesheet" href="../../noscript.css"></noscript><link rel="shortcut icon" href="../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../capnp/index.html'><div class='logo-container'><img src='../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../settings.html"><img src="../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -534,8 +534,6 @@
 <span id="534">534</span>
 <span id="535">535</span>
 <span id="536">536</span>
-<span id="537">537</span>
-<span id="538">538</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright (c) 2013-2015 Sandstorm Development Group, Inc. and contributors</span>
 <span class="comment">// Licensed under the MIT License:</span>
@@ -574,7 +572,7 @@
 
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="ident">PackedRead</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">R</span>: <span class="ident">BufRead</span> {
 
-    <span class="kw">fn</span> <span class="ident">get_read_buffer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>)<span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">get_read_buffer</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>(<span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>, <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>)<span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">buf</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">fill_buf</span>()<span class="question-mark">?</span>;
         <span class="kw">unsafe</span> {
             <span class="prelude-val">Ok</span>((<span class="ident">buf</span>.<span class="ident">as_ptr</span>(), <span class="ident">buf</span>.<span class="ident">get_unchecked</span>(<span class="ident">buf</span>.<span class="ident">len</span>())))
@@ -583,13 +581,13 @@
 }
 
 <span class="attribute">#[<span class="ident">inline</span>]</span>
-<span class="kw">fn</span> <span class="ident">ptr_sub</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">p1</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>, <span class="ident">p2</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> {
+<span class="kw">fn</span> <span class="ident">ptr_sub</span><span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>(<span class="ident">p1</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>, <span class="ident">p2</span>: <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">T</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
     (<span class="ident">p1</span> <span class="kw">as</span> <span class="ident">usize</span> <span class="op">-</span> <span class="ident">p2</span> <span class="kw">as</span> <span class="ident">usize</span>) <span class="op">/</span> <span class="ident">mem</span>::<span class="ident">size_of</span>::<span class="op">&lt;</span><span class="ident">T</span><span class="op">&gt;</span>()
 }
 
 <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">refresh_buffer</span>(
     (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">this</span>:<span class="ident">expr</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">size</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">in_ptr</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">in_end</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">out</span>:<span class="ident">ident</span>,
-     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">outBuf</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">buffer_begin</span>:<span class="ident">ident</span>) <span class="op">=&gt;</span> (
+     <span class="macro-nonterminal">$</span><span class="macro-nonterminal">outBuf</span>:<span class="ident">ident</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">buffer_begin</span>:<span class="ident">ident</span>) <span class="op">=</span><span class="op">&gt;</span> (
         {
             <span class="macro-nonterminal">$</span><span class="macro-nonterminal">this</span>.<span class="ident">inner</span>.<span class="ident">consume</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">size</span>);
             <span class="kw">let</span> (<span class="ident">b</span>, <span class="ident">e</span>) <span class="op">=</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">this</span>.<span class="ident">get_read_buffer</span>()<span class="question-mark">?</span>;
@@ -597,7 +595,7 @@
             <span class="macro-nonterminal">$</span><span class="macro-nonterminal">in_end</span> <span class="op">=</span> <span class="ident">e</span>;
             <span class="macro-nonterminal">$</span><span class="macro-nonterminal">size</span> <span class="op">=</span> <span class="ident">ptr_sub</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">in_end</span>, <span class="macro-nonterminal">$</span><span class="macro-nonterminal">in_ptr</span>);
             <span class="macro-nonterminal">$</span><span class="macro-nonterminal">buffer_begin</span> <span class="op">=</span> <span class="ident">b</span>;
-            <span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">size</span> <span class="op">==</span> <span class="number">0</span> {
+            <span class="kw">if</span> <span class="macro-nonterminal">$</span><span class="macro-nonterminal">size</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">Other</span>,
                                           <span class="string">&quot;Premature end of packed input.&quot;</span>));
             }
@@ -607,12 +605,12 @@
 
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="ident">Read</span> <span class="kw">for</span> <span class="ident">PackedRead</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">R</span>: <span class="ident">BufRead</span> {
 
-    <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">out_buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">out_buf</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">out_buf</span>.<span class="ident">len</span>();
 
-        <span class="kw">if</span> <span class="ident">len</span> <span class="op">==</span> <span class="number">0</span> { <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="number">0</span>); }
+        <span class="kw">if</span> <span class="ident">len</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> { <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="number">0</span>); }
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">len</span> <span class="op">%</span> <span class="number">8</span> <span class="op">==</span> <span class="number">0</span>, <span class="string">&quot;PackedRead reads must be word-aligned.&quot;</span>);
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">len</span> <span class="op">%</span> <span class="number">8</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>, <span class="string">&quot;PackedRead reads must be word-aligned.&quot;</span>);
 
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">out</span> <span class="op">=</span> <span class="ident">out_buf</span>.<span class="ident">as_mut_ptr</span>();
@@ -621,7 +619,7 @@
             <span class="kw">let</span> (<span class="kw-2">mut</span> <span class="ident">in_ptr</span>, <span class="kw-2">mut</span> <span class="ident">in_end</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_read_buffer</span>()<span class="question-mark">?</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buffer_begin</span> <span class="op">=</span> <span class="ident">in_ptr</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">size</span> <span class="op">=</span> <span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>);
-            <span class="kw">if</span> <span class="ident">size</span> <span class="op">==</span> <span class="number">0</span> {
+            <span class="kw">if</span> <span class="ident">size</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                 <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="number">0</span>);
             }
 
@@ -633,12 +631,12 @@
                            <span class="string">&quot;Output pointer should always be aligned here.&quot;</span>);
 
                 <span class="kw">if</span> <span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>) <span class="op">&lt;</span> <span class="number">10</span> {
-                    <span class="kw">if</span> <span class="ident">out</span> <span class="op">&gt;=</span> <span class="ident">out_end</span> {
+                    <span class="kw">if</span> <span class="ident">out</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">out_end</span> {
                         <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">consume</span>(<span class="ident">ptr_sub</span>(<span class="ident">in_ptr</span>, <span class="ident">buffer_begin</span>));
                         <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">ptr_sub</span>(<span class="ident">out</span>, <span class="ident">out_buf</span>.<span class="ident">as_mut_ptr</span>()));
                     }
 
-                    <span class="kw">if</span> <span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>) <span class="op">==</span> <span class="number">0</span> {
+                    <span class="kw">if</span> <span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>) <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                         <span class="macro">refresh_buffer</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">size</span>, <span class="ident">in_ptr</span>, <span class="ident">in_end</span>, <span class="ident">out</span>, <span class="ident">out_buf</span>, <span class="ident">buffer_begin</span>);
                         <span class="kw">continue</span>;
                     }
@@ -650,8 +648,8 @@
                     <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
                     <span class="kw">for</span> <span class="ident">i</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">8</span> {
-                        <span class="kw">if</span> (<span class="ident">tag</span> <span class="op">&amp;</span> (<span class="number">1u8</span> <span class="op">&lt;&lt;</span> <span class="ident">i</span>)) <span class="op">!=</span> <span class="number">0</span> {
-                            <span class="kw">if</span> <span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>) <span class="op">==</span> <span class="number">0</span> {
+                        <span class="kw">if</span> (<span class="ident">tag</span> <span class="op">&amp;</span> (<span class="number">1u8</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident">i</span>)) <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+                            <span class="kw">if</span> <span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>) <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                                 <span class="macro">refresh_buffer</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">size</span>, <span class="ident">in_ptr</span>, <span class="ident">in_end</span>,
                                                 <span class="ident">out</span>, <span class="ident">out_buf</span>, <span class="ident">buffer_begin</span>);
                             }
@@ -664,7 +662,7 @@
                         }
                     }
 
-                    <span class="kw">if</span> <span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>) <span class="op">==</span> <span class="number">0</span> <span class="op">&amp;&amp;</span> (<span class="ident">tag</span> <span class="op">==</span> <span class="number">0</span> <span class="op">||</span> <span class="ident">tag</span> <span class="op">==</span> <span class="number">0xff</span>) {
+                    <span class="kw">if</span> <span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>) <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> (<span class="ident">tag</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> <span class="op">|</span><span class="op">|</span> <span class="ident">tag</span> <span class="op">=</span><span class="op">=</span> <span class="number">0xff</span>) {
                         <span class="macro">refresh_buffer</span><span class="macro">!</span>(<span class="self">self</span>, <span class="ident">size</span>, <span class="ident">in_ptr</span>, <span class="ident">in_end</span>,
                                         <span class="ident">out</span>, <span class="ident">out_buf</span>, <span class="ident">buffer_begin</span>);
                     }
@@ -673,13 +671,13 @@
                     <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
                     <span class="kw">for</span> <span class="ident">n</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">8</span> {
-                        <span class="kw">let</span> <span class="ident">is_nonzero</span> <span class="op">=</span> (<span class="ident">tag</span> <span class="op">&amp;</span> (<span class="number">1u8</span> <span class="op">&lt;&lt;</span> <span class="ident">n</span>)) <span class="op">!=</span> <span class="number">0</span>;
+                        <span class="kw">let</span> <span class="ident">is_nonzero</span> <span class="op">=</span> (<span class="ident">tag</span> <span class="op">&amp;</span> (<span class="number">1u8</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="ident">n</span>)) <span class="op">!</span><span class="op">=</span> <span class="number">0</span>;
                         <span class="kw-2">*</span><span class="ident">out</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span>) <span class="op">&amp;</span> ((<span class="op">-</span>(<span class="ident">is_nonzero</span> <span class="kw">as</span> <span class="ident">i8</span>)) <span class="kw">as</span> <span class="ident">u8</span>);
                         <span class="ident">out</span> <span class="op">=</span> <span class="ident">out</span>.<span class="ident">offset</span>(<span class="number">1</span>);
                         <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="ident">is_nonzero</span> <span class="kw">as</span> <span class="ident">isize</span>);
                     }
                 }
-                <span class="kw">if</span> <span class="ident">tag</span> <span class="op">==</span> <span class="number">0</span> {
+                <span class="kw">if</span> <span class="ident">tag</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>) <span class="op">&gt;</span> <span class="number">0</span>,
                             <span class="string">&quot;Should always have non-empty buffer here.&quot;</span>);
 
@@ -694,7 +692,7 @@
                     <span class="ident">ptr</span>::<span class="ident">write_bytes</span>(<span class="ident">out</span>, <span class="number">0</span>, <span class="ident">run_length</span>);
                     <span class="ident">out</span> <span class="op">=</span> <span class="ident">out</span>.<span class="ident">offset</span>(<span class="ident">run_length</span> <span class="kw">as</span> <span class="ident">isize</span>);
 
-                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">tag</span> <span class="op">==</span> <span class="number">0xff</span> {
+                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">tag</span> <span class="op">=</span><span class="op">=</span> <span class="number">0xff</span> {
                     <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>) <span class="op">&gt;</span> <span class="number">0</span>,
                             <span class="string">&quot;Should always have non-empty buffer here&quot;</span>);
 
@@ -707,7 +705,7 @@
                     }
 
                     <span class="kw">let</span> <span class="ident">in_remaining</span> <span class="op">=</span> <span class="ident">ptr_sub</span>(<span class="ident">in_end</span>, <span class="ident">in_ptr</span>);
-                    <span class="kw">if</span> <span class="ident">in_remaining</span> <span class="op">&gt;=</span> <span class="ident">run_length</span> {
+                    <span class="kw">if</span> <span class="ident">in_remaining</span> <span class="op">&gt;</span><span class="op">=</span> <span class="ident">run_length</span> {
                         <span class="comment">//# Fast path.</span>
                         <span class="ident">ptr</span>::<span class="ident">copy_nonoverlapping</span>(<span class="ident">in_ptr</span>, <span class="ident">out</span>, <span class="ident">run_length</span>);
                         <span class="ident">out</span> <span class="op">=</span> <span class="ident">out</span>.<span class="ident">offset</span>(<span class="ident">run_length</span> <span class="kw">as</span> <span class="ident">isize</span>);
@@ -716,7 +714,7 @@
                         <span class="comment">//# Copy over the first buffer, then do one big read for the rest.</span>
                         <span class="ident">ptr</span>::<span class="ident">copy_nonoverlapping</span>(<span class="ident">in_ptr</span>, <span class="ident">out</span>, <span class="ident">in_remaining</span>);
                         <span class="ident">out</span> <span class="op">=</span> <span class="ident">out</span>.<span class="ident">offset</span>(<span class="ident">in_remaining</span> <span class="kw">as</span> <span class="ident">isize</span>);
-                        <span class="ident">run_length</span> <span class="op">-=</span> <span class="ident">in_remaining</span>;
+                        <span class="ident">run_length</span> <span class="op">-</span><span class="op">=</span> <span class="ident">in_remaining</span>;
 
                         <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">consume</span>(<span class="ident">size</span>);
                         {
@@ -726,7 +724,7 @@
 
                         <span class="ident">out</span> <span class="op">=</span> <span class="ident">out</span>.<span class="ident">offset</span>(<span class="ident">run_length</span> <span class="kw">as</span> <span class="ident">isize</span>);
 
-                        <span class="kw">if</span> <span class="ident">out</span> <span class="op">==</span> <span class="ident">out_end</span> {
+                        <span class="kw">if</span> <span class="ident">out</span> <span class="op">=</span><span class="op">=</span> <span class="ident">out_end</span> {
                             <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">len</span>);
                         } <span class="kw">else</span> {
                             <span class="kw">let</span> (<span class="ident">b</span>, <span class="ident">e</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">get_read_buffer</span>()<span class="question-mark">?</span>;
@@ -739,7 +737,7 @@
                     }
                 }
 
-                <span class="kw">if</span> <span class="ident">out</span> <span class="op">==</span> <span class="ident">out_end</span> {
+                <span class="kw">if</span> <span class="ident">out</span> <span class="op">=</span><span class="op">=</span> <span class="ident">out_end</span> {
                     <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">consume</span>(<span class="ident">ptr_sub</span>(<span class="ident">in_ptr</span>, <span class="ident">buffer_begin</span>));
                     <span class="kw">return</span> <span class="prelude-val">Ok</span>(<span class="ident">len</span>);
                 }
@@ -751,7 +749,7 @@
 <span class="doccomment">/// Reads a packed message from a stream using the provided options.</span>
 <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">read_message</span><span class="op">&lt;</span><span class="ident">R</span><span class="op">&gt;</span>(<span class="ident">read</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">R</span>,
                        <span class="ident">options</span>: <span class="ident">message</span>::<span class="ident">ReaderOptions</span>)
-                       <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">message</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">serialize</span>::<span class="ident">OwnedSegments</span><span class="op">&gt;&gt;</span>
+                       <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="kw">crate</span>::<span class="ident">message</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="ident">serialize</span>::<span class="ident">OwnedSegments</span><span class="op">&gt;</span><span class="op">&gt;</span>
     <span class="kw">where</span> <span class="ident">R</span>: <span class="ident">BufRead</span>
 {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">packed_read</span> <span class="op">=</span> <span class="ident">PackedRead</span> { <span class="ident">inner</span>: <span class="ident">read</span> };
@@ -765,7 +763,7 @@
 <span class="kw">impl</span> <span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="ident">Write</span> <span class="kw">for</span> <span class="ident">PackedWrite</span><span class="op">&lt;</span><span class="ident">W</span><span class="op">&gt;</span> <span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span> {
     <span class="comment">// This implementation assumes that the data in `in_buf` is actually</span>
     <span class="comment">// eight-byte aligned.</span>
-    <span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">in_buf</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
+    <span class="kw">fn</span> <span class="ident">write</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">in_buf</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span><span class="op">&gt;</span> {
         <span class="kw">unsafe</span> {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf_idx</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="number">0</span>;
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span>: [<span class="ident">u8</span>; <span class="number">64</span>] <span class="op">=</span> [<span class="number">0</span>; <span class="number">64</span>];
@@ -784,55 +782,55 @@
                 }
 
                 <span class="kw">let</span> <span class="ident">tag_pos</span> <span class="op">=</span> <span class="ident">buf_idx</span>;
-                <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="number">1</span>;
+                <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 
-                <span class="kw">let</span> <span class="ident">bit0</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+                <span class="kw">let</span> <span class="ident">bit0</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
                 <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">in_ptr</span>;
-                <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="ident">bit0</span> <span class="kw">as</span> <span class="ident">usize</span>;
+                <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">bit0</span> <span class="kw">as</span> <span class="ident">usize</span>;
                 <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
-                <span class="kw">let</span> <span class="ident">bit1</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+                <span class="kw">let</span> <span class="ident">bit1</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
                 <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">in_ptr</span>;
-                <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="ident">bit1</span> <span class="kw">as</span> <span class="ident">usize</span>;
+                <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">bit1</span> <span class="kw">as</span> <span class="ident">usize</span>;
                 <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
-                <span class="kw">let</span> <span class="ident">bit2</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+                <span class="kw">let</span> <span class="ident">bit2</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
                 <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">in_ptr</span>;
-                <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="ident">bit2</span> <span class="kw">as</span> <span class="ident">usize</span>;
+                <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">bit2</span> <span class="kw">as</span> <span class="ident">usize</span>;
                 <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
-                <span class="kw">let</span> <span class="ident">bit3</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+                <span class="kw">let</span> <span class="ident">bit3</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
                 <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">in_ptr</span>;
-                <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="ident">bit3</span> <span class="kw">as</span> <span class="ident">usize</span>;
+                <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">bit3</span> <span class="kw">as</span> <span class="ident">usize</span>;
                 <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
-                <span class="kw">let</span> <span class="ident">bit4</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+                <span class="kw">let</span> <span class="ident">bit4</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
                 <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">in_ptr</span>;
-                <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="ident">bit4</span> <span class="kw">as</span> <span class="ident">usize</span>;
+                <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">bit4</span> <span class="kw">as</span> <span class="ident">usize</span>;
                 <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
-                <span class="kw">let</span> <span class="ident">bit5</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+                <span class="kw">let</span> <span class="ident">bit5</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
                 <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">in_ptr</span>;
-                <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="ident">bit5</span> <span class="kw">as</span> <span class="ident">usize</span>;
+                <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">bit5</span> <span class="kw">as</span> <span class="ident">usize</span>;
                 <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
-                <span class="kw">let</span> <span class="ident">bit6</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+                <span class="kw">let</span> <span class="ident">bit6</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
                 <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">in_ptr</span>;
-                <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="ident">bit6</span> <span class="kw">as</span> <span class="ident">usize</span>;
+                <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">bit6</span> <span class="kw">as</span> <span class="ident">usize</span>;
                 <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
-                <span class="kw">let</span> <span class="ident">bit7</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+                <span class="kw">let</span> <span class="ident">bit7</span> <span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
                 <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> <span class="kw-2">*</span><span class="ident">in_ptr</span>;
-                <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="ident">bit7</span> <span class="kw">as</span> <span class="ident">usize</span>;
+                <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="ident">bit7</span> <span class="kw">as</span> <span class="ident">usize</span>;
                 <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
 
-                <span class="kw">let</span> <span class="ident">tag</span>: <span class="ident">u8</span> <span class="op">=</span> (<span class="ident">bit0</span> <span class="op">&lt;&lt;</span> <span class="number">0</span>) <span class="op">|</span> (<span class="ident">bit1</span> <span class="op">&lt;&lt;</span> <span class="number">1</span>) <span class="op">|</span> (<span class="ident">bit2</span> <span class="op">&lt;&lt;</span> <span class="number">2</span>) <span class="op">|</span> (<span class="ident">bit3</span> <span class="op">&lt;&lt;</span> <span class="number">3</span>)
-                            <span class="op">|</span> (<span class="ident">bit4</span> <span class="op">&lt;&lt;</span> <span class="number">4</span>) <span class="op">|</span> (<span class="ident">bit5</span> <span class="op">&lt;&lt;</span> <span class="number">5</span>) <span class="op">|</span> (<span class="ident">bit6</span> <span class="op">&lt;&lt;</span> <span class="number">6</span>) <span class="op">|</span> (<span class="ident">bit7</span> <span class="op">&lt;&lt;</span> <span class="number">7</span>);
+                <span class="kw">let</span> <span class="ident">tag</span>: <span class="ident">u8</span> <span class="op">=</span> (<span class="ident">bit0</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">0</span>) <span class="op">|</span> (<span class="ident">bit1</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">1</span>) <span class="op">|</span> (<span class="ident">bit2</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">2</span>) <span class="op">|</span> (<span class="ident">bit3</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">3</span>)
+                            <span class="op">|</span> (<span class="ident">bit4</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">4</span>) <span class="op">|</span> (<span class="ident">bit5</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">5</span>) <span class="op">|</span> (<span class="ident">bit6</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">6</span>) <span class="op">|</span> (<span class="ident">bit7</span> <span class="op">&lt;</span><span class="op">&lt;</span> <span class="number">7</span>);
 
 
                 <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">tag_pos</span>) <span class="op">=</span> <span class="ident">tag</span>;
 
-                <span class="kw">if</span> <span class="ident">tag</span> <span class="op">==</span> <span class="number">0</span> {
+                <span class="kw">if</span> <span class="ident">tag</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                     <span class="comment">//# An all-zero word is followed by a count of</span>
                     <span class="comment">//# consecutive zero words (not including the first</span>
                     <span class="comment">//# one).</span>
@@ -843,14 +841,14 @@
                     <span class="kw">if</span> <span class="ident">ptr_sub</span>(<span class="ident">limit</span>, <span class="ident">in_word</span>) <span class="op">&gt;</span> <span class="number">255</span> {
                         <span class="ident">limit</span> <span class="op">=</span> <span class="ident">in_word</span>.<span class="ident">offset</span>(<span class="number">255</span>);
                     }
-                    <span class="kw">while</span> <span class="ident">in_word</span> <span class="op">&lt;</span> <span class="ident">limit</span> <span class="op">&amp;&amp;</span> <span class="kw-2">*</span><span class="ident">in_word</span> <span class="op">==</span> <span class="number">0</span> {
+                    <span class="kw">while</span> <span class="ident">in_word</span> <span class="op">&lt;</span> <span class="ident">limit</span> <span class="kw-2">&amp;</span><span class="op">&amp;</span> <span class="kw-2">*</span><span class="ident">in_word</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span> {
                         <span class="ident">in_word</span> <span class="op">=</span> <span class="ident">in_word</span>.<span class="ident">offset</span>(<span class="number">1</span>);
                     }
 
                     <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> <span class="ident">ptr_sub</span>(<span class="ident">in_word</span>, <span class="ident">in_ptr</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u64</span>) <span class="kw">as</span> <span class="ident">u8</span>;
-                    <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="number">1</span>;
+                    <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
                     <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_word</span> <span class="kw">as</span> <span class="kw-2">*</span><span class="kw">const</span> <span class="ident">u8</span>;
-                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">tag</span> <span class="op">==</span> <span class="number">0xff</span> {
+                } <span class="kw">else</span> <span class="kw">if</span> <span class="ident">tag</span> <span class="op">=</span><span class="op">=</span> <span class="number">0xff</span> {
                     <span class="comment">//# An all-nonzero word is followed by a count of</span>
                     <span class="comment">//# consecutive uncompressed words, followed by the</span>
                     <span class="comment">//# uncompressed words themselves.</span>
@@ -869,11 +867,11 @@
                         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">c</span> <span class="op">=</span> <span class="number">0</span>;
 
                         <span class="kw">for</span> <span class="kw">_</span> <span class="kw">in</span> <span class="number">0</span>..<span class="number">8</span> {
-                            <span class="ident">c</span> <span class="op">+=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">==</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
+                            <span class="ident">c</span> <span class="op">+</span><span class="op">=</span> (<span class="kw-2">*</span><span class="ident">in_ptr</span> <span class="op">=</span><span class="op">=</span> <span class="number">0</span>) <span class="kw">as</span> <span class="ident">u8</span>;
                             <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="number">1</span>);
                         }
 
-                        <span class="kw">if</span> <span class="ident">c</span> <span class="op">&gt;=</span> <span class="number">2</span> {
+                        <span class="kw">if</span> <span class="ident">c</span> <span class="op">&gt;</span><span class="op">=</span> <span class="number">2</span> {
                             <span class="comment">//# Un-read the word with multiple zeros, since</span>
                             <span class="comment">//# we&#39;ll want to compress that one.</span>
                             <span class="ident">in_ptr</span> <span class="op">=</span> <span class="ident">in_ptr</span>.<span class="ident">offset</span>(<span class="op">-</span><span class="number">8</span>);
@@ -883,7 +881,7 @@
 
                     <span class="kw">let</span> <span class="ident">count</span>: <span class="ident">usize</span> <span class="op">=</span> <span class="ident">ptr_sub</span>(<span class="ident">in_ptr</span>, <span class="ident">run_start</span>);
                     <span class="kw-2">*</span><span class="ident">buf</span>.<span class="ident">get_unchecked_mut</span>(<span class="ident">buf_idx</span>) <span class="op">=</span> (<span class="ident">count</span> <span class="op">/</span> <span class="number">8</span>) <span class="kw">as</span> <span class="ident">u8</span>;
-                    <span class="ident">buf_idx</span> <span class="op">+=</span> <span class="number">1</span>;
+                    <span class="ident">buf_idx</span> <span class="op">+</span><span class="op">=</span> <span class="number">1</span>;
 
                     <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">write_all</span>(<span class="kw-2">&amp;</span><span class="ident">buf</span>[..<span class="ident">buf_idx</span>])<span class="question-mark">?</span>;
                     <span class="ident">buf_idx</span> <span class="op">=</span> <span class="number">0</span>;
@@ -896,11 +894,11 @@
         }
     }
 
-   <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> { <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">flush</span>() }
+   <span class="kw">fn</span> <span class="ident">flush</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span> { <span class="self">self</span>.<span class="ident">inner</span>.<span class="ident">flush</span>() }
 }
 
 <span class="doccomment">/// Writes a packed message to a stream.</span>
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_message</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">A</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">write_message</span><span class="op">&lt;</span><span class="ident">W</span>, <span class="ident">A</span><span class="op">&gt;</span>(<span class="ident">write</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">W</span>, <span class="ident">message</span>: <span class="kw-2">&amp;</span><span class="kw">crate</span>::<span class="ident">message</span>::<span class="ident">Builder</span><span class="op">&lt;</span><span class="ident">A</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="prelude-ty">Result</span><span class="op">&lt;</span>()<span class="op">&gt;</span>
     <span class="kw">where</span> <span class="ident">W</span>: <span class="ident">Write</span>, <span class="ident">A</span>: <span class="kw">crate</span>::<span class="ident">message</span>::<span class="ident">Allocator</span>
 {
     <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">packed_write</span> <span class="op">=</span> <span class="ident">PackedWrite</span> { <span class="ident">inner</span>: <span class="ident">write</span> };
@@ -909,8 +907,6 @@
 
 <span class="attribute">#[<span class="ident">cfg</span>(<span class="ident">test</span>)]</span>
 <span class="kw">mod</span> <span class="ident">tests</span> {
-
-    <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">iter</span>;
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::{<span class="ident">Write</span>, <span class="ident">Read</span>};
 
     <span class="kw">use</span> <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Cursor</span>;
@@ -925,7 +921,7 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">check_unpacks_to</span>(<span class="ident">packed</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">unpacked</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">packed_read</span> <span class="op">=</span> <span class="ident">PackedRead</span> { <span class="ident">inner</span>: <span class="ident">packed</span> };
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">iter</span>::<span class="ident">repeat</span>(<span class="number">0u8</span>).<span class="ident">take</span>(<span class="ident">unpacked</span>.<span class="ident">len</span>()).<span class="ident">collect</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="ident">unpacked</span>.<span class="ident">len</span>()];
         <span class="ident">packed_read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>[..]).<span class="ident">unwrap</span>();
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buf</span> <span class="op">=</span> [<span class="number">0</span>; <span class="number">8</span>];
@@ -943,7 +939,7 @@
         <span class="comment">// --------</span>
         <span class="comment">// write</span>
 
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">iter</span>::<span class="ident">repeat</span>(<span class="number">0u8</span>).<span class="ident">take</span>(<span class="ident">packed</span>.<span class="ident">len</span>()).<span class="ident">collect</span>();
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="ident">packed</span>.<span class="ident">len</span>()];
         {
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">packed_write</span> <span class="op">=</span> <span class="ident">PackedWrite</span> { <span class="ident">inner</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>[..] };
             <span class="ident">packed_write</span>.<span class="ident">write</span>(<span class="ident">unpacked</span>).<span class="ident">unwrap</span>();
@@ -985,9 +981,9 @@
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">check_round_trip</span>() {
-        <span class="kw">fn</span> <span class="ident">round_trip</span>(<span class="ident">segments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Word</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">TestResult</span> {
+        <span class="kw">fn</span> <span class="ident">round_trip</span>(<span class="ident">segments</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Word</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> {
             <span class="kw">use</span> <span class="kw">crate</span>::<span class="ident">message</span>::<span class="ident">ReaderSegments</span>;
-            <span class="kw">if</span> <span class="ident">segments</span>.<span class="ident">len</span>() <span class="op">==</span> <span class="number">0</span> { <span class="kw">return</span> <span class="ident">TestResult</span>::<span class="ident">discard</span>(); }
+            <span class="kw">if</span> <span class="ident">segments</span>.<span class="ident">len</span>() <span class="op">=</span><span class="op">=</span> <span class="number">0</span> { <span class="kw">return</span> <span class="ident">TestResult</span>::<span class="ident">discard</span>(); }
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">cursor</span> <span class="op">=</span> <span class="ident">Cursor</span>::<span class="ident">new</span>(<span class="ident">Vec</span>::<span class="ident">new</span>());
 
             <span class="ident">write_message_segments</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">PackedWrite</span> { <span class="ident">inner</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">cursor</span> }, <span class="kw-2">&amp;</span><span class="ident">segments</span>);
@@ -996,16 +992,16 @@
             <span class="kw">let</span> <span class="ident">result_segments</span> <span class="op">=</span> <span class="ident">message</span>.<span class="ident">into_segments</span>();
 
             <span class="ident">TestResult</span>::<span class="ident">from_bool</span>(<span class="ident">segments</span>.<span class="ident">iter</span>().<span class="ident">enumerate</span>().<span class="ident">all</span>(<span class="op">|</span>(<span class="ident">i</span>, <span class="ident">segment</span>)<span class="op">|</span> {
-                <span class="kw-2">&amp;</span><span class="ident">segment</span>[..] <span class="op">==</span> <span class="ident">result_segments</span>.<span class="ident">get_segment</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">unwrap</span>()
+                <span class="kw-2">&amp;</span><span class="ident">segment</span>[..] <span class="op">=</span><span class="op">=</span> <span class="ident">result_segments</span>.<span class="ident">get_segment</span>(<span class="ident">i</span> <span class="kw">as</span> <span class="ident">u32</span>).<span class="ident">unwrap</span>()
             }))
         }
 
-        <span class="ident">quickcheck</span>(<span class="ident">round_trip</span> <span class="kw">as</span> <span class="kw">fn</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Word</span><span class="op">&gt;&gt;</span>) <span class="op">-&gt;</span> <span class="ident">TestResult</span>);
+        <span class="ident">quickcheck</span>(<span class="ident">round_trip</span> <span class="kw">as</span> <span class="kw">fn</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Word</span><span class="op">&gt;</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
     <span class="kw">fn</span> <span class="ident">fuzz_unpack</span>() {
-        <span class="kw">fn</span> <span class="ident">unpack</span>(<span class="ident">packed</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">TestResult</span> {
+        <span class="kw">fn</span> <span class="ident">unpack</span>(<span class="ident">packed</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span> {
 
             <span class="kw">let</span> <span class="ident">len</span> <span class="op">=</span> <span class="ident">packed</span>.<span class="ident">len</span>();
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">packed_read</span> <span class="op">=</span> <span class="ident">PackedRead</span> { <span class="ident">inner</span>: <span class="kw-2">&amp;</span><span class="ident">packed</span>[..] };
@@ -1016,7 +1012,7 @@
             <span class="ident">TestResult</span>::<span class="ident">from_bool</span>(<span class="bool-val">true</span>)
         }
 
-        <span class="ident">quickcheck</span>(<span class="ident">unpack</span> <span class="kw">as</span> <span class="kw">fn</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">TestResult</span>);
+        <span class="ident">quickcheck</span>(<span class="ident">unpack</span> <span class="kw">as</span> <span class="kw">fn</span>(<span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">TestResult</span>);
     }
 
     <span class="attribute">#[<span class="ident">test</span>]</span>
@@ -1026,8 +1022,8 @@
 
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="number">200</span>];
         <span class="kw">match</span> <span class="ident">packed_read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>[..]) {
-            <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;should have been an error&quot;</span>),
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;should have been an error&quot;</span>),
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">assert_eq</span><span class="macro">!</span>(::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>::<span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="ident">e</span>),
                            <span class="string">&quot;Packed input did not end cleanly on a segment boundary.&quot;</span>);
             }
@@ -1041,8 +1037,8 @@
 
             <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">bytes</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="number">200</span>];
             <span class="kw">match</span> <span class="ident">packed_read</span>.<span class="ident">read_exact</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">bytes</span>[..]) {
-                <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;should have been an error&quot;</span>),
-                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+                <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="macro">panic</span><span class="macro">!</span>(<span class="string">&quot;should have been an error&quot;</span>),
+                <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                     <span class="macro">assert_eq</span><span class="macro">!</span>(::<span class="ident">std</span>::<span class="ident">error</span>::<span class="ident">Error</span>::<span class="ident">description</span>(<span class="kw-2">&amp;</span><span class="ident">e</span>), <span class="string">&quot;Premature end of packed input.&quot;</span>);
                 }
             }

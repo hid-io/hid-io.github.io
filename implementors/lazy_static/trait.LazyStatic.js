@@ -6,5 +6,4 @@ implementors["hid_io"] = [{text:"impl <a class=\"trait\" href=\"lazy_static/trai
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

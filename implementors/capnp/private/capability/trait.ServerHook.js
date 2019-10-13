@@ -6,5 +6,4 @@ implementors["capnp_rpc"] = [{text:"impl <a class=\"trait\" href=\"capnp/private
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

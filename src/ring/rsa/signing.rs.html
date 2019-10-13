@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/Users/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ring-0.13.5/src/rsa/signing.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>signing.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../ring/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Source to the Rust file `/home/travis/.cargo/registry/src/github.com-1ecc6299db9ec823/ring-0.16.9/src/rsa/signing.rs`."><meta name="keywords" content="rust, rustlang, rust-lang"><title>signing.rs.html -- source</title><link rel="stylesheet" type="text/css" href="../../../normalize.css"><link rel="stylesheet" type="text/css" href="../../../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" type="text/css" href="../../../dark.css"><link rel="stylesheet" type="text/css" href="../../../light.css" id="themeStyle"><script src="../../../storage.js"></script><noscript><link rel="stylesheet" href="../../../noscript.css"></noscript><link rel="shortcut icon" href="../../../favicon.ico"><style type="text/css">#crate-search{background-image:url("../../../down-arrow.svg");}</style></head><body class="rustdoc source"><!--[if lte IE 8]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="sidebar"><div class="sidebar-menu">&#9776;</div><a href='../../../ring/index.html'><div class='logo-container'><img src='../../../rust-logo.png' alt='logo'></div></a></nav><div class="theme-picker"><button id="theme-picker" aria-label="Pick another theme!"><img src="../../../brush.svg" width="18" alt="Pick another theme!"></button><div id="theme-choices"></div></div><script src="../../../theme.js"></script><nav class="sub"><form class="search-form js-only"><div class="search-container"><div><select id="crate-search"><option value="All crates">All crates</option></select><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"></div><a id="settings-menu" href="../../../settings.html"><img src="../../../wheel.svg" width="18" alt="Change settings"></a></div></form></nav><section id="main" class="content"><pre class="line-numbers"><span id="1">  1</span>
 <span id="2">  2</span>
 <span id="3">  3</span>
 <span id="4">  4</span>
@@ -579,6 +579,72 @@
 <span id="579">579</span>
 <span id="580">580</span>
 <span id="581">581</span>
+<span id="582">582</span>
+<span id="583">583</span>
+<span id="584">584</span>
+<span id="585">585</span>
+<span id="586">586</span>
+<span id="587">587</span>
+<span id="588">588</span>
+<span id="589">589</span>
+<span id="590">590</span>
+<span id="591">591</span>
+<span id="592">592</span>
+<span id="593">593</span>
+<span id="594">594</span>
+<span id="595">595</span>
+<span id="596">596</span>
+<span id="597">597</span>
+<span id="598">598</span>
+<span id="599">599</span>
+<span id="600">600</span>
+<span id="601">601</span>
+<span id="602">602</span>
+<span id="603">603</span>
+<span id="604">604</span>
+<span id="605">605</span>
+<span id="606">606</span>
+<span id="607">607</span>
+<span id="608">608</span>
+<span id="609">609</span>
+<span id="610">610</span>
+<span id="611">611</span>
+<span id="612">612</span>
+<span id="613">613</span>
+<span id="614">614</span>
+<span id="615">615</span>
+<span id="616">616</span>
+<span id="617">617</span>
+<span id="618">618</span>
+<span id="619">619</span>
+<span id="620">620</span>
+<span id="621">621</span>
+<span id="622">622</span>
+<span id="623">623</span>
+<span id="624">624</span>
+<span id="625">625</span>
+<span id="626">626</span>
+<span id="627">627</span>
+<span id="628">628</span>
+<span id="629">629</span>
+<span id="630">630</span>
+<span id="631">631</span>
+<span id="632">632</span>
+<span id="633">633</span>
+<span id="634">634</span>
+<span id="635">635</span>
+<span id="636">636</span>
+<span id="637">637</span>
+<span id="638">638</span>
+<span id="639">639</span>
+<span id="640">640</span>
+<span id="641">641</span>
+<span id="642">642</span>
+<span id="643">643</span>
+<span id="644">644</span>
+<span id="645">645</span>
+<span id="646">646</span>
+<span id="647">647</span>
 </pre><div class="example-wrap"><pre class="rust ">
 <span class="comment">// Copyright 2015-2016 Brian Smith.</span>
 <span class="comment">//</span>
@@ -596,32 +662,33 @@
 
 <span class="kw">use</span> <span class="kw">super</span>::{
     <span class="ident">bigint</span>::{<span class="self">self</span>, <span class="ident">Prime</span>},
-    <span class="ident">verification</span>, <span class="ident">N</span>,
+    <span class="ident">verification</span>, <span class="ident">RsaEncoding</span>, <span class="ident">N</span>,
 };
-<span class="kw">use</span> <span class="ident">arithmetic</span>::<span class="ident">montgomery</span>::<span class="ident">R</span>;
 <span class="doccomment">/// RSA PKCS#1 1.5 signatures.</span>
-<span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">bits</span>, <span class="ident">der</span>, <span class="ident">digest</span>, <span class="ident">error</span>, <span class="ident">pkcs8</span>, <span class="ident">rand</span>};
-<span class="kw">use</span> <span class="ident">std</span>;
+<span class="kw">use</span> <span class="kw">crate</span>::{
+    <span class="ident">arithmetic</span>::<span class="ident">montgomery</span>::<span class="ident">R</span>,
+    <span class="ident">bits</span>, <span class="ident">digest</span>,
+    <span class="ident">error</span>::{<span class="self">self</span>, <span class="ident">KeyRejected</span>},
+    <span class="ident">io</span>::{<span class="self">self</span>, <span class="ident">der</span>, <span class="ident">der_writer</span>},
+    <span class="ident">pkcs8</span>, <span class="ident">rand</span>, <span class="ident">signature</span>,
+};
+<span class="kw">use</span> <span class="ident">alloc</span>::<span class="ident">boxed</span>::<span class="ident">Box</span>;
 <span class="kw">use</span> <span class="ident">untrusted</span>;
 
-<span class="doccomment">/// An RSA key pair, used for signing. Feature: `rsa_signing`.</span>
-<span class="doccomment">///</span>
-<span class="doccomment">/// After constructing an `RSAKeyPair`, construct one or more</span>
-<span class="doccomment">/// `RSASigningState`s that reference the `RSAKeyPair` and use</span>
-<span class="doccomment">/// `RSASigningState::sign()` to generate signatures. See `ring::signature`&#39;s</span>
-<span class="doccomment">/// module-level documentation for an example.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">KeyPair</span> {
+<span class="doccomment">/// An RSA key pair, used for signing.</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RsaKeyPair</span> {
     <span class="ident">p</span>: <span class="ident">PrivatePrime</span><span class="op">&lt;</span><span class="ident">P</span><span class="op">&gt;</span>,
     <span class="ident">q</span>: <span class="ident">PrivatePrime</span><span class="op">&lt;</span><span class="ident">Q</span><span class="op">&gt;</span>,
     <span class="ident">qInv</span>: <span class="ident">bigint</span>::<span class="ident">Elem</span><span class="op">&lt;</span><span class="ident">P</span>, <span class="ident">R</span><span class="op">&gt;</span>,
     <span class="ident">qq</span>: <span class="ident">bigint</span>::<span class="ident">Modulus</span><span class="op">&lt;</span><span class="ident">QQ</span><span class="op">&gt;</span>,
     <span class="ident">q_mod_n</span>: <span class="ident">bigint</span>::<span class="ident">Elem</span><span class="op">&lt;</span><span class="ident">N</span>, <span class="ident">R</span><span class="op">&gt;</span>,
-    <span class="ident">public_key</span>: <span class="ident">verification</span>::<span class="ident">Key</span>,
+    <span class="ident">public</span>: <span class="ident">verification</span>::<span class="ident">Key</span>,
+    <span class="ident">public_key</span>: <span class="ident">RsaSubjectPublicKey</span>,
 }
 
-<span class="macro">derive_debug_via_self</span><span class="macro">!</span>(<span class="ident">KeyPair</span>, <span class="self">self</span>.<span class="ident">public_key</span>);
+<span class="macro">derive_debug_via_field</span><span class="macro">!</span>(<span class="ident">RsaKeyPair</span>, <span class="macro">stringify</span><span class="macro">!</span>(<span class="ident">RsaKeyPair</span>), <span class="ident">public_key</span>);
 
-<span class="kw">impl</span> <span class="ident">KeyPair</span> {
+<span class="kw">impl</span> <span class="ident">RsaKeyPair</span> {
     <span class="doccomment">/// Parses an unencrypted PKCS#8-encoded RSA private key.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Only two-prime (not multi-prime) keys are supported. The public modulus</span>
@@ -643,9 +710,9 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// ```sh</span>
     <span class="doccomment">///    openssl genpkey -algorithm RSA \</span>
-    <span class="doccomment">///        -pkeyopt rsa_keygen_bits:2048 \</span>
+    <span class="doccomment">///        -pkeyopt rsa_keygen_bits:3072 \</span>
     <span class="doccomment">///        -pkeyopt rsa_keygen_pubexp:65537 | \</span>
-    <span class="doccomment">///      openssl pkcs8 -topk8 -nocrypt -outform der &gt; rsa-2048-private-key.pk8</span>
+    <span class="doccomment">///      openssl pkcs8 -topk8 -nocrypt -outform der &gt; rsa-3072-private-key.pk8</span>
     <span class="doccomment">/// ```</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// Often, keys generated for use in OpenSSL-based software are stored in</span>
@@ -718,10 +785,14 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [RFC 5958]:</span>
     <span class="doccomment">///     https://tools.ietf.org/html/rfc5958</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_pkcs8</span>(<span class="ident">input</span>: <span class="ident">untrusted</span>::<span class="ident">Input</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_pkcs8</span>(<span class="ident">pkcs8</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">KeyRejected</span><span class="op">&gt;</span> {
         <span class="kw">const</span> <span class="ident">RSA_ENCRYPTION</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] <span class="op">=</span> <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;../data/alg-rsa-encryption.der&quot;</span>);
-        <span class="kw">let</span> (<span class="ident">der</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">pkcs8</span>::<span class="ident">unwrap_key_</span>(<span class="kw-2">&amp;</span><span class="ident">RSA_ENCRYPTION</span>, <span class="ident">pkcs8</span>::<span class="ident">Version</span>::<span class="ident">V1Only</span>, <span class="ident">input</span>)<span class="question-mark">?</span>;
-        <span class="self">Self</span>::<span class="ident">from_der</span>(<span class="ident">der</span>)
+        <span class="kw">let</span> (<span class="ident">der</span>, <span class="kw">_</span>) <span class="op">=</span> <span class="ident">pkcs8</span>::<span class="ident">unwrap_key_</span>(
+            <span class="ident">untrusted</span>::<span class="ident">Input</span>::<span class="ident">from</span>(<span class="kw-2">&amp;</span><span class="ident">RSA_ENCRYPTION</span>),
+            <span class="ident">pkcs8</span>::<span class="ident">Version</span>::<span class="ident">V1Only</span>,
+            <span class="ident">untrusted</span>::<span class="ident">Input</span>::<span class="ident">from</span>(<span class="ident">pkcs8</span>),
+        )<span class="question-mark">?</span>;
+        <span class="self">Self</span>::<span class="ident">from_der</span>(<span class="ident">der</span>.<span class="ident">as_slice_less_safe</span>())
     }
 
     <span class="doccomment">/// Parses an RSA private key that is not inside a PKCS#8 wrapper.</span>
@@ -739,199 +810,274 @@
     <span class="doccomment">///</span>
     <span class="doccomment">/// [NIST SP-800-56B rev. 1]:</span>
     <span class="doccomment">///     http://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-56Br1.pdf</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">input</span>: <span class="ident">untrusted</span>::<span class="ident">Input</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">&gt;</span> {
-        <span class="ident">input</span>.<span class="ident">read_all</span>(<span class="ident">error</span>::<span class="ident">Unspecified</span>, <span class="op">|</span><span class="ident">input</span><span class="op">|</span> {
-            <span class="ident">der</span>::<span class="ident">nested</span>(<span class="ident">input</span>, <span class="ident">der</span>::<span class="ident">Tag</span>::<span class="ident">Sequence</span>, <span class="ident">error</span>::<span class="ident">Unspecified</span>, <span class="op">|</span><span class="ident">input</span><span class="op">|</span> {
-                <span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">small_nonnegative_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
-                <span class="kw">if</span> <span class="ident">version</span> <span class="op">!=</span> <span class="number">0</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">error</span>::<span class="ident">Unspecified</span>);
-                }
-                <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">q</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">dP</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">dQ</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">qInv</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_der</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>]) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">KeyRejected</span><span class="op">&gt;</span> {
+        <span class="ident">untrusted</span>::<span class="ident">Input</span>::<span class="ident">from</span>(<span class="ident">input</span>).<span class="ident">read_all</span>(<span class="ident">KeyRejected</span>::<span class="ident">invalid_encoding</span>(), <span class="op">|</span><span class="ident">input</span><span class="op">|</span> {
+            <span class="ident">der</span>::<span class="ident">nested</span>(
+                <span class="ident">input</span>,
+                <span class="ident">der</span>::<span class="ident">Tag</span>::<span class="ident">Sequence</span>,
+                <span class="ident">error</span>::<span class="ident">KeyRejected</span>::<span class="ident">invalid_encoding</span>(),
+                <span class="self">Self</span>::<span class="ident">from_der_reader</span>,
+            )
+        })
+    }
 
-                <span class="kw">let</span> (<span class="ident">p</span>, <span class="ident">p_bits</span>) <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">Nonnegative</span>::<span class="ident">from_be_bytes_with_bit_length</span>(<span class="ident">p</span>)<span class="question-mark">?</span>;
-                <span class="kw">let</span> (<span class="ident">q</span>, <span class="ident">q_bits</span>) <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">Nonnegative</span>::<span class="ident">from_be_bytes_with_bit_length</span>(<span class="ident">q</span>)<span class="question-mark">?</span>;
+    <span class="kw">fn</span> <span class="ident">from_der_reader</span>(<span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">untrusted</span>::<span class="ident">Reader</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">KeyRejected</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">version</span> <span class="op">=</span> <span class="ident">der</span>::<span class="ident">small_nonnegative_integer</span>(<span class="ident">input</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">invalid_encoding</span>())<span class="question-mark">?</span>;
+        <span class="kw">if</span> <span class="ident">version</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KeyRejected</span>::<span class="ident">version_not_supported</span>());
+        }
 
-                <span class="comment">// Our implementation of CRT-based modular exponentiation used</span>
-                <span class="comment">// requires that `p &gt; q` so swap them if `p &lt; q`. If swapped,</span>
-                <span class="comment">// `qInv` is recalculated below. `p != q` is verified</span>
-                <span class="comment">// implicitly below, e.g. when `q_mod_p` is constructed.</span>
-                <span class="kw">let</span> ((<span class="ident">p</span>, <span class="ident">p_bits</span>, <span class="ident">dP</span>), (<span class="ident">q</span>, <span class="ident">q_bits</span>, <span class="ident">dQ</span>, <span class="ident">qInv</span>)) <span class="op">=</span> <span class="kw">match</span> <span class="ident">q</span>.<span class="ident">verify_less_than</span>(<span class="kw-2">&amp;</span><span class="ident">p</span>) {
-                    <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> ((<span class="ident">p</span>, <span class="ident">p_bits</span>, <span class="ident">dP</span>), (<span class="ident">q</span>, <span class="ident">q_bits</span>, <span class="ident">dQ</span>, <span class="prelude-val">Some</span>(<span class="ident">qInv</span>))),
-                    <span class="prelude-val">Err</span>(<span class="kw">_</span>) <span class="op">=&gt;</span> {
-                        <span class="comment">// TODO: verify `q` and `qInv` are inverses (mod p).</span>
-                        ((<span class="ident">q</span>, <span class="ident">q_bits</span>, <span class="ident">dQ</span>), (<span class="ident">p</span>, <span class="ident">p_bits</span>, <span class="ident">dP</span>, <span class="prelude-val">None</span>))
-                    },
-                };
+        <span class="kw">fn</span> <span class="ident">positive_integer</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>(
+            <span class="ident">input</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">untrusted</span>::<span class="ident">Reader</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>,
+        ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">io</span>::<span class="ident">Positive</span><span class="op">&lt;</span><span class="lifetime">&#39;a</span><span class="op">&gt;</span>, <span class="ident">KeyRejected</span><span class="op">&gt;</span> {
+            <span class="ident">der</span>::<span class="ident">positive_integer</span>(<span class="ident">input</span>)
+                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">invalid_encoding</span>())
+        }
 
-                <span class="comment">// XXX: Some steps are done out of order, but the NIST steps</span>
-                <span class="comment">// are worded in such a way that it is clear that NIST intends</span>
-                <span class="comment">// for them to be done in order. TODO: Does this matter at all?</span>
+        <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">e</span> <span class="op">=</span> <span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">d</span> <span class="op">=</span> <span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>.<span class="ident">big_endian_without_leading_zero_as_input</span>();
+        <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>.<span class="ident">big_endian_without_leading_zero_as_input</span>();
+        <span class="kw">let</span> <span class="ident">q</span> <span class="op">=</span> <span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>.<span class="ident">big_endian_without_leading_zero_as_input</span>();
+        <span class="kw">let</span> <span class="ident">dP</span> <span class="op">=</span> <span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>.<span class="ident">big_endian_without_leading_zero_as_input</span>();
+        <span class="kw">let</span> <span class="ident">dQ</span> <span class="op">=</span> <span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>.<span class="ident">big_endian_without_leading_zero_as_input</span>();
+        <span class="kw">let</span> <span class="ident">qInv</span> <span class="op">=</span> <span class="ident">positive_integer</span>(<span class="ident">input</span>)<span class="question-mark">?</span>.<span class="ident">big_endian_without_leading_zero_as_input</span>();
 
-                <span class="comment">// 6.4.1.4.3/6.4.1.2.1 - Step 1.</span>
+        <span class="kw">let</span> (<span class="ident">p</span>, <span class="ident">p_bits</span>) <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">Nonnegative</span>::<span class="ident">from_be_bytes_with_bit_length</span>(<span class="ident">p</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">invalid_encoding</span>())<span class="question-mark">?</span>;
+        <span class="kw">let</span> (<span class="ident">q</span>, <span class="ident">q_bits</span>) <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">Nonnegative</span>::<span class="ident">from_be_bytes_with_bit_length</span>(<span class="ident">q</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">invalid_encoding</span>())<span class="question-mark">?</span>;
 
-                <span class="comment">// Step 1.a is omitted, as explained above.</span>
+        <span class="comment">// Our implementation of CRT-based modular exponentiation used requires</span>
+        <span class="comment">// that `p &gt; q` so swap them if `p &lt; q`. If swapped, `qInv` is</span>
+        <span class="comment">// recalculated below. `p != q` is verified implicitly below, e.g. when</span>
+        <span class="comment">// `q_mod_p` is constructed.</span>
+        <span class="kw">let</span> ((<span class="ident">p</span>, <span class="ident">p_bits</span>, <span class="ident">dP</span>), (<span class="ident">q</span>, <span class="ident">q_bits</span>, <span class="ident">dQ</span>, <span class="ident">qInv</span>)) <span class="op">=</span> <span class="kw">match</span> <span class="ident">q</span>.<span class="ident">verify_less_than</span>(<span class="kw-2">&amp;</span><span class="ident">p</span>) {
+            <span class="prelude-val">Ok</span>(<span class="kw">_</span>) <span class="op">=</span><span class="op">&gt;</span> ((<span class="ident">p</span>, <span class="ident">p_bits</span>, <span class="ident">dP</span>), (<span class="ident">q</span>, <span class="ident">q_bits</span>, <span class="ident">dQ</span>, <span class="prelude-val">Some</span>(<span class="ident">qInv</span>))),
+            <span class="prelude-val">Err</span>(<span class="ident">error</span>::<span class="ident">Unspecified</span>) <span class="op">=</span><span class="op">&gt;</span> {
+                <span class="comment">// TODO: verify `q` and `qInv` are inverses (mod p).</span>
+                ((<span class="ident">q</span>, <span class="ident">q_bits</span>, <span class="ident">dQ</span>), (<span class="ident">p</span>, <span class="ident">p_bits</span>, <span class="ident">dP</span>, <span class="prelude-val">None</span>))
+            }
+        };
 
-                <span class="comment">// Step 1.b is omitted per above. Instead, we check that the</span>
-                <span class="comment">// public modulus is 2048 to</span>
-                <span class="comment">// `PRIVATE_KEY_PUBLIC_MODULUS_MAX_BITS` bits. XXX: The maximum</span>
-                <span class="comment">// limit of 4096 bits is primarily due to lack of testing of</span>
-                <span class="comment">// larger key sizes; see, in particular,</span>
-                <span class="comment">// https://www.mail-archive.com/openssl-dev@openssl.org/msg44586.html</span>
-                <span class="comment">// and</span>
-                <span class="comment">// https://www.mail-archive.com/openssl-dev@openssl.org/msg44759.html.</span>
-                <span class="comment">// Also, this limit might help with memory management decisions</span>
-                <span class="comment">// later.</span>
+        <span class="comment">// XXX: Some steps are done out of order, but the NIST steps are worded</span>
+        <span class="comment">// in such a way that it is clear that NIST intends for them to be done</span>
+        <span class="comment">// in order. TODO: Does this matter at all?</span>
 
-                <span class="comment">// Step 1.c. We validate e &gt;= 65537.</span>
-                <span class="kw">let</span> <span class="ident">public_key</span> <span class="op">=</span> <span class="ident">verification</span>::<span class="ident">Key</span>::<span class="ident">from_modulus_and_exponent</span>(
-                    <span class="ident">n</span>,
-                    <span class="ident">e</span>,
-                    <span class="ident">bits</span>::<span class="ident">BitLength</span>::<span class="ident">from_usize_bits</span>(<span class="number">2048</span>),
-                    <span class="kw">super</span>::<span class="ident">PRIVATE_KEY_PUBLIC_MODULUS_MAX_BITS</span>,
-                    <span class="number">65537</span>,
-                )<span class="question-mark">?</span>;
+        <span class="comment">// 6.4.1.4.3/6.4.1.2.1 - Step 1.</span>
 
-                <span class="comment">// 6.4.1.4.3 says to skip 6.4.1.2.1 Step 2.</span>
+        <span class="comment">// Step 1.a is omitted, as explained above.</span>
 
-                <span class="comment">// 6.4.1.4.3 Step 3.</span>
+        <span class="comment">// Step 1.b is omitted per above. Instead, we check that the public</span>
+        <span class="comment">// modulus is 2048 to `PRIVATE_KEY_PUBLIC_MODULUS_MAX_BITS` bits.</span>
+        <span class="comment">// XXX: The maximum limit of 4096 bits is primarily due to lack of</span>
+        <span class="comment">// testing of larger key sizes; see, in particular,</span>
+        <span class="comment">// https://www.mail-archive.com/openssl-dev@openssl.org/msg44586.html</span>
+        <span class="comment">// and</span>
+        <span class="comment">// https://www.mail-archive.com/openssl-dev@openssl.org/msg44759.html.</span>
+        <span class="comment">// Also, this limit might help with memory management decisions later.</span>
 
-                <span class="comment">// Step 3.a is done below, out of order.</span>
-                <span class="comment">// Step 3.b is unneeded since `n_bits` is derived here from `n`.</span>
+        <span class="comment">// Step 1.c. We validate e &gt;= 65537.</span>
+        <span class="kw">let</span> <span class="ident">public_key</span> <span class="op">=</span> <span class="ident">verification</span>::<span class="ident">Key</span>::<span class="ident">from_modulus_and_exponent</span>(
+            <span class="ident">n</span>.<span class="ident">big_endian_without_leading_zero_as_input</span>(),
+            <span class="ident">e</span>.<span class="ident">big_endian_without_leading_zero_as_input</span>(),
+            <span class="ident">bits</span>::<span class="ident">BitLength</span>::<span class="ident">from_usize_bits</span>(<span class="number">2048</span>),
+            <span class="kw">super</span>::<span class="ident">PRIVATE_KEY_PUBLIC_MODULUS_MAX_BITS</span>,
+            <span class="number">65537</span>,
+        )<span class="question-mark">?</span>;
 
-                <span class="comment">// 6.4.1.4.3 says to skip 6.4.1.2.1 Step 4. (We don&#39;t need to</span>
-                <span class="comment">// recover the prime factors since they are already given.)</span>
+        <span class="comment">// 6.4.1.4.3 says to skip 6.4.1.2.1 Step 2.</span>
 
-                <span class="comment">// 6.4.1.4.3 - Step 5.</span>
+        <span class="comment">// 6.4.1.4.3 Step 3.</span>
 
-                <span class="comment">// Steps 5.a and 5.b are omitted, as explained above.</span>
+        <span class="comment">// Step 3.a is done below, out of order.</span>
+        <span class="comment">// Step 3.b is unneeded since `n_bits` is derived here from `n`.</span>
 
-                <span class="comment">// Step 5.c.</span>
-                <span class="comment">//</span>
-                <span class="comment">// TODO: First, stop if `p &lt; (√2) * 2**((nBits/2) - 1)`.</span>
-                <span class="comment">//</span>
-                <span class="comment">// Second, stop if `p &gt; 2**(nBits/2) - 1`.</span>
-                <span class="kw">let</span> <span class="ident">half_n_bits</span> <span class="op">=</span> <span class="ident">public_key</span>.<span class="ident">n_bits</span>.<span class="ident">half_rounded_up</span>();
-                <span class="kw">if</span> <span class="ident">p_bits</span> <span class="op">!=</span> <span class="ident">half_n_bits</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">error</span>::<span class="ident">Unspecified</span>);
-                }
+        <span class="comment">// 6.4.1.4.3 says to skip 6.4.1.2.1 Step 4. (We don&#39;t need to recover</span>
+        <span class="comment">// the prime factors since they are already given.)</span>
 
-                <span class="comment">// TODO: Step 5.d: Verify GCD(p - 1, e) == 1.</span>
+        <span class="comment">// 6.4.1.4.3 - Step 5.</span>
 
-                <span class="comment">// Steps 5.e and 5.f are omitted as explained above.</span>
+        <span class="comment">// Steps 5.a and 5.b are omitted, as explained above.</span>
 
-                <span class="comment">// Step 5.g.</span>
-                <span class="comment">//</span>
-                <span class="comment">// TODO: First, stop if `q &lt; (√2) * 2**((nBits/2) - 1)`.</span>
-                <span class="comment">//</span>
-                <span class="comment">// Second, stop if `q &gt; 2**(nBits/2) - 1`.</span>
-                <span class="kw">if</span> <span class="ident">p_bits</span> <span class="op">!=</span> <span class="ident">q_bits</span> {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">error</span>::<span class="ident">Unspecified</span>);
-                }
+        <span class="comment">// Step 5.c.</span>
+        <span class="comment">//</span>
+        <span class="comment">// TODO: First, stop if `p &lt; (√2) * 2**((nBits/2) - 1)`.</span>
+        <span class="comment">//</span>
+        <span class="comment">// Second, stop if `p &gt; 2**(nBits/2) - 1`.</span>
+        <span class="kw">let</span> <span class="ident">half_n_bits</span> <span class="op">=</span> <span class="ident">public_key</span>.<span class="ident">n_bits</span>.<span class="ident">half_rounded_up</span>();
+        <span class="kw">if</span> <span class="ident">p_bits</span> <span class="op">!</span><span class="op">=</span> <span class="ident">half_n_bits</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KeyRejected</span>::<span class="ident">inconsistent_components</span>());
+        }
 
-                <span class="comment">// TODO: Step 5.h: Verify GCD(p - 1, e) == 1.</span>
+        <span class="comment">// TODO: Step 5.d: Verify GCD(p - 1, e) == 1.</span>
 
-                <span class="kw">let</span> <span class="ident">q_mod_n_decoded</span> <span class="op">=</span> <span class="ident">q</span>.<span class="ident">to_elem</span>(<span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>)<span class="question-mark">?</span>;
+        <span class="comment">// Steps 5.e and 5.f are omitted as explained above.</span>
 
-                <span class="comment">// TODO: Step 5.i</span>
-                <span class="comment">//</span>
-                <span class="comment">// 3.b is unneeded since `n_bits` is derived here from `n`.</span>
+        <span class="comment">// Step 5.g.</span>
+        <span class="comment">//</span>
+        <span class="comment">// TODO: First, stop if `q &lt; (√2) * 2**((nBits/2) - 1)`.</span>
+        <span class="comment">//</span>
+        <span class="comment">// Second, stop if `q &gt; 2**(nBits/2) - 1`.</span>
+        <span class="kw">if</span> <span class="ident">p_bits</span> <span class="op">!</span><span class="op">=</span> <span class="ident">q_bits</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KeyRejected</span>::<span class="ident">inconsistent_components</span>());
+        }
 
-                <span class="comment">// 6.4.1.4.3 - Step 3.a (out of order).</span>
-                <span class="comment">//</span>
-                <span class="comment">// Verify that p * q == n. We restrict ourselves to modular</span>
-                <span class="comment">// multiplication. We rely on the fact that we&#39;ve verified</span>
-                <span class="comment">// 0 &lt; q &lt; p &lt; n. We check that q and p are close to sqrt(n)</span>
-                <span class="comment">// and then assume that these preconditions are enough to</span>
-                <span class="comment">// let us assume that checking p * q == 0 (mod n) is equivalent</span>
-                <span class="comment">// to checking p * q == n.</span>
-                <span class="kw">let</span> <span class="ident">q_mod_n</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(
-                    <span class="ident">public_key</span>.<span class="ident">n</span>.<span class="ident">oneRR</span>().<span class="ident">as_ref</span>(),
-                    <span class="ident">q_mod_n_decoded</span>.<span class="ident">clone</span>(),
-                    <span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>,
-                );
-                <span class="kw">let</span> <span class="ident">p_mod_n</span> <span class="op">=</span> <span class="ident">p</span>.<span class="ident">to_elem</span>(<span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>)<span class="question-mark">?</span>;
-                <span class="kw">let</span> <span class="ident">pq_mod_n</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="kw-2">&amp;</span><span class="ident">q_mod_n</span>, <span class="ident">p_mod_n</span>, <span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>);
-                <span class="kw">if</span> <span class="op">!</span><span class="ident">pq_mod_n</span>.<span class="ident">is_zero</span>() {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">error</span>::<span class="ident">Unspecified</span>);
-                }
+        <span class="comment">// TODO: Step 5.h: Verify GCD(p - 1, e) == 1.</span>
 
-                <span class="comment">// 6.4.1.4.3/6.4.1.2.1 - Step 6.</span>
+        <span class="kw">let</span> <span class="ident">q_mod_n_decoded</span> <span class="op">=</span> <span class="ident">q</span>
+            .<span class="ident">to_elem</span>(<span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">inconsistent_components</span>())<span class="question-mark">?</span>;
 
-                <span class="comment">// Step 6.a, partial.</span>
-                <span class="comment">//</span>
-                <span class="comment">// First, validate `2**half_n_bits &lt; d`. Since 2**half_n_bits</span>
-                <span class="comment">// has a bit length of half_n_bits + 1, this check gives us</span>
-                <span class="comment">// 2**half_n_bits &lt;= d, and knowing d is odd makes the</span>
-                <span class="comment">// inequality strict.</span>
-                <span class="kw">let</span> (<span class="ident">d</span>, <span class="ident">d_bits</span>) <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">Nonnegative</span>::<span class="ident">from_be_bytes_with_bit_length</span>(<span class="ident">d</span>)<span class="question-mark">?</span>;
-                <span class="kw">if</span> <span class="op">!</span>(<span class="ident">half_n_bits</span> <span class="op">&lt;</span> <span class="ident">d_bits</span>) {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">error</span>::<span class="ident">Unspecified</span>);
-                }
-                <span class="comment">// XXX: This check should be `d &lt; LCM(p - 1, q - 1)`, but we</span>
-                <span class="comment">// don&#39;t have a good way of calculating LCM, so it is omitted,</span>
-                <span class="comment">// as explained above.</span>
-                <span class="ident">d</span>.<span class="ident">verify_less_than_modulus</span>(<span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>)<span class="question-mark">?</span>;
-                <span class="kw">if</span> <span class="op">!</span><span class="ident">d</span>.<span class="ident">is_odd</span>() {
-                    <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">error</span>::<span class="ident">Unspecified</span>);
-                }
+        <span class="comment">// TODO: Step 5.i</span>
+        <span class="comment">//</span>
+        <span class="comment">// 3.b is unneeded since `n_bits` is derived here from `n`.</span>
 
-                <span class="comment">// Step 6.b is omitted as explained above.</span>
+        <span class="comment">// 6.4.1.4.3 - Step 3.a (out of order).</span>
+        <span class="comment">//</span>
+        <span class="comment">// Verify that p * q == n. We restrict ourselves to modular</span>
+        <span class="comment">// multiplication. We rely on the fact that we&#39;ve verified</span>
+        <span class="comment">// 0 &lt; q &lt; p &lt; n. We check that q and p are close to sqrt(n) and then</span>
+        <span class="comment">// assume that these preconditions are enough to let us assume that</span>
+        <span class="comment">// checking p * q == 0 (mod n) is equivalent to checking p * q == n.</span>
+        <span class="kw">let</span> <span class="ident">q_mod_n</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(
+            <span class="ident">public_key</span>.<span class="ident">n</span>.<span class="ident">oneRR</span>().<span class="ident">as_ref</span>(),
+            <span class="ident">q_mod_n_decoded</span>.<span class="ident">clone</span>(),
+            <span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>,
+        );
+        <span class="kw">let</span> <span class="ident">p_mod_n</span> <span class="op">=</span> <span class="ident">p</span>
+            .<span class="ident">to_elem</span>(<span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">inconsistent_components</span>())<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">pq_mod_n</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="kw-2">&amp;</span><span class="ident">q_mod_n</span>, <span class="ident">p_mod_n</span>, <span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>);
+        <span class="kw">if</span> <span class="op">!</span><span class="ident">pq_mod_n</span>.<span class="ident">is_zero</span>() {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KeyRejected</span>::<span class="ident">inconsistent_components</span>());
+        }
 
-                <span class="comment">// 6.4.1.4.3 - Step 7.</span>
+        <span class="comment">// 6.4.1.4.3/6.4.1.2.1 - Step 6.</span>
 
-                <span class="comment">// Step 7.a.</span>
-                <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="ident">PrivatePrime</span>::<span class="ident">new</span>(<span class="ident">p</span>, <span class="ident">dP</span>)<span class="question-mark">?</span>;
+        <span class="comment">// Step 6.a, partial.</span>
+        <span class="comment">//</span>
+        <span class="comment">// First, validate `2**half_n_bits &lt; d`. Since 2**half_n_bits has a bit</span>
+        <span class="comment">// length of half_n_bits + 1, this check gives us 2**half_n_bits &lt;= d,</span>
+        <span class="comment">// and knowing d is odd makes the inequality strict.</span>
+        <span class="kw">let</span> (<span class="ident">d</span>, <span class="ident">d_bits</span>) <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">Nonnegative</span>::<span class="ident">from_be_bytes_with_bit_length</span>(<span class="ident">d</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="kw">_</span><span class="op">|</span> <span class="ident">error</span>::<span class="ident">KeyRejected</span>::<span class="ident">invalid_encoding</span>())<span class="question-mark">?</span>;
+        <span class="kw">if</span> <span class="op">!</span>(<span class="ident">half_n_bits</span> <span class="op">&lt;</span> <span class="ident">d_bits</span>) {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KeyRejected</span>::<span class="ident">inconsistent_components</span>());
+        }
+        <span class="comment">// XXX: This check should be `d &lt; LCM(p - 1, q - 1)`, but we don&#39;t have</span>
+        <span class="comment">// a good way of calculating LCM, so it is omitted, as explained above.</span>
+        <span class="ident">d</span>.<span class="ident">verify_less_than_modulus</span>(<span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">inconsistent_components</span>())<span class="question-mark">?</span>;
+        <span class="kw">if</span> <span class="op">!</span><span class="ident">d</span>.<span class="ident">is_odd</span>() {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">KeyRejected</span>::<span class="ident">invalid_component</span>());
+        }
 
-                <span class="comment">// Step 7.b.</span>
-                <span class="kw">let</span> <span class="ident">q</span> <span class="op">=</span> <span class="ident">PrivatePrime</span>::<span class="ident">new</span>(<span class="ident">q</span>, <span class="ident">dQ</span>)<span class="question-mark">?</span>;
+        <span class="comment">// Step 6.b is omitted as explained above.</span>
 
-                <span class="kw">let</span> <span class="ident">q_mod_p</span> <span class="op">=</span> <span class="ident">q</span>.<span class="ident">modulus</span>.<span class="ident">to_elem</span>(<span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>);
+        <span class="comment">// 6.4.1.4.3 - Step 7.</span>
 
-                <span class="comment">// Step 7.c.</span>
-                <span class="kw">let</span> <span class="ident">qInv</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">qInv</span>) <span class="op">=</span> <span class="ident">qInv</span> {
-                    <span class="ident">bigint</span>::<span class="ident">Elem</span>::<span class="ident">from_be_bytes_padded</span>(<span class="ident">qInv</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>)<span class="question-mark">?</span>
-                } <span class="kw">else</span> {
-                    <span class="comment">// We swapped `p` and `q` above, so we need to calculate</span>
-                    <span class="comment">// `qInv`.  Step 7.f below will verify `qInv` is correct.</span>
-                    <span class="kw">let</span> <span class="ident">q_mod_p</span> <span class="op">=</span>
-                        <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="ident">p</span>.<span class="ident">modulus</span>.<span class="ident">oneRR</span>().<span class="ident">as_ref</span>(), <span class="ident">q_mod_p</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>);
-                    <span class="ident">bigint</span>::<span class="ident">elem_inverse_consttime</span>(<span class="ident">q_mod_p</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>)<span class="question-mark">?</span>
-                };
+        <span class="comment">// Step 7.a.</span>
+        <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="ident">PrivatePrime</span>::<span class="ident">new</span>(<span class="ident">p</span>, <span class="ident">dP</span>)<span class="question-mark">?</span>;
 
-                <span class="comment">// Steps 7.d and 7.e are omitted per the documentation above,</span>
-                <span class="comment">// and because we don&#39;t (in the long term) have a good way to</span>
-                <span class="comment">// do modulo with an even modulus.</span>
+        <span class="comment">// Step 7.b.</span>
+        <span class="kw">let</span> <span class="ident">q</span> <span class="op">=</span> <span class="ident">PrivatePrime</span>::<span class="ident">new</span>(<span class="ident">q</span>, <span class="ident">dQ</span>)<span class="question-mark">?</span>;
 
-                <span class="comment">// Step 7.f.</span>
-                <span class="kw">let</span> <span class="ident">qInv</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="ident">p</span>.<span class="ident">modulus</span>.<span class="ident">oneRR</span>().<span class="ident">as_ref</span>(), <span class="ident">qInv</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>);
-                <span class="ident">bigint</span>::<span class="ident">verify_inverses_consttime</span>(<span class="kw-2">&amp;</span><span class="ident">qInv</span>, <span class="ident">q_mod_p</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">q_mod_p</span> <span class="op">=</span> <span class="ident">q</span>.<span class="ident">modulus</span>.<span class="ident">to_elem</span>(<span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>);
 
-                <span class="kw">let</span> <span class="ident">qq</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="kw-2">&amp;</span><span class="ident">q_mod_n</span>, <span class="ident">q_mod_n_decoded</span>, <span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>)
-                    .<span class="ident">into_modulus</span>::<span class="op">&lt;</span><span class="ident">QQ</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
+        <span class="comment">// Step 7.c.</span>
+        <span class="kw">let</span> <span class="ident">qInv</span> <span class="op">=</span> <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Some</span>(<span class="ident">qInv</span>) <span class="op">=</span> <span class="ident">qInv</span> {
+            <span class="ident">bigint</span>::<span class="ident">Elem</span>::<span class="ident">from_be_bytes_padded</span>(<span class="ident">qInv</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>)
+                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">invalid_component</span>())<span class="question-mark">?</span>
+        } <span class="kw">else</span> {
+            <span class="comment">// We swapped `p` and `q` above, so we need to calculate `qInv`.</span>
+            <span class="comment">// Step 7.f below will verify `qInv` is correct.</span>
+            <span class="kw">let</span> <span class="ident">q_mod_p</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="ident">p</span>.<span class="ident">modulus</span>.<span class="ident">oneRR</span>().<span class="ident">as_ref</span>(), <span class="ident">q_mod_p</span>.<span class="ident">clone</span>(), <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>);
+            <span class="ident">bigint</span>::<span class="ident">elem_inverse_consttime</span>(<span class="ident">q_mod_p</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>)
+                .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">unexpected_error</span>())<span class="question-mark">?</span>
+        };
 
-                <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
-                    <span class="ident">p</span>,
-                    <span class="ident">q</span>,
-                    <span class="ident">qInv</span>,
-                    <span class="ident">q_mod_n</span>,
-                    <span class="ident">qq</span>,
-                    <span class="ident">public_key</span>,
-                })
-            })
+        <span class="comment">// Steps 7.d and 7.e are omitted per the documentation above, and</span>
+        <span class="comment">// because we don&#39;t (in the long term) have a good way to do modulo</span>
+        <span class="comment">// with an even modulus.</span>
+
+        <span class="comment">// Step 7.f.</span>
+        <span class="kw">let</span> <span class="ident">qInv</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="ident">p</span>.<span class="ident">modulus</span>.<span class="ident">oneRR</span>().<span class="ident">as_ref</span>(), <span class="ident">qInv</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>);
+        <span class="ident">bigint</span>::<span class="ident">verify_inverses_consttime</span>(<span class="kw-2">&amp;</span><span class="ident">qInv</span>, <span class="ident">q_mod_p</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>.<span class="ident">modulus</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">inconsistent_components</span>())<span class="question-mark">?</span>;
+
+        <span class="kw">let</span> <span class="ident">qq</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="kw-2">&amp;</span><span class="ident">q_mod_n</span>, <span class="ident">q_mod_n_decoded</span>, <span class="kw-2">&amp;</span><span class="ident">public_key</span>.<span class="ident">n</span>).<span class="ident">into_modulus</span>::<span class="op">&lt;</span><span class="ident">QQ</span><span class="op">&gt;</span>()<span class="question-mark">?</span>;
+
+        <span class="kw">let</span> <span class="ident">public_key_serialized</span> <span class="op">=</span> <span class="ident">RsaSubjectPublicKey</span>::<span class="ident">from_n_and_e</span>(<span class="ident">n</span>, <span class="ident">e</span>);
+
+        <span class="prelude-val">Ok</span>(<span class="self">Self</span> {
+            <span class="ident">p</span>,
+            <span class="ident">q</span>,
+            <span class="ident">qInv</span>,
+            <span class="ident">q_mod_n</span>,
+            <span class="ident">qq</span>,
+            <span class="ident">public</span>: <span class="ident">public_key</span>,
+            <span class="ident">public_key</span>: <span class="ident">public_key_serialized</span>,
         })
     }
 
     <span class="doccomment">/// Returns the length in bytes of the key pair&#39;s public modulus.</span>
     <span class="doccomment">///</span>
     <span class="doccomment">/// A signature has the same length as the public modulus.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">public_modulus_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">usize</span> { <span class="self">self</span>.<span class="ident">public_key</span>.<span class="ident">modulus_len</span>() }
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">public_modulus_len</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">usize</span> {
+        <span class="self">self</span>.<span class="ident">public_key</span>
+            .<span class="ident">modulus</span>()
+            .<span class="ident">big_endian_without_leading_zero_as_input</span>()
+            .<span class="ident">as_slice_less_safe</span>()
+            .<span class="ident">len</span>()
+    }
+}
+
+<span class="kw">impl</span> <span class="ident">signature</span>::<span class="ident">KeyPair</span> <span class="kw">for</span> <span class="ident">RsaKeyPair</span> {
+    <span class="kw">type</span> <span class="ident">PublicKey</span> <span class="op">=</span> <span class="ident">RsaSubjectPublicKey</span>;
+
+    <span class="kw">fn</span> <span class="ident">public_key</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span><span class="self">Self</span>::<span class="ident">PublicKey</span> {
+        <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">public_key</span>
+    }
+}
+
+<span class="doccomment">/// A serialized RSA public key.</span>
+<span class="attribute">#[<span class="ident">derive</span>(<span class="ident">Clone</span>)]</span>
+<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">RsaSubjectPublicKey</span>(<span class="ident">Box</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span>);
+
+<span class="kw">impl</span> <span class="ident">AsRef</span><span class="op">&lt;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">RsaSubjectPublicKey</span> {
+    <span class="kw">fn</span> <span class="ident">as_ref</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="kw-2">&amp;</span>[<span class="ident">u8</span>] {
+        <span class="self">self</span>.<span class="number">0</span>.<span class="ident">as_ref</span>()
+    }
+}
+
+<span class="macro">derive_debug_self_as_ref_hex_bytes</span><span class="macro">!</span>(<span class="ident">RsaSubjectPublicKey</span>);
+
+<span class="kw">impl</span> <span class="ident">RsaSubjectPublicKey</span> {
+    <span class="kw">fn</span> <span class="ident">from_n_and_e</span>(<span class="ident">n</span>: <span class="ident">io</span>::<span class="ident">Positive</span>, <span class="ident">e</span>: <span class="ident">io</span>::<span class="ident">Positive</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="self">Self</span> {
+        <span class="kw">let</span> <span class="ident">bytes</span> <span class="op">=</span> <span class="ident">der_writer</span>::<span class="ident">write_all</span>(<span class="ident">der</span>::<span class="ident">Tag</span>::<span class="ident">Sequence</span>, <span class="kw-2">&amp;</span><span class="op">|</span><span class="ident">output</span><span class="op">|</span> {
+            <span class="ident">der_writer</span>::<span class="ident">write_positive_integer</span>(<span class="ident">output</span>, <span class="kw-2">&amp;</span><span class="ident">n</span>);
+            <span class="ident">der_writer</span>::<span class="ident">write_positive_integer</span>(<span class="ident">output</span>, <span class="kw-2">&amp;</span><span class="ident">e</span>);
+        });
+        <span class="ident">RsaSubjectPublicKey</span>(<span class="ident">bytes</span>)
+    }
+
+    <span class="doccomment">/// The public modulus (n).</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">modulus</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="ident">Positive</span> {
+        <span class="comment">// Parsing won&#39;t fail because we serialized it ourselves.</span>
+        <span class="kw">let</span> (<span class="ident">public_key</span>, <span class="ident">_exponent</span>) <span class="op">=</span>
+            <span class="kw">super</span>::<span class="ident">parse_public_key</span>(<span class="ident">untrusted</span>::<span class="ident">Input</span>::<span class="ident">from</span>(<span class="self">self</span>.<span class="ident">as_ref</span>())).<span class="ident">unwrap</span>();
+        <span class="ident">public_key</span>
+    }
+
+    <span class="doccomment">/// The public exponent (e).</span>
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">exponent</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">io</span>::<span class="ident">Positive</span> {
+        <span class="comment">// Parsing won&#39;t fail because we serialized it ourselves.</span>
+        <span class="kw">let</span> (<span class="ident">_public_key</span>, <span class="ident">exponent</span>) <span class="op">=</span>
+            <span class="kw">super</span>::<span class="ident">parse_public_key</span>(<span class="ident">untrusted</span>::<span class="ident">Input</span>::<span class="ident">from</span>(<span class="self">self</span>.<span class="ident">as_ref</span>())).<span class="ident">unwrap</span>();
+        <span class="ident">exponent</span>
+    }
 }
 
 <span class="kw">struct</span> <span class="ident">PrivatePrime</span><span class="op">&lt;</span><span class="ident">M</span>: <span class="ident">Prime</span><span class="op">&gt;</span> {
@@ -942,11 +1088,15 @@
 <span class="kw">impl</span><span class="op">&lt;</span><span class="ident">M</span>: <span class="ident">Prime</span> <span class="op">+</span> <span class="ident">Clone</span><span class="op">&gt;</span> <span class="ident">PrivatePrime</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span> {
     <span class="doccomment">/// Constructs a `PrivatePrime` from the private prime `p` and `dP` where</span>
     <span class="doccomment">/// dP == d % (p - 1).</span>
-    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">p</span>: <span class="ident">bigint</span>::<span class="ident">Nonnegative</span>, <span class="ident">dP</span>: <span class="ident">untrusted</span>::<span class="ident">Input</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">Modulus</span>::<span class="ident">from</span>(<span class="ident">p</span>)<span class="question-mark">?</span>;
+    <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">p</span>: <span class="ident">bigint</span>::<span class="ident">Nonnegative</span>, <span class="ident">dP</span>: <span class="ident">untrusted</span>::<span class="ident">Input</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">KeyRejected</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> (<span class="ident">p</span>, <span class="ident">p_bits</span>) <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">Modulus</span>::<span class="ident">from_nonnegative_with_bit_length</span>(<span class="ident">p</span>)<span class="question-mark">?</span>;
+        <span class="kw">if</span> <span class="ident">p_bits</span>.<span class="ident">as_usize_bits</span>() <span class="op">%</span> <span class="number">512</span> <span class="op">!</span><span class="op">=</span> <span class="number">0</span> {
+            <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">error</span>::<span class="ident">KeyRejected</span>::<span class="ident">private_modulus_len_not_multiple_of_512_bits</span>());
+        }
 
         <span class="comment">// [NIST SP-800-56B rev. 1] 6.4.1.4.3 - Steps 7.a &amp; 7.b.</span>
-        <span class="kw">let</span> <span class="ident">dP</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">PrivateExponent</span>::<span class="ident">from_be_bytes_padded</span>(<span class="ident">dP</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">dP</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">PrivateExponent</span>::<span class="ident">from_be_bytes_padded</span>(<span class="ident">dP</span>, <span class="kw-2">&amp;</span><span class="ident">p</span>)
+            .<span class="ident">map_err</span>(<span class="op">|</span><span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">|</span> <span class="ident">KeyRejected</span>::<span class="ident">inconsistent_components</span>())<span class="question-mark">?</span>;
 
         <span class="comment">// XXX: Steps 7.d and 7.e are omitted. We don&#39;t check that</span>
         <span class="comment">// `dP == d % (p - 1)` because we don&#39;t (in the long term) have a good</span>
@@ -965,8 +1115,9 @@
 }
 
 <span class="kw">fn</span> <span class="ident">elem_exp_consttime</span><span class="op">&lt;</span><span class="ident">M</span>, <span class="ident">MM</span><span class="op">&gt;</span>(
-    <span class="ident">c</span>: <span class="kw-2">&amp;</span><span class="ident">bigint</span>::<span class="ident">Elem</span><span class="op">&lt;</span><span class="ident">MM</span><span class="op">&gt;</span>, <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">PrivatePrime</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>,
-) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bigint</span>::<span class="ident">Elem</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>, <span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">&gt;</span>
+    <span class="ident">c</span>: <span class="kw-2">&amp;</span><span class="ident">bigint</span>::<span class="ident">Elem</span><span class="op">&lt;</span><span class="ident">MM</span><span class="op">&gt;</span>,
+    <span class="ident">p</span>: <span class="kw-2">&amp;</span><span class="ident">PrivatePrime</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>,
+) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">bigint</span>::<span class="ident">Elem</span><span class="op">&lt;</span><span class="ident">M</span><span class="op">&gt;</span>, <span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">&gt;</span>
 <span class="kw">where</span>
     <span class="ident">M</span>: <span class="ident">bigint</span>::<span class="ident">NotMuchSmallerModulus</span><span class="op">&lt;</span><span class="ident">MM</span><span class="op">&gt;</span>,
     <span class="ident">M</span>: <span class="ident">Prime</span>,
@@ -1012,23 +1163,7 @@
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">bigint</span>::<span class="ident">SmallerModulus</span><span class="op">&lt;</span><span class="ident">QQ</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Q</span> {}
 <span class="kw">unsafe</span> <span class="kw">impl</span> <span class="ident">bigint</span>::<span class="ident">NotMuchSmallerModulus</span><span class="op">&lt;</span><span class="ident">QQ</span><span class="op">&gt;</span> <span class="kw">for</span> <span class="ident">Q</span> {}
 
-<span class="doccomment">/// State used for RSA Signing. Feature: `rsa_signing`.</span>
-<span class="comment">//</span>
-<span class="comment">// TODO: Remove this; it&#39;s not needed if we don&#39;t have RSA blinding.</span>
-<span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">SigningState</span> {
-    <span class="ident">key_pair</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">KeyPair</span><span class="op">&gt;</span>,
-}
-
-<span class="kw">impl</span> <span class="ident">SigningState</span> {
-    <span class="doccomment">/// Construct a signing state appropriate for use with the given key pair.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">key_pair</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">KeyPair</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="self">Self</span>, <span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">&gt;</span> {
-        <span class="prelude-val">Ok</span>(<span class="ident">SigningState</span> { <span class="ident">key_pair</span> })
-    }
-
-    <span class="doccomment">/// The key pair. This can be used, for example, to access the key pair&#39;s</span>
-    <span class="doccomment">/// public key.</span>
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">key_pair</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="kw-2">&amp;</span><span class="ident">KeyPair</span> { <span class="self">self</span>.<span class="ident">key_pair</span>.<span class="ident">as_ref</span>() }
-
+<span class="kw">impl</span> <span class="ident">RsaKeyPair</span> {
     <span class="doccomment">/// Sign `msg`. `msg` is digested using the digest algorithm from</span>
     <span class="doccomment">/// `padding_alg` and the digest is then padded using the padding algorithm</span>
     <span class="doccomment">/// from `padding_alg`. The signature it written into `signature`;</span>
@@ -1046,15 +1181,16 @@
     <span class="doccomment">/// x86-64, this is done pretty well, but not perfectly. On other</span>
     <span class="doccomment">/// platforms, it is done less perfectly.</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">sign</span>(
-        <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">padding_alg</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> ::<span class="ident">signature</span>::<span class="ident">RSAEncoding</span>, <span class="ident">rng</span>: <span class="kw-2">&amp;</span><span class="ident">rand</span>::<span class="ident">SecureRandom</span>,
-        <span class="ident">msg</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>], <span class="ident">signature</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">&gt;</span> {
-        <span class="kw">let</span> <span class="ident">mod_bits</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">key_pair</span>.<span class="ident">public_key</span>.<span class="ident">n_bits</span>;
-        <span class="kw">if</span> <span class="ident">signature</span>.<span class="ident">len</span>() <span class="op">!=</span> <span class="ident">mod_bits</span>.<span class="ident">as_usize_bytes_rounded_up</span>() {
+        <span class="kw-2">&amp;</span><span class="self">self</span>,
+        <span class="ident">padding_alg</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> <span class="kw">dyn</span> <span class="ident">RsaEncoding</span>,
+        <span class="ident">rng</span>: <span class="kw-2">&amp;</span><span class="kw">dyn</span> <span class="ident">rand</span>::<span class="ident">SecureRandom</span>,
+        <span class="ident">msg</span>: <span class="kw-2">&amp;</span>[<span class="ident">u8</span>],
+        <span class="ident">signature</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> [<span class="ident">u8</span>],
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">error</span>::<span class="ident">Unspecified</span><span class="op">&gt;</span> {
+        <span class="kw">let</span> <span class="ident">mod_bits</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">public</span>.<span class="ident">n_bits</span>;
+        <span class="kw">if</span> <span class="ident">signature</span>.<span class="ident">len</span>() <span class="op">!</span><span class="op">=</span> <span class="ident">mod_bits</span>.<span class="ident">as_usize_bytes_rounded_up</span>() {
             <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">error</span>::<span class="ident">Unspecified</span>);
         }
-
-        <span class="kw">let</span> <span class="ident">SigningState</span> { <span class="ident">key_pair</span>: <span class="ident">key</span> } <span class="op">=</span> <span class="self">self</span>;
 
         <span class="kw">let</span> <span class="ident">m_hash</span> <span class="op">=</span> <span class="ident">digest</span>::<span class="ident">digest</span>(<span class="ident">padding_alg</span>.<span class="ident">digest_alg</span>(), <span class="ident">msg</span>);
         <span class="ident">padding_alg</span>.<span class="ident">encode</span>(<span class="kw-2">&amp;</span><span class="ident">m_hash</span>, <span class="ident">signature</span>, <span class="ident">mod_bits</span>, <span class="ident">rng</span>)<span class="question-mark">?</span>;
@@ -1062,7 +1198,7 @@
         <span class="comment">// RFC 8017 Section 5.1.2: RSADP, using the Chinese Remainder Theorem</span>
         <span class="comment">// with Garner&#39;s algorithm.</span>
 
-        <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">key</span>.<span class="ident">public_key</span>.<span class="ident">n</span>;
+        <span class="kw">let</span> <span class="ident">n</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">public</span>.<span class="ident">n</span>;
 
         <span class="comment">// Step 1. The value zero is also rejected.</span>
         <span class="kw">let</span> <span class="ident">base</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">Elem</span>::<span class="ident">from_be_bytes_padded</span>(<span class="ident">untrusted</span>::<span class="ident">Input</span>::<span class="ident">from</span>(<span class="ident">signature</span>), <span class="ident">n</span>)<span class="question-mark">?</span>;
@@ -1071,24 +1207,24 @@
         <span class="kw">let</span> <span class="ident">c</span> <span class="op">=</span> <span class="ident">base</span>;
 
         <span class="comment">// Step 2.b.i.</span>
-        <span class="kw">let</span> <span class="ident">m_1</span> <span class="op">=</span> <span class="ident">elem_exp_consttime</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>, <span class="kw-2">&amp;</span><span class="ident">key</span>.<span class="ident">p</span>)<span class="question-mark">?</span>;
-        <span class="kw">let</span> <span class="ident">c_mod_qq</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_reduced_once</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>, <span class="kw-2">&amp;</span><span class="ident">key</span>.<span class="ident">qq</span>);
-        <span class="kw">let</span> <span class="ident">m_2</span> <span class="op">=</span> <span class="ident">elem_exp_consttime</span>(<span class="kw-2">&amp;</span><span class="ident">c_mod_qq</span>, <span class="kw-2">&amp;</span><span class="ident">key</span>.<span class="ident">q</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">m_1</span> <span class="op">=</span> <span class="ident">elem_exp_consttime</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">p</span>)<span class="question-mark">?</span>;
+        <span class="kw">let</span> <span class="ident">c_mod_qq</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_reduced_once</span>(<span class="kw-2">&amp;</span><span class="ident">c</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">qq</span>);
+        <span class="kw">let</span> <span class="ident">m_2</span> <span class="op">=</span> <span class="ident">elem_exp_consttime</span>(<span class="kw-2">&amp;</span><span class="ident">c_mod_qq</span>, <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">q</span>)<span class="question-mark">?</span>;
 
         <span class="comment">// Step 2.b.ii isn&#39;t needed since there are only two primes.</span>
 
         <span class="comment">// Step 2.b.iii.</span>
-        <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">key</span>.<span class="ident">p</span>.<span class="ident">modulus</span>;
+        <span class="kw">let</span> <span class="ident">p</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">p</span>.<span class="ident">modulus</span>;
         <span class="kw">let</span> <span class="ident">m_2</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_widen</span>(<span class="ident">m_2</span>, <span class="ident">p</span>);
         <span class="kw">let</span> <span class="ident">m_1_minus_m_2</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_sub</span>(<span class="ident">m_1</span>, <span class="kw-2">&amp;</span><span class="ident">m_2</span>, <span class="ident">p</span>);
-        <span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>.<span class="ident">qInv</span>, <span class="ident">m_1_minus_m_2</span>, <span class="ident">p</span>);
+        <span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">qInv</span>, <span class="ident">m_1_minus_m_2</span>, <span class="ident">p</span>);
 
         <span class="comment">// Step 2.b.iv. The reduction in the modular multiplication isn&#39;t</span>
         <span class="comment">// necessary because `h &lt; p` and `p * q == n` implies `h * q &lt; n`.</span>
         <span class="comment">// Modular arithmetic is used simply to avoid implementing</span>
         <span class="comment">// non-modular arithmetic.</span>
         <span class="kw">let</span> <span class="ident">h</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_widen</span>(<span class="ident">h</span>, <span class="ident">n</span>);
-        <span class="kw">let</span> <span class="ident">q_times_h</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="kw-2">&amp;</span><span class="ident">key</span>.<span class="ident">q_mod_n</span>, <span class="ident">h</span>, <span class="ident">n</span>);
+        <span class="kw">let</span> <span class="ident">q_times_h</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_mul</span>(<span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">q_mod_n</span>, <span class="ident">h</span>, <span class="ident">n</span>);
         <span class="kw">let</span> <span class="ident">m_2</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_widen</span>(<span class="ident">m_2</span>, <span class="ident">n</span>);
         <span class="kw">let</span> <span class="ident">m</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_add</span>(<span class="ident">m_2</span>, <span class="ident">q_times_h</span>, <span class="ident">n</span>);
 
@@ -1103,7 +1239,7 @@
         <span class="comment">// minimum value, since the relationship of `e` to `d`, `p`, and `q` is</span>
         <span class="comment">// not verified during `KeyPair` construction.</span>
         {
-            <span class="kw">let</span> <span class="ident">verify</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_exp_vartime</span>(<span class="ident">m</span>.<span class="ident">clone</span>(), <span class="ident">key</span>.<span class="ident">public_key</span>.<span class="ident">e</span>, <span class="ident">n</span>);
+            <span class="kw">let</span> <span class="ident">verify</span> <span class="op">=</span> <span class="ident">bigint</span>::<span class="ident">elem_exp_vartime</span>(<span class="ident">m</span>.<span class="ident">clone</span>(), <span class="self">self</span>.<span class="ident">public</span>.<span class="ident">e</span>, <span class="ident">n</span>);
             <span class="kw">let</span> <span class="ident">verify</span> <span class="op">=</span> <span class="ident">verify</span>.<span class="ident">into_unencoded</span>(<span class="ident">n</span>);
             <span class="ident">bigint</span>::<span class="ident">elem_verify_equal_consttime</span>(<span class="kw-2">&amp;</span><span class="ident">verify</span>, <span class="kw-2">&amp;</span><span class="ident">c</span>)<span class="question-mark">?</span>;
         }
@@ -1122,8 +1258,7 @@
     <span class="comment">// We intentionally avoid `use super::*` so that we are sure to use only</span>
     <span class="comment">// the public API; this ensures that enough of the API is public.</span>
     <span class="kw">use</span> <span class="kw">crate</span>::{<span class="ident">rand</span>, <span class="ident">signature</span>};
-    <span class="kw">use</span> <span class="ident">std</span>;
-    <span class="kw">use</span> <span class="ident">untrusted</span>;
+    <span class="kw">use</span> <span class="ident">alloc</span>::<span class="ident">vec</span>;
 
     <span class="comment">// `KeyPair::sign` requires that the output buffer is the same length as</span>
     <span class="comment">// the public key modulus. Test what happens when it isn&#39;t the same length.</span>
@@ -1136,27 +1271,24 @@
 
         <span class="kw">const</span> <span class="ident">PRIVATE_KEY_DER</span>: <span class="kw-2">&amp;</span><span class="lifetime">&#39;static</span> [<span class="ident">u8</span>] <span class="op">=</span>
             <span class="macro">include_bytes</span><span class="macro">!</span>(<span class="string">&quot;signature_rsa_example_private_key.der&quot;</span>);
-        <span class="kw">let</span> <span class="ident">key_bytes_der</span> <span class="op">=</span> <span class="ident">untrusted</span>::<span class="ident">Input</span>::<span class="ident">from</span>(<span class="ident">PRIVATE_KEY_DER</span>);
-        <span class="kw">let</span> <span class="ident">key_pair</span> <span class="op">=</span> <span class="ident">signature</span>::<span class="ident">RSAKeyPair</span>::<span class="ident">from_der</span>(<span class="ident">key_bytes_der</span>).<span class="ident">unwrap</span>();
-        <span class="kw">let</span> <span class="ident">key_pair</span> <span class="op">=</span> <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">key_pair</span>);
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">signing_state</span> <span class="op">=</span> <span class="ident">signature</span>::<span class="ident">RSASigningState</span>::<span class="ident">new</span>(<span class="ident">key_pair</span>).<span class="ident">unwrap</span>();
+        <span class="kw">let</span> <span class="ident">key_pair</span> <span class="op">=</span> <span class="ident">signature</span>::<span class="ident">RsaKeyPair</span>::<span class="ident">from_der</span>(<span class="ident">PRIVATE_KEY_DER</span>).<span class="ident">unwrap</span>();
 
         <span class="comment">// The output buffer is one byte too short.</span>
-        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="ident">signing_state</span>.<span class="ident">key_pair</span>().<span class="ident">public_modulus_len</span>() <span class="op">-</span> <span class="number">1</span>];
+        <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">signature</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[<span class="number">0</span>; <span class="ident">key_pair</span>.<span class="ident">public_modulus_len</span>() <span class="op">-</span> <span class="number">1</span>];
 
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">signing_state</span>
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">key_pair</span>
             .<span class="ident">sign</span>(<span class="kw-2">&amp;</span><span class="ident">signature</span>::<span class="ident">RSA_PKCS1_SHA256</span>, <span class="kw-2">&amp;</span><span class="ident">rng</span>, <span class="ident">MESSAGE</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">signature</span>)
             .<span class="ident">is_err</span>());
 
         <span class="comment">// The output buffer is the right length.</span>
         <span class="ident">signature</span>.<span class="ident">push</span>(<span class="number">0</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">signing_state</span>
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">key_pair</span>
             .<span class="ident">sign</span>(<span class="kw-2">&amp;</span><span class="ident">signature</span>::<span class="ident">RSA_PKCS1_SHA256</span>, <span class="kw-2">&amp;</span><span class="ident">rng</span>, <span class="ident">MESSAGE</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">signature</span>)
             .<span class="ident">is_ok</span>());
 
         <span class="comment">// The output buffer is one byte too long.</span>
         <span class="ident">signature</span>.<span class="ident">push</span>(<span class="number">0</span>);
-        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">signing_state</span>
+        <span class="macro">assert</span><span class="macro">!</span>(<span class="ident">key_pair</span>
             .<span class="ident">sign</span>(<span class="kw-2">&amp;</span><span class="ident">signature</span>::<span class="ident">RSA_PKCS1_SHA256</span>, <span class="kw-2">&amp;</span><span class="ident">rng</span>, <span class="ident">MESSAGE</span>, <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">signature</span>)
             .<span class="ident">is_err</span>());
     }

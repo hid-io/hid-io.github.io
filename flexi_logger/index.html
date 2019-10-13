@@ -24,12 +24,15 @@ for a log writer that writes to a file or a series of files.</p>
 based on the module, the log level, and the text.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.Logger.html" title='flexi_logger::Logger struct'>Logger</a></td><td class='docblock-short'><p>The entry-point for using <code>flexi_logger</code>.</p>
 </td></tr><tr class='module-item'><td><a class="struct" href="struct.ReconfigurationHandle.html" title='flexi_logger::ReconfigurationHandle struct'>ReconfigurationHandle</a></td><td class='docblock-short'><p>Allows reconfiguring the logger programmatically.</p>
-</td></tr><tr class='module-item'><td><a class="struct" href="struct.Record.html" title='flexi_logger::Record struct'>Record</a></td><td class='docblock-short'><p>The &quot;payload&quot; of a log message.</p>
+</td></tr><tr class='module-item'><td><a class="struct" href="struct.Record.html" title='flexi_logger::Record struct'>Record</a></td><td class='docblock-short'><p>Re-exports from log crate
+The &quot;payload&quot; of a log message.</p>
 </td></tr></table><h2 id='enums' class='section-header'><a href="#enums">Enums</a></h2>
 <table><tr class='module-item'><td><a class="enum" href="enum.Duplicate.html" title='flexi_logger::Duplicate enum'>Duplicate</a></td><td class='docblock-short'><p>Used to control which messages are to be duplicated to stderr, when log_to_file() is used.</p>
 </td></tr><tr class='module-item'><td><a class="enum" href="enum.FlexiLoggerError.html" title='flexi_logger::FlexiLoggerError enum'>FlexiLoggerError</a></td><td class='docblock-short'><p>Describes errors in the initialization of <code>flexi_logger</code>.</p>
-</td></tr><tr class='module-item'><td><a class="enum" href="enum.Level.html" title='flexi_logger::Level enum'>Level</a></td><td class='docblock-short'><p>An enum representing the available verbosity levels of the logger.</p>
-</td></tr><tr class='module-item'><td><a class="enum" href="enum.LevelFilter.html" title='flexi_logger::LevelFilter enum'>LevelFilter</a></td><td class='docblock-short'><p>An enum representing the available verbosity level filters of the logger.</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.Level.html" title='flexi_logger::Level enum'>Level</a></td><td class='docblock-short'><p>Re-exports from log crate
+An enum representing the available verbosity levels of the logger.</p>
+</td></tr><tr class='module-item'><td><a class="enum" href="enum.LevelFilter.html" title='flexi_logger::LevelFilter enum'>LevelFilter</a></td><td class='docblock-short'><p>Re-exports from log crate
+An enum representing the available verbosity level filters of the logger.</p>
 </td></tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table><tr class='module-item'><td><a class="fn" href="fn.default_format.html" title='flexi_logger::default_format fn'>default_format</a></td><td class='docblock-short'><p>A logline-formatter that produces log lines like <br>
 <code>INFO [my_prog::some_submodule] Task successfully read from conf.json</code></p>

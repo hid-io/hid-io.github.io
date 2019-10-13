@@ -52,7 +52,7 @@ stream's <a href="../stream_cancel/struct.Valved.html" title="`Valved`"><code>Va
 <span class="kw">let</span> <span class="ident">listener</span> <span class="op">=</span> <span class="ident">tokio</span>::<span class="ident">net</span>::<span class="ident">TcpListener</span>::<span class="ident">bind</span>(<span class="kw-2">&amp;</span><span class="string">&quot;0.0.0.0:0&quot;</span>.<span class="ident">parse</span>().<span class="ident">unwrap</span>()).<span class="ident">unwrap</span>();
 <span class="kw">let</span> (<span class="ident">exit</span>, <span class="ident">incoming</span>) <span class="op">=</span> <span class="ident">Valved</span>::<span class="ident">new</span>(<span class="ident">listener</span>.<span class="ident">incoming</span>());
 
-<span class="kw">let</span> <span class="ident">server</span> <span class="op">=</span> <span class="ident">thread</span>::<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">||</span> {
+<span class="kw">let</span> <span class="ident">server</span> <span class="op">=</span> <span class="ident">thread</span>::<span class="ident">spawn</span>(<span class="kw">move</span> <span class="op">|</span><span class="op">|</span> {
     <span class="comment">// start a tokio echo server</span>
     <span class="ident">tokio</span>::<span class="ident">run</span>(
         <span class="ident">incoming</span>

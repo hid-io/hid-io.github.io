@@ -6,5 +6,4 @@ implementors["capnp_rpc"] = [];
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

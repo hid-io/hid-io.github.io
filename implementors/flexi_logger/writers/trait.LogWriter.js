@@ -6,5 +6,4 @@ implementors["flexi_logger"] = [];
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

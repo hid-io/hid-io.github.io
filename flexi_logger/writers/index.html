@@ -22,7 +22,7 @@ show some example calls.</p>
 <span class="kw">use</span> <span class="ident">flexi_logger</span>::<span class="ident">Logger</span>;
 <span class="kw">use</span> <span class="ident">flexi_logger</span>::<span class="ident">writers</span>::<span class="ident">FileLogWriter</span>;
 
-<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">alert_logger</span>() <span class="op">-&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">FileLogWriter</span><span class="op">&gt;</span> {
+<span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">alert_logger</span>() <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Box</span><span class="op">&lt;</span><span class="ident">FileLogWriter</span><span class="op">&gt;</span> {
     <span class="ident">Box</span>::<span class="ident">new</span>(<span class="ident">FileLogWriter</span>::<span class="ident">builder</span>()
         .<span class="ident">discriminant</span>(<span class="string">&quot;Alert&quot;</span>)
         .<span class="ident">suffix</span>(<span class="string">&quot;alerts&quot;</span>)
@@ -35,7 +35,7 @@ show some example calls.</p>
 <span class="kw">mod</span> <span class="ident">macros</span> {
     <span class="attribute">#[<span class="ident">macro_export</span>]</span>
     <span class="macro">macro_rules</span><span class="macro">!</span> <span class="ident">alert_error</span> {
-        ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>) <span class="op">=&gt;</span> (
+        ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>) <span class="op">=</span><span class="op">&gt;</span> (
             <span class="macro">error</span><span class="macro">!</span>(<span class="ident">target</span>: <span class="string">&quot;{Alert,_Default}&quot;</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">arg</span>)<span class="kw-2">*</span>);
         )
     }

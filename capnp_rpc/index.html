@@ -14,7 +14,7 @@ interface Foo {
     <span class="kw">fn</span> <span class="ident">identity</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>,
                 <span class="ident">params</span>: <span class="ident">foo</span>::<span class="ident">IdentityParams</span>,
                 <span class="kw-2">mut</span> <span class="ident">results</span>: <span class="ident">foo</span>::<span class="ident">IdentityResults</span>)
-                <span class="op">-&gt;</span> <span class="ident">Promise</span><span class="op">&lt;</span>(), ::<span class="ident">capnp</span>::<span class="ident">Error</span><span class="op">&gt;</span>
+                <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Promise</span><span class="op">&lt;</span>(), ::<span class="ident">capnp</span>::<span class="ident">Error</span><span class="op">&gt;</span>
     {
         <span class="kw">let</span> <span class="ident">x</span> <span class="op">=</span> <span class="macro">pry</span><span class="macro">!</span>(<span class="ident">params</span>.<span class="ident">get</span>()).<span class="ident">get_x</span>();
         <span class="ident">results</span>.<span class="ident">get</span>().<span class="ident">set_y</span>(<span class="ident">x</span>);

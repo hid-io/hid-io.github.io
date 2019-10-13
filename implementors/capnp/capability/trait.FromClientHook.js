@@ -6,5 +6,4 @@ implementors["hid_io"] = [{text:"impl <a class=\"trait\" href=\"capnp/capability
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

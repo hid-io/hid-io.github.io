@@ -6,5 +6,4 @@ implementors["stream_cancel"] = [];
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

@@ -6,5 +6,4 @@ implementors["hid_io"] = [];
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

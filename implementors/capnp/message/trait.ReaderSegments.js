@@ -7,5 +7,4 @@ implementors["capnp_futures"] = [{text:"impl <a class=\"trait\" href=\"capnp/mes
             } else {
                 window.pending_implementors = implementors;
             }
-        
-})()
+        })()

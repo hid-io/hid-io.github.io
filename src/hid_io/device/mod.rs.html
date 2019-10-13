@@ -548,17 +548,17 @@
 }
 
 <span class="kw">impl</span> <span class="ident">HIDIOEndpoint</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">socket</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">HIDIOTransport</span><span class="op">&gt;</span>, <span class="ident">max_packet_len</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="ident">HIDIOEndpoint</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">socket</span>: <span class="ident">Box</span><span class="op">&lt;</span><span class="kw">dyn</span> <span class="ident">HIDIOTransport</span><span class="op">&gt;</span>, <span class="ident">max_packet_len</span>: <span class="ident">u32</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HIDIOEndpoint</span> {
         <span class="ident">HIDIOEndpoint</span> {
             <span class="ident">socket</span>,
             <span class="ident">max_packet_len</span>,
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_chunk</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">HIDIOPacketBuffer</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_chunk</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="ident">buffer</span>: <span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">HIDIOPacketBuffer</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span><span class="ident">usize</span>, <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">rbuf</span> <span class="op">=</span> [<span class="number">0</span>; <span class="ident">MAX_RECV_SIZE</span>];
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">socket</span>.<span class="ident">read</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">rbuf</span>) {
-            <span class="prelude-val">Ok</span>(<span class="ident">len</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">len</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="ident">len</span> <span class="op">&gt;</span> <span class="number">0</span> {
                     <span class="kw">let</span> <span class="ident">slice</span> <span class="op">=</span> <span class="kw-2">&amp;</span><span class="ident">rbuf</span>[<span class="number">0</span>..<span class="ident">len</span>];
                     <span class="kw">let</span> <span class="ident">ret</span> <span class="op">=</span> <span class="ident">buffer</span>.<span class="ident">decode_packet</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">slice</span>.<span class="ident">to_vec</span>());
@@ -574,34 +574,34 @@
 
                 <span class="prelude-val">Ok</span>(<span class="ident">len</span>)
             }
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>),
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_buffer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">HIDIOPacketBuffer</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">create_buffer</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HIDIOPacketBuffer</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">buffer</span> <span class="op">=</span> <span class="ident">HIDIOPacketBuffer</span>::<span class="ident">new</span>();
         <span class="ident">buffer</span>.<span class="ident">max_len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">max_packet_len</span>;
         <span class="ident">buffer</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_packet</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">HIDIOPacketBuffer</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_packet</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HIDIOPacketBuffer</span> {
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">deserialized</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">create_buffer</span>();
 
         <span class="kw">while</span> <span class="op">!</span><span class="ident">deserialized</span>.<span class="ident">done</span> {
             <span class="kw">if</span> <span class="kw">let</span> <span class="prelude-val">Ok</span>(<span class="ident">len</span>) <span class="op">=</span> <span class="self">self</span>.<span class="ident">recv_chunk</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="ident">deserialized</span>) {
                 <span class="kw">if</span> <span class="ident">len</span> <span class="op">&gt;</span> <span class="number">0</span> {
                     <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="ident">deserialized</span>.<span class="ident">ptype</span> {
-                        <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span> <span class="op">=&gt;</span> {
+                        <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="ident">deserialized</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">create_buffer</span>();
                         }
-                        <span class="ident">HIDIOPacketType</span>::<span class="ident">ACK</span> <span class="op">=&gt;</span> {
+                        <span class="ident">HIDIOPacketType</span>::<span class="ident">ACK</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="comment">// Don&#39;t ack an ack</span>
                         }
-                        <span class="ident">HIDIOPacketType</span>::<span class="ident">NAK</span> <span class="op">=&gt;</span> {
+                        <span class="ident">HIDIOPacketType</span>::<span class="ident">NAK</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;NACK&quot;</span>);
                             <span class="kw">break</span>;
                         }
-                        <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> <span class="op">|</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span> <span class="op">=&gt;</span> {
+                        <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> <span class="op">|</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="self">self</span>.<span class="ident">send_ack</span>(<span class="ident">deserialized</span>.<span class="ident">id</span>, <span class="macro">vec</span><span class="macro">!</span>[]);
                         }
                     }
@@ -613,12 +613,12 @@
         <span class="ident">deserialized</span>
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_packet</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">packet</span>: <span class="ident">HIDIOPacketBuffer</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_packet</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>, <span class="kw-2">mut</span> <span class="ident">packet</span>: <span class="ident">HIDIOPacketBuffer</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;Sending {:x?}&quot;</span>, <span class="ident">packet</span>);
         <span class="kw">let</span> <span class="ident">buf</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">u8</span><span class="op">&gt;</span> <span class="op">=</span> <span class="ident">packet</span>.<span class="ident">serialize_buffer</span>().<span class="ident">unwrap</span>();
         <span class="kw">for</span> <span class="ident">chunk</span> <span class="kw">in</span> <span class="ident">buf</span>
             .<span class="ident">chunks</span>(<span class="self">self</span>.<span class="ident">max_packet_len</span> <span class="kw">as</span> <span class="ident">usize</span>)
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;&gt;</span>()
+            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw-2">&amp;</span>[<span class="ident">u8</span>]<span class="op">&gt;</span><span class="op">&gt;</span>()
             .<span class="ident">iter</span>()
         {
             <span class="kw">let</span> <span class="ident">_i</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">socket</span>.<span class="ident">write</span>(<span class="ident">chunk</span>)<span class="question-mark">?</span>;
@@ -670,7 +670,7 @@
         <span class="ident">device</span>: <span class="ident">HIDIOEndpoint</span>,
         <span class="ident">message_queue</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">HIDIOPacketBuffer</span><span class="op">&gt;</span>,
         <span class="ident">response_queue</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Receiver</span><span class="op">&lt;</span><span class="ident">HIDIOPacketBuffer</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="ident">HIDIOController</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HIDIOController</span> {
         <span class="kw">let</span> <span class="ident">received</span> <span class="op">=</span> <span class="ident">device</span>.<span class="ident">create_buffer</span>();
         <span class="kw">let</span> <span class="ident">last_sync</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
         <span class="comment">//let mut prev_len = 0;</span>
@@ -684,9 +684,9 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">process</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Error</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">recv_chunk</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>.<span class="ident">received</span>) {
-            <span class="prelude-val">Ok</span>(<span class="ident">recv</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">recv</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">if</span> <span class="ident">recv</span> <span class="op">&gt;</span> <span class="number">0</span> {
                     <span class="self">self</span>.<span class="ident">last_sync</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
 
@@ -696,17 +696,17 @@
                     prev_len = received.data.len();*/</span>
 
                     <span class="kw">match</span> <span class="kw-2">&amp;</span><span class="self">self</span>.<span class="ident">received</span>.<span class="ident">ptype</span> {
-                        <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span> <span class="op">=&gt;</span> {
+                        <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="self">self</span>.<span class="ident">received</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">create_buffer</span>();
                         }
-                        <span class="ident">HIDIOPacketType</span>::<span class="ident">ACK</span> <span class="op">=&gt;</span> {
+                        <span class="ident">HIDIOPacketType</span>::<span class="ident">ACK</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="comment">// Don&#39;t ack an ack</span>
                         }
-                        <span class="ident">HIDIOPacketType</span>::<span class="ident">NAK</span> <span class="op">=&gt;</span> {
+                        <span class="ident">HIDIOPacketType</span>::<span class="ident">NAK</span> <span class="op">=</span><span class="op">&gt;</span> {
                             <span class="macro">println</span><span class="macro">!</span>(<span class="string">&quot;NACK. Resetting buffer&quot;</span>);
                             <span class="self">self</span>.<span class="ident">received</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">create_buffer</span>();
                         }
-                        <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> <span class="op">|</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span> <span class="op">=&gt;</span> {}
+                        <span class="ident">HIDIOPacketType</span>::<span class="ident">Continued</span> <span class="op">|</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Data</span> <span class="op">=</span><span class="op">&gt;</span> {}
                     }
 
                     <span class="kw">if</span> <span class="op">!</span><span class="self">self</span>.<span class="ident">received</span>.<span class="ident">done</span> {
@@ -714,7 +714,7 @@
                     }
                 }
             }
-            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">e</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">e</span>);
                 <span class="comment">//::std::process::exit(1);</span>
             }
@@ -726,7 +726,7 @@
             <span class="comment">//prev_len = 0;</span>
         }
 
-        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">last_sync</span>.<span class="ident">elapsed</span>().<span class="ident">as_secs</span>() <span class="op">&gt;=</span> <span class="number">5</span> {
+        <span class="kw">if</span> <span class="self">self</span>.<span class="ident">last_sync</span>.<span class="ident">elapsed</span>().<span class="ident">as_secs</span>() <span class="op">&gt;</span><span class="op">=</span> <span class="number">5</span> {
             <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">send_sync</span>();
             <span class="self">self</span>.<span class="ident">received</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">create_buffer</span>();
             <span class="self">self</span>.<span class="ident">last_sync</span> <span class="op">=</span> <span class="ident">Instant</span>::<span class="ident">now</span>();
@@ -734,16 +734,16 @@
         }
 
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">response_queue</span>.<span class="ident">try_recv</span>() {
-            <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">p</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="kw-2">mut</span> <span class="ident">p</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="ident">p</span>.<span class="ident">max_len</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">max_packet_len</span>;
                 <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">send_packet</span>(<span class="ident">p</span>.<span class="ident">clone</span>())<span class="question-mark">?</span>;
 
-                <span class="kw">if</span> <span class="ident">p</span>.<span class="ident">ptype</span> <span class="op">==</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span> {
+                <span class="kw">if</span> <span class="ident">p</span>.<span class="ident">ptype</span> <span class="op">=</span><span class="op">=</span> <span class="ident">HIDIOPacketType</span>::<span class="ident">Sync</span> {
                     <span class="self">self</span>.<span class="ident">received</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">device</span>.<span class="ident">create_buffer</span>();
                 }
             }
-            <span class="prelude-val">Err</span>(<span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">TryRecvError</span>::<span class="ident">Empty</span>) <span class="op">=&gt;</span> {}
-            <span class="prelude-val">Err</span>(<span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">TryRecvError</span>::<span class="ident">Disconnected</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Err</span>(<span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">TryRecvError</span>::<span class="ident">Empty</span>) <span class="op">=</span><span class="op">&gt;</span> {}
+            <span class="prelude-val">Err</span>(<span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">TryRecvError</span>::<span class="ident">Disconnected</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="kw">return</span> <span class="prelude-val">Err</span>(<span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">Error</span>::<span class="ident">new</span>(<span class="ident">std</span>::<span class="ident">io</span>::<span class="ident">ErrorKind</span>::<span class="ident">BrokenPipe</span>, <span class="string">&quot;&quot;</span>));
                 <span class="comment">//::std::process::exit(1);</span>
             }
@@ -767,7 +767,7 @@
         <span class="ident">info</span>: <span class="ident">Endpoint</span>,
         <span class="ident">message_queue</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Receiver</span><span class="op">&lt;</span><span class="ident">HIDIOPacketBuffer</span><span class="op">&gt;</span>,
         <span class="ident">response_queue</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">HIDIOPacketBuffer</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="ident">HIDIOQueue</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HIDIOQueue</span> {
         <span class="ident">HIDIOQueue</span> {
             <span class="ident">info</span>,
             <span class="ident">message_queue</span>,
@@ -778,15 +778,15 @@
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">send_packet</span>(
         <span class="kw-2">&amp;</span><span class="self">self</span>,
         <span class="ident">packet</span>: <span class="ident">HIDIOPacketBuffer</span>,
-    ) <span class="op">-&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">mpsc</span>::<span class="ident">SendError</span><span class="op">&lt;</span><span class="ident">HIDIOPacketBuffer</span><span class="op">&gt;&gt;</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Result</span><span class="op">&lt;</span>(), <span class="ident">mpsc</span>::<span class="ident">SendError</span><span class="op">&lt;</span><span class="ident">HIDIOPacketBuffer</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">response_queue</span>.<span class="ident">send</span>(<span class="ident">packet</span>)
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_packet</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">HIDIOPacketBuffer</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_packet</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HIDIOPacketBuffer</span> {
         <span class="self">self</span>.<span class="ident">message_queue</span>.<span class="ident">recv</span>().<span class="ident">unwrap</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">messages</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">mpsc</span>::<span class="ident">TryIter</span><span class="op">&lt;</span><span class="ident">HIDIOPacketBuffer</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">messages</span>(<span class="kw-2">&amp;</span><span class="kw-2">mut</span> <span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">mpsc</span>::<span class="ident">TryIter</span><span class="op">&lt;</span><span class="ident">HIDIOPacketBuffer</span><span class="op">&gt;</span> {
         <span class="comment">// TODO: Detect error (other side disconnected)</span>
         <span class="self">self</span>.<span class="ident">message_queue</span>.<span class="ident">try_iter</span>()
     }
@@ -806,13 +806,13 @@
 <span class="doccomment">/// Process must be continually called.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HIDIOMailer</span> {
     <span class="ident">devices</span>: <span class="ident">HashMap</span><span class="op">&lt;</span><span class="ident">String</span>, <span class="ident">HIDIOQueue</span><span class="op">&gt;</span>,
-    <span class="ident">connected</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="ident">connected</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">incoming</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Receiver</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>,
-    <span class="ident">outgoing</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;&gt;</span>,
+    <span class="ident">outgoing</span>: <span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">HIDIOMailer</span> {
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">incoming</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Receiver</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>) <span class="op">-&gt;</span> <span class="ident">HIDIOMailer</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(<span class="ident">incoming</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Receiver</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HIDIOMailer</span> {
         <span class="kw">let</span> <span class="ident">devices</span> <span class="op">=</span> <span class="ident">HashMap</span>::<span class="ident">new</span>();
         <span class="kw">let</span> <span class="ident">outgoing</span> <span class="op">=</span> <span class="macro">vec</span><span class="macro">!</span>[];
         <span class="kw">let</span> <span class="ident">connected</span> <span class="op">=</span> <span class="ident">Arc</span>::<span class="ident">new</span>(<span class="ident">RwLock</span>::<span class="ident">new</span>(<span class="macro">vec</span><span class="macro">!</span>[]));
@@ -836,12 +836,12 @@
         <span class="macro">info</span><span class="macro">!</span>(<span class="string">&quot;Unregistering device: {}&quot;</span>, <span class="ident">id</span>);
         <span class="kw">let</span> <span class="kw-2">mut</span> <span class="ident">connected</span> <span class="op">=</span> <span class="self">self</span>.<span class="ident">connected</span>.<span class="ident">write</span>().<span class="ident">unwrap</span>();
         <span class="kw-2">*</span><span class="ident">connected</span> <span class="op">=</span> <span class="ident">connected</span>
-            .<span class="ident">drain_filter</span>(<span class="op">|</span><span class="ident">dev</span><span class="op">|</span> <span class="ident">dev</span>.<span class="ident">id</span>.<span class="ident">to_string</span>() <span class="op">!=</span> <span class="ident">id</span>)
-            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;&gt;</span>();
+            .<span class="ident">drain_filter</span>(<span class="op">|</span><span class="ident">dev</span><span class="op">|</span> <span class="ident">dev</span>.<span class="ident">id</span>.<span class="ident">to_string</span>() <span class="op">!</span><span class="op">=</span> <span class="ident">id</span>)
+            .<span class="ident">collect</span>::<span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="kw">_</span><span class="op">&gt;</span><span class="op">&gt;</span>();
         <span class="self">self</span>.<span class="ident">devices</span>.<span class="ident">remove</span>(<span class="ident">id</span>);
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">devices</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">devices</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">connected</span>.<span class="ident">clone</span>()
     }
 
@@ -878,17 +878,17 @@
 <span class="doccomment">/// Can receive all incoming messages, or send a new message to a device by id.</span>
 <span class="doccomment">/// Provides utility functions to construct common messages.</span>
 <span class="kw">pub</span> <span class="kw">struct</span> <span class="ident">HIDIOMailbox</span> {
-    <span class="kw">pub</span> <span class="ident">nodes</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+    <span class="kw">pub</span> <span class="ident">nodes</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
     <span class="ident">incoming</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Receiver</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>,
     <span class="ident">outgoing</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>,
 }
 
 <span class="kw">impl</span> <span class="ident">HIDIOMailbox</span> {
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">new</span>(
-        <span class="ident">nodes</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
+        <span class="ident">nodes</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
         <span class="ident">incoming</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Receiver</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>,
         <span class="ident">outgoing</span>: <span class="ident">std</span>::<span class="ident">sync</span>::<span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> <span class="ident">HIDIOMailbox</span> {
+    ) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HIDIOMailbox</span> {
         <span class="ident">HIDIOMailbox</span> {
             <span class="ident">nodes</span>,
             <span class="ident">incoming</span>,
@@ -898,8 +898,8 @@
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">from_sender</span>(
         <span class="ident">dest</span>: <span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>,
-        <span class="ident">nodes</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;&gt;</span><span class="op">&gt;</span>,
-    ) <span class="op">-&gt;</span> (<span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>, <span class="ident">HIDIOMailbox</span>) {
+        <span class="ident">nodes</span>: <span class="ident">Arc</span><span class="op">&lt;</span><span class="ident">RwLock</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">Endpoint</span><span class="op">&gt;</span><span class="op">&gt;</span><span class="op">&gt;</span>,
+    ) <span class="op">-</span><span class="op">&gt;</span> (<span class="ident">mpsc</span>::<span class="ident">Sender</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>, <span class="ident">HIDIOMailbox</span>) {
         <span class="kw">let</span> (<span class="ident">writer</span>, <span class="ident">reader</span>) <span class="op">=</span> <span class="ident">channel</span>::<span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span>();
         <span class="kw">let</span> <span class="ident">mailbox</span> <span class="op">=</span> <span class="ident">HIDIOMailbox</span>::<span class="ident">new</span>(<span class="ident">nodes</span>, <span class="ident">reader</span>, <span class="ident">dest</span>);
         (<span class="ident">writer</span>, <span class="ident">mailbox</span>)
@@ -915,22 +915,22 @@
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">HIDIOMessage</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">HIDIOMessage</span> {
         <span class="self">self</span>.<span class="ident">incoming</span>.<span class="ident">recv</span>().<span class="ident">unwrap</span>()
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_psuedoblocking</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">recv_psuedoblocking</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="self">self</span>.<span class="ident">incoming</span>.<span class="ident">recv_timeout</span>(<span class="ident">Duration</span>::<span class="ident">from_millis</span>(<span class="number">1</span>)) {
-            <span class="prelude-val">Ok</span>(<span class="ident">m</span>) <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>),
-            <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">RecvTimeoutError</span>::<span class="ident">Timeout</span>) <span class="op">=&gt;</span> <span class="prelude-val">None</span>,
-            <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">RecvTimeoutError</span>::<span class="ident">Disconnected</span>) <span class="op">=&gt;</span> {
+            <span class="prelude-val">Ok</span>(<span class="ident">m</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">m</span>),
+            <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">RecvTimeoutError</span>::<span class="ident">Timeout</span>) <span class="op">=</span><span class="op">&gt;</span> <span class="prelude-val">None</span>,
+            <span class="prelude-val">Err</span>(<span class="ident">mpsc</span>::<span class="ident">RecvTimeoutError</span>::<span class="ident">Disconnected</span>) <span class="op">=</span><span class="op">&gt;</span> {
                 <span class="macro">warn</span><span class="macro">!</span>(<span class="string">&quot;Lost socket&quot;</span>); <span class="comment">// TODO: pass warning down</span>
                 <span class="ident">std</span>::<span class="ident">process</span>::<span class="ident">exit</span>(<span class="number">1</span>);
             }
         }
     }
 
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-&gt;</span> <span class="ident">mpsc</span>::<span class="ident">Iter</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span> {
+    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">iter</span>(<span class="kw-2">&amp;</span><span class="self">self</span>) <span class="op">-</span><span class="op">&gt;</span> <span class="ident">mpsc</span>::<span class="ident">Iter</span><span class="op">&lt;</span><span class="ident">HIDIOMessage</span><span class="op">&gt;</span> {
         <span class="self">self</span>.<span class="ident">incoming</span>.<span class="ident">iter</span>()
     }
 
